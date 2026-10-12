@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#070707">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='110' fill='%23070707'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='-apple-system, sans-serif' font-weight='700' font-size='320' fill='%23f5f3f0'>9</text></svg>">
+<title>Estudio Tracker UNLZ Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+:root {
+  --bg:#070707; --surface:rgba(18,18,18,0.85); --surface2:rgba(26,26,26,0.95); --surface3:rgba(36,36,36,0.98);
+  --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.2);
+  --text:#f9f8f6; --text2:#c2bfba; --text3:#94908a;
+  --red:#ef4444; --red-dim:rgba(239,68,68,0.18);
+  --green:#10b981; --green-dim:rgba(16,185,129,0.18);
+  --amber:#f59e0b; --amber-dim:rgba(245,158,11,0.18);
+  --blue:#3b82f6; --blue-dim:rgba(59,130,246,0.18);
+  --purple:#a855f7; --purple-dim:rgba(168,85,247,0.18);
+  --radius:14px; --radius-lg:22px; --font-size:14px;
+}
+[data-theme="amoled"] { --bg:#000000; --surface:rgba(10,10,10,0.95); --surface2:rgba(15,15,15,0.98); --surface3:rgba(22,22,22,1); --border:rgba(255,255,255,0.12); }
+[data-theme="light"] { --bg:#f4f4f5; --surface:rgba(255,255,255,0.9); --surface2:rgba(240,240,242,0.95); --surface3:rgba(228,228,231,1); --border:rgba(0,0,0,0.08); --border2:rgba(0,0,0,0.2); --text:#18181b; --text2:#52525b; --text3:#71717a; }
+
+html{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:var(--font-size);line-height:1.5;transition:background 0.3s, color 0.3s;}
+body { min-height: 100vh; padding: calc(env(safe-area-inset-top) + 1.2rem) 1rem 6.5rem; background-color: var(--bg); position: relative; overflow-x: hidden; }
+
+.page{max-width:760px;margin:0 auto; position:relative; z-index:1;}
+
+#dynamic-island {
+    position: fixed; top: 12px; left: 50%; transform: translateX(-50%) translateY(-60px);
+    background: rgba(15, 15, 15, 0.92); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text); padding: 6px 16px; border-radius: 30px; display: flex; align-items: center; gap: 12px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease; opacity: 0; pointer-events: none;
+}
+#dynamic-island.visible { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
+
+.header-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem; padding: 0 4px; }
+h1.app-title{font-weight:600;font-size:1.3rem;letter-spacing:-0.5px;display:flex;align-items:center;gap:10px; margin:0;}
+h1.app-title .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+
+.stats-top-bar { display: flex; gap: 8px; align-items: center; }
+.badge-box { background:var(--surface); border:1px solid var(--border); padding:5px 12px; border-radius:16px; text-align:right; line-height:1.2; backdrop-filter:blur(12px);}
+.badge-val { font-family:'JetBrains Mono', monospace; font-weight:bold; font-size:12px; color:var(--amber); }
+.badge-lbl { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:0.5px; }
+
+.global-search-bar { display: flex; gap: 8px; margin-bottom: 1rem; }
+.global-search-input { flex: 1; background: var(--surface); border: 1px solid var(--border); padding: 8px 12px; border-radius: var(--radius); color: var(--text); font-family: 'Inter', sans-serif; font-size: 12px; outline: none; }
+
+.nav-bottom {
+    position: fixed; bottom: 0; left: 0; width: 100%; background: var(--surface2);
+    backdrop-filter: blur(25px); border-top: 1px solid var(--border); display: flex;
+    justify-content: space-around; padding: 8px 4px calc(env(safe-area-inset-bottom) + 8px); z-index: 1000;
+}
+.nav-tab {
+    display: flex; flex-direction: column; align-items: center; gap: 3px; background: transparent;
+    border: none; color: var(--text3); cursor: pointer; font-family: 'Inter', sans-serif; font-size: 11px;
+    font-weight: 500; transition: all 0.2s; flex: 1; padding: 4px 0;
+}
+.nav-tab.active { color: var(--text); }
+.nav-tab.active svg { stroke: var(--purple); fill: var(--purple-dim); }
+.nav-tab svg { width: 20px; height: 20px; stroke: var(--text3); transition: all 0.2s; }
+
+.panel{display:none; opacity:0; transform:translateY(8px); transition:all 0.3s cubic-bezier(0.4, 0, 0.2, 1);}
+.panel.active{display:block; opacity:1; transform:translateY(0); animation: fadeUp 0.35s ease forwards;}
+@keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+
+.card{background:var(--surface);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.4rem;margin-bottom:1rem;box-shadow:0 10px 40px rgba(0,0,0,0.3);}
+.section-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;}
+.section-hd h2{font-weight:500;font-size:1.1rem; letter-spacing:-0.3px;}
+
+.btn{padding:8px 14px;border-radius:var(--radius);font-family:'Inter',sans-serif;font-size:12px;font-weight:500;border:1px solid var(--border2);background:transparent;color:var(--text);cursor:pointer;transition:all .2s;}
+.btn:active{transform:scale(0.96);}
+.btn:disabled{opacity:0.4; cursor:not-allowed;}
+.btn-red{background:var(--red-dim);color:var(--red); border-color:rgba(239,68,68,0.3);}
+.btn-green{background:var(--green-dim);color:var(--green); border-color:rgba(16,185,129,0.3);}
+.btn-amber{background:var(--amber-dim);color:var(--amber); border-color:rgba(245,158,11,0.3);}
+.btn-blue{background:var(--blue-dim);color:var(--blue); border-color:rgba(59,130,246,0.3);}
+.btn-purple{background:var(--purple-dim);color:var(--purple); border-color:rgba(168,85,247,0.3);}
+
+.mode-tabs{display:flex;gap:6px;margin-bottom:1rem;background:rgba(0,0,0,0.25);border-radius:var(--radius);padding:4px;border:1px solid var(--border);}
+.mode-tab{flex:1;padding:8px 10px;border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;border:none;background:transparent;color:var(--text3);cursor:pointer;transition:all 0.2s;}
+.mode-tab.active{background:var(--surface2);color:var(--text);border:1px solid var(--border2);}
+.mode-tab.s-active{color:var(--red)!important;} .mode-tab.b-active{color:var(--green)!important;}
+
+.time-custom-bar { display:flex; gap:6px; margin-bottom:1.2rem; align-items:center; background:rgba(0,0,0,0.2); padding:8px; border-radius:var(--radius); border:1px solid var(--border); }
+.time-preset { flex:1; background:rgba(255,255,255,0.03); border:1px solid var(--border); color:var(--text2); padding:6px; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:12px; cursor:pointer; transition:all 0.2s; }
+.time-custom-input { width: 55px; background:rgba(0,0,0,0.4); border:1px solid var(--border2); color:var(--text); text-align:center; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:12px; padding:6px; outline:none; }
+
+.ring-wrap{display:flex;flex-direction:column;align-items:center;margin-bottom:1rem;position:relative;}
+.ring-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.time-num{font-family:-apple-system, sans-serif;font-size:3.6rem;font-weight:200;letter-spacing:-3px;line-height:1;font-variant-numeric:tabular-nums;}
+.mode-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-top:4px;}
+
+.timer-controls{display:flex;gap:10px;justify-content:center;margin-bottom:1rem;}
+.btn-play{padding:12px 36px;border-radius:var(--radius);font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:500;letter-spacing:1px;background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,0.4);cursor:pointer;}
+.btn-play.brk{background:var(--green-dim);color:var(--green);border-color:rgba(16,185,129,0.4);}
+.btn-icon{padding:12px;border-radius:var(--radius);border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;}
+
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+@media (max-width: 500px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+.stat-box{background:rgba(0,0,0,0.25);border:1px solid var(--border);border-radius:var(--radius);padding:10px 6px;text-align:center;}
+.stat-val{font-size:1.3rem;font-weight:300;} .stat-lbl{font-size:10px;color:var(--text2);text-transform:uppercase;margin-top:2px;}
+
+.amb-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1rem; }
+.amb-btn { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 6px; border-radius: var(--radius); cursor: pointer; border: 1px solid var(--border); background: rgba(0,0,0,0.15); color: var(--text2); font-family: 'JetBrains Mono', monospace; font-size: 11px; transition: all 0.2s; text-transform: uppercase; }
+.amb-btn.on { border-color: var(--purple); background: var(--purple-dim); color: var(--purple); }
+
+.materia{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:10px;overflow:hidden;}
+.materia-hd{display:flex;align-items:center;padding:12px 14px;gap:10px;cursor:pointer;}
+.materia-color{width:3px;height:28px;border-radius:2px;}
+.mat-prog{height:2px;background:rgba(255,255,255,0.04);} .mat-prog-fill{height:2px;transition:width .4s;}
+.unidades{display:none;padding:0 14px 14px;} .unidades.open{display:block;}
+
+.divider-hd { font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--text2); border-bottom:1px solid var(--border); padding:6px 0 3px; margin-top:10px;}
+.u-row{display:grid;grid-template-columns:1fr 84px 90px 48px 20px;gap:6px;align-items:start;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.03);}
+.u-left{display:flex;flex-direction:column;gap:3px;}
+.u-name{font-size:12px;color:var(--text);background:transparent;border:none;outline:none;font-family:'JetBrains Mono',monospace;width:100%;}
+.u-note{font-size:11px;color:var(--text2);background:transparent;border:none;outline:none;font-family:'JetBrains Mono',monospace;resize:vertical;}
+.chk-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;} .chk-wrap span{font-size:10px;color:var(--text2);}
+.chk-wrap input{accent-color:var(--purple); width:14px; height:14px; cursor:pointer;}
+
+.flashcard-scene { perspective: 1000px; width: 100%; margin-bottom: 1rem; }
+.fc-card {
+    position: relative; width: 100%; min-height: 220px; background: var(--surface2);
+    border: 1px solid var(--border2); border-radius: var(--radius-lg); padding: 1.8rem;
+    text-align: center; cursor: pointer; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.fc-card.flipped { transform: rotateY(180deg); }
+.fc-face {
+    position: absolute; width: 100%; height: 100%; padding: 1.8rem; top: 0; left: 0;
+    backface-visibility: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;
+}
+.fc-back { transform: rotateY(180deg); text-align: left; align-items: flex-start; overflow-y: auto; background: var(--surface3); border-radius: var(--radius-lg); }
+
+.chat-bubble { padding:10px 14px; border-radius:12px; margin-bottom:8px; max-width:90%; font-size:12px; line-height:1.5;}
+.chat-user { background:var(--blue-dim); color:var(--text); border:1px solid var(--blue); margin-left:auto;}
+.chat-ai { background:var(--surface3); color:var(--text2); border:1px solid var(--border); margin-right:auto;}
+
+.chart-container { background: rgba(0,0,0,0.2); border-radius: 12px; padding: 12px; margin-top: 12px; border: 1px solid var(--border); }
+input, select, textarea { color-scheme: dark; }
+
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 2000;
+    opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.modal-overlay.active { opacity: 1; pointer-events: auto; }
+.modal-box {
+    background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius-lg);
+    width: 90%; max-width: 500px; padding: 1.5rem; max-height: 85vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+.notif{position:fixed;top:1.2rem;right:1.2rem;background:var(--surface2);border:1px solid var(--purple);border-radius:var(--radius);padding:12px 16px;font-size:12px;z-index:3000;opacity:0;transform:translateY(-8px);transition:all .3s; box-shadow:0 10px 25px rgba(0,0,0,0.5);}
+.notif.show{opacity:1;transform:translateY(0);}
+
+#onboarding-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 5000;
+    display: flex; align-items: center; justify-content: center; padding: 1rem;
+}
+</style>
+</head>
+<body class="mode-study">
+
+<div id="onboarding-overlay" style="display:none;">
+    <div class="card" style="width:100%; max-width:440px; text-align:center;">
+        <h2 id="ob-title" style="margin-bottom:10px; font-size:1.3rem;">⚖️ Bienvenido a Estudio Tracker UNLZ</h2>
+        <p id="ob-desc" style="font-size:12px; color:var(--text2); margin-bottom:1.5rem; line-height:1.6;">Tu organizador académico definitivo para la carrera de derecho y materias exigentes.</p>
+        <div style="display:flex; justify-content:center; gap:6px; margin-bottom:1.5rem;" id="ob-dots">
+            <span style="width:8px; height:8px; border-radius:50%; background:var(--purple);"></span>
+            <span style="width:8px; height:8px; border-radius:50%; background:var(--border2);"></span>
+            <span style="width:8px; height:8px; border-radius:50%; background:var(--border2);"></span>
+        </div>
+        <button class="btn btn-purple" style="width:100%; padding:12px;" onclick="nextOnboarding()">Siguiente</button>
+    </div>
+</div>
+
+<div id="dynamic-island" aria-live="polite">
+    <div class="di-dot" id="di-dot"></div>
+    <span id="di-time">50:00</span>
+    <button class="di-btn" id="di-toggle-btn" onclick="togglePlay()" aria-label="Pausar o continuar timer">Pausar</button>
+</div>
+
+<div class="page">
+
+<div class="header-top">
+    <h1 class="app-title"><span class="dot"></span> Estudio Tracker</h1>
+    <div class="stats-top-bar">
+        <button class="btn" style="padding:4px 8px; font-size:11px;" onclick="openModal('modal-trash')" aria-label="Papelera">🗑️</button>
+        <div class="badge-box">
+            <div class="badge-val" id="xp-display">0 XP</div>
+            <div class="badge-lbl" id="xp-label-sub">Nivel 1</div>
+        </div>
+        <div class="badge-box">
+            <div class="badge-val" id="streak-display">0 d</div>
+            <div class="badge-lbl">Racha</div>
+        </div>
+    </div>
+</div>
+
+<div class="global-search-bar">
+    <input type="text" id="global-search-input" class="global-search-input" placeholder="🔍 Buscar materias, apuntes o tarjetas (Ctrl+K)..." oninput="handleGlobalSearch(this.value)">
+</div>
+
+<nav class="nav-bottom" aria-label="Navegación principal">
+  <button class="nav-tab active" data-panel="hoy" onclick="showPanel('hoy')" aria-label="Hoy">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+    Hoy
+  </button>
+  <button class="nav-tab" data-panel="tracker" onclick="showPanel('tracker')" aria-label="Materias">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+    Materias
+  </button>
+  <button class="nav-tab" data-panel="flashcard" onclick="showPanel('flashcard')" aria-label="Repaso">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+    Repaso
+  </button>
+  <button class="nav-tab" data-panel="examen" onclick="showPanel('examen')" aria-label="Final IA">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v1a7 7 0 0 1-14 0v-1"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+    Final IA
+  </button>
+  <button class="nav-tab" data-panel="more" onclick="showPanel('more')" aria-label="Más">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+    Más
+  </button>
+</nav>
+
+<div class="panel active" id="panel-hoy">
+  <div class="card" id="priority-recommendation-box" style="background: linear-gradient(135deg, rgba(168,85,247,0.1), rgba(59,130,246,0.1)); border-color: rgba(168,85,247,0.3);">
+    <div class="section-hd" style="margin-bottom:6px;">
+      <h2 style="font-size:12px; color:var(--purple); text-transform:uppercase; letter-spacing:1px;">🎯 Prioridad de Estudio Hoy</h2>
+    </div>
+    <div id="priority-content" style="font-size:12px; color:var(--text); line-height:1.5;">Calculando prioridades...</div>
+  </div>
+
+  <div class="card">
+    <div class="section-hd"><h2>⏱ Timer Pomodoro & Audio</h2></div>
+    <div class="mode-tabs">
+      <button class="mode-tab active s-active" id="tab-study" onclick="setMode('study')">▪ Estudio</button>
+      <button class="mode-tab" id="tab-break" onclick="setMode('break')">▫ Descanso</button>
+    </div>
+
+    <div class="time-custom-bar">
+      <button class="time-preset" onclick="setCustomMin(25)">25m</button>
+      <button class="time-preset" onclick="setCustomMin(35)">35m</button>
+      <button class="time-preset" onclick="setCustomMin(50)">50m</button>
+      <button class="time-preset" onclick="setCustomMin(60)">60m</button>
+      <div style="display:flex; align-items:center; gap:4px; font-size:12px; color:var(--text3);">
+        <span>Min:</span>
+        <input type="number" id="custom-min-input" class="time-custom-input" min="1" max="180" value="50" onchange="applyCustomMin(this.value)">
+      </div>
+    </div>
+    
+    <div class="session-goal-box">
+      <select id="timer-mat-sel"><option value="0">General (Sin materia)</option></select>
+      <input type="text" id="session-goal" placeholder="Objetivo del pomodoro (ej. Leer U3)...">
+      <div class="actions-grid" style="display:flex; gap:8px; margin-top:8px;">
+          <button onclick="terminarAhora()" class="btn" style="flex:1; background:rgba(255,255,255,0.05);">💾 Guardar parcial</button>
+      </div>
+      <div class="session-log" id="session-log"></div>
+    </div>
+
+    <div class="ring-wrap">
+      <svg width="210" height="210" viewBox="0 0 220 220" aria-hidden="true">
+        <circle cx="110" cy="110" r="96" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="8"/>
+        <circle id="ring" cx="110" cy="110" r="96" fill="none" stroke="#ef4444" stroke-width="7" stroke-linecap="round" stroke-dasharray="603.19" stroke-dashoffset="0" transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s linear"/>
+      </svg>
+      <div class="ring-center">
+        <div class="time-num" id="time-num">50:00</div>
+        <div class="mode-label" id="mode-label">POMODORO</div>
+      </div>
+    </div>
+
+    <div class="timer-controls">
+      <button class="btn-play" id="btn-play" onclick="togglePlay()">▶ INICIAR</button>
+      <button class="btn-icon" onclick="resetTimer()" title="Reiniciar">↺</button>
+    </div>
+
+    <div style="background:rgba(0,0,0,0.25); border:1px solid var(--border); border-radius:var(--radius); padding:10px; margin-top:1rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <span style="font-size:11px; text-transform:uppercase; color:var(--text3);" id="amb-status">🎧 Audio Ambiental: Apagado</span>
+        <input type="range" id="vol-slider" min="0" max="100" value="40" oninput="setAmbVol(this.value)" style="width:90px; accent-color:var(--purple); cursor:pointer;">
+      </div>
+      <div class="amb-grid" style="margin-bottom:0;">
+        <button class="amb-btn" onclick="toggleLoFi()" id="amb-lofi"><span class="amb-icon">📻</span>Lo-Fi</button>
+        <button class="amb-btn" onclick="toggleAmb('rain')" id="amb-rain"><span class="amb-icon">🌧</span>Lluvia</button>
+        <button class="amb-btn" onclick="toggleAmb('cafe')" id="amb-cafe"><span class="amb-icon">☕</span>Café</button>
+      </div>
+    </div>
+    <audio id="lofi-player" src="https://stream.zeno.fm/f3wvbbqmdg8uv" preload="none"></audio>
+
+    <div class="stats-grid" style="margin-top:1rem;">
+      <div class="stat-box"><div class="stat-val" id="s-pom" style="color:var(--red)">0</div><div class="stat-lbl">Pomodoros</div></div>
+      <div class="stat-box"><div class="stat-val" id="s-time">0m</div><div class="stat-lbl">Estudiado</div></div>
+      <div class="stat-box"><div class="stat-val" id="s-breaks" style="color:var(--green)">0</div><div class="stat-lbl">Descansos</div></div>
+      <div class="stat-box"><div class="stat-val" id="s-due" style="color:var(--purple)">0</div><div class="stat-lbl">Pendientes</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="panel-tracker">
+  <div class="section-hd">
+      <h2>📚 Doctrinas, Parciales e Integrador</h2>
+      <div style="display:flex; gap:6px;">
+          <button class="btn btn-blue" onclick="openModal('modal-import')">📥 Importar</button>
+          <button class="btn" onclick="addMateria()">+ Materia</button>
+      </div>
+  </div>
+  
+  <div id="materias"></div>
+</div>
+
+<div class="panel" id="panel-flashcard">
+  <div class="section-hd"><h2>🃏 Repaso Inteligente (SM-2)</h2><span id="fc-count-badge" style="font-size:12px; color:var(--purple)">0 pendientes</span></div>
+  <div class="card" style="text-align:center;">
+      <div style="display:flex; gap:8px; justify-content:center;">
+          <button class="btn btn-blue" onclick="startFC('due')">📅 Pendientes Hoy</button>
+          <button class="btn" onclick="startFC('all')">↻ Mazo Completo</button>
+      </div>
+  </div>
+  <div id="fc-area">
+      <div class="flashcard-scene">
+          <div class="fc-card" style="color:var(--text3)">Seleccioná un modo para empezar a repasar.</div>
+      </div>
+  </div>
+</div>
+
+<div class="panel" id="panel-examen">
+  <div class="card">
+    <h2>⚖️ Simulador de Finales con IA (UNLZ)</h2>
+    <p style="font-size:11px; color:var(--text2); margin-bottom:12px;">Examen oral estricto con bolillero filtrado por materia, lectura por voz y conversión automática de temas flojos a tarjetas.</p>
+    
+    <div style="margin-bottom:12px;">
+        <label style="font-size:11px; color:var(--text2); display:block; margin-bottom:4px;">Seleccionar Materia:</label>
+        <select id="exam-mat-filter" style="width:100%; background:rgba(0,0,0,0.3); border:1px solid var(--border); border-radius:8px; padding:8px; color:var(--text); font-size:12px;">
+            <option value="all">🌐 Todas las materias (Azar global)</option>
+        </select>
+    </div>
+
+    <button class="btn btn-purple" id="btn-start-exam" onclick="startExamIA()" style="width:100%; padding:14px; font-size:13px;">▶ Iniciar Bolillero Oral (15m)</button>
+    
+    <div id="exam-area" style="margin-top:16px; display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:11px; color:var(--text3);">
+            <span id="exam-turn-counter">Turno de intercambio: 0 / 5</span>
+            <span id="exam-timer-display" style="font-family:'JetBrains Mono'; color:var(--red);">15:00</span>
+        </div>
+        <div id="exam-chat-box" style="height:260px; overflow-y:auto; background:rgba(0,0,0,0.25); border:1px solid var(--border); padding:12px; border-radius:12px; margin-bottom:10px; display:flex; flex-direction:column;">
+        </div>
+        <div style="display:flex; gap:8px;">
+            <textarea id="exam-ans" style="flex:1; height:75px; background:rgba(0,0,0,0.35); border:1px solid var(--border); padding:10px; border-radius:8px; font-family:'Inter', sans-serif; resize:vertical;" placeholder="Escribí o respondé por voz..."></textarea>
+            <button class="btn" id="btn-mic" onclick="toggleSpeech()" style="background:var(--surface2);" title="Dictar por voz">🎤</button>
+        </div>
+        <button class="btn btn-blue" id="btn-send-exam" style="margin-top:8px; width:100%" onclick="submitExamIA()">Enviar Respuesta</button>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="panel-more">
+  <div class="card">
+    <h2>📈 Historial & Rendimiento</h2>
+    <button class="btn btn-blue" style="margin-bottom:12px; width:100%;" onclick="generateWeeklySummaryCard()">📋 Copiar resumen semanal</button>
+    <div class="chart-container"><canvas id="pieChart" height="140"></canvas></div>
+    <div class="chart-container" style="margin-top:16px;"><canvas id="barChart" height="140"></canvas></div>
+  </div>
+
+  <div class="card">
+    <h2>⚙️ Preferencias & Accesibilidad</h2>
+    <div style="display:flex; flex-direction:column; gap:10px; margin-top:8px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:12px;">Tema visual:</span>
+            <select id="theme-select" onchange="changeTheme(this.value)" style="padding:6px; background:rgba(0,0,0,0.3); border-radius:6px; border:1px solid var(--border); color:var(--text); font-size:12px;">
+                <option value="dark">Oscuro (Default)</option>
+                <option value="amoled">AMOLED (Puro Negro)</option>
+                <option value="light">Claro</option>
+            </select>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:12px;">Tamaño de fuente:</span>
+            <select id="font-size-select" onchange="changeFontSize(this.value)" style="padding:6px; background:rgba(0,0,0,0.3); border-radius:6px; border:1px solid var(--border); color:var(--text); font-size:12px;">
+                <option value="13px">Compacta (13px)</option>
+                <option value="14px" selected>Normal (14px)</option>
+                <option value="16px">Grande (16px)</option>
+            </select>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-size:12px;">Vibración (Haptics):</span>
+            <input type="checkbox" id="haptics-toggle" checked onchange="toggleHaptics(this.checked)">
+        </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>💾 Backups y Seguridad</h2>
+    <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
+        <input type="password" id="api-key" placeholder="API Key de Anthropic (Claude)" style="padding:8px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:8px;">
+        <button class="btn btn-blue" onclick="saveConfig()">💾 Guardar API Key Local</button>
+    </div>
+    <div style="display:flex; gap:8px; margin-top:12px;">
+        <button class="btn" onclick="exportBackupJSON()">📤 Exportar Backup</button>
+        <button class="btn" onclick="document.getElementById('file-import').click()">📥 Importar Backup</button>
+        <input type="file" id="file-import" style="display:none" onchange="importBackupJSON(event)">
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- MODAL PAPELERA & DESHACER -->
+<div class="modal-overlay" id="modal-trash">
+    <div class="modal-box">
+        <div class="section-hd">
+            <h2>🗑️ Papelera y Deshacer</h2>
+            <button class="btn" style="border:none; padding:4px 8px;" onclick="closeModal('modal-trash')">✕</button>
+        </div>
+        <p style="font-size:11px; color:var(--text2); margin-bottom:10px;">Elementos eliminados recientemente:</p>
+        <div id="trash-list-container" style="display:flex; flex-direction:column; gap:6px; max-height:200px; overflow-y:auto; margin-bottom:12px;"></div>
+        <button class="btn btn-blue" style="width:100%;" onclick="undoLastAction()">↩️ Deshacer Última Acción</button>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-import">
+    <div class="modal-box">
+        <div class="section-hd">
+            <h2>📥 Importar Mazo / Anki / ICS</h2>
+            <button class="btn" style="border:none; padding:4px 8px;" onclick="closeModal('modal-import')">✕</button>
+        </div>
+        <div style="margin-bottom:10px;">
+            <label style="font-size:11px; color:var(--text2); display:block; margin-bottom:4px;">Destino (Materia):</label>
+            <select id="import-mat-target" style="width:100%; background:rgba(0,0,0,0.3); border:1px solid var(--border); border-radius:8px; padding:8px; color:var(--text); font-size:12px;"></select>
+        </div>
+        <textarea id="import-textarea" style="width:100%; height:120px; background:rgba(0,0,0,0.3); border:1px solid var(--border); border-radius:8px; padding:8px; font-family:'JetBrains Mono'; font-size:11px; margin-bottom:10px; color:var(--text);" placeholder="Pregunta \t Respuesta o pegá contenido..."></textarea>
+        <button class="btn btn-blue" style="width:100%;" onclick="processImportData()">Procesar e Importar</button>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modal-edit-materia">
+    <div class="modal-box">
+        <div class="section-hd">
+            <h2>Editar Materia</h2>
+            <button class="btn" style="border:none; padding:4px 8px;" onclick="closeModal('modal-edit-materia')">✕</button>
+        </div>
+        <input type="hidden" id="edit-mat-id">
+        <div style="margin-bottom:10px;">
+            <label style="font-size:11px; color:var(--text2);">Nombre:</label>
+            <input type="text" id="edit-mat-name" style="width:100%; background:rgba(0,0,0,0.3); border:1px solid var(--border); border-radius:8px; padding:8px; color:var(--text); font-size:12px; margin-top:4px;">
+        </div>
+        <div style="margin-bottom:12px;">
+            <label style="font-size:11px; color:var(--text2);">Color:</label>
+            <div style="display:flex; gap:8px; margin-top:6px;" id="color-picker-grid"></div>
+        </div>
+        <div style="display:flex; gap:8px;">
+            <button class="btn btn-red" onclick="deleteCurrentMateria()">Eliminar</button>
+            <button class="btn btn-blue" style="flex:1;" onclick="saveEditedMateria()">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL VISOR DE ARCHIVO / IMAGEN -->
+<div class="modal-overlay" id="modal-file-viewer">
+    <div class="modal-box" style="max-width: 650px;">
+        <div class="section-hd">
+            <h2 id="viewer-title">Archivo</h2>
+            <button class="btn" style="border:none; padding:4px 8px;" onclick="closeModal('modal-file-viewer')">✕</button>
+        </div>
+        <div id="viewer-content" style="max-height: 60vh; overflow-y: auto; text-align: center;"></div>
+    </div>
+</div>
+
+<div class="notif" id="notif"><div class="n-title" id="n-title"></div><div class="n-sub" id="n-sub"></div></div>
+
+<script>
+// --- REGISTRO DE SERVICE WORKER PARA PWA OFFLINE ---
+if ('serviceWorker' in navigator) {
+    const swCode = `
+        const CACHE_NAME = 'estudio-tracker-v1';
+        self.addEventListener('install', e => { e.waitUntil(self.skipWaiting()); });
+        self.addEventListener('activate', e => { e.waitUntil(self.clients.claim()); });
+        self.addEventListener('fetch', e => {
+            e.respondWith(
+                caches.match(e.request).then(res => res || fetch(e.request).catch(() => caches.match('./')))
+            );
+        });
+    `;
+    const swBlob = new Blob([swCode], { type: 'application/javascript' });
+    navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(()=>{});
+}
+
+function triggerHaptic() {
+    if(localStorage.getItem('haptics') !== 'false' && navigator.vibrate) {
+        navigator.vibrate(40);
+    }
+}
+
+let obStep = 1;
+function checkOnboarding() {
+    if(!localStorage.getItem('ob_done')) {
+        document.getElementById('onboarding-overlay').style.display = 'flex';
+    }
+}
+function nextOnboarding() {
+    obStep++;
+    if(obStep === 2) {
+        document.getElementById('ob-title').textContent = "⏱ Pomodoro & Repaso Inteligente";
+        document.getElementById('ob-desc').textContent = "Administrá tus tiempos de estudio y memoriza doctrina jurídica mediante algoritmos de repetición espaciada (SM-2).";
+    } else if(obStep === 3) {
+        document.getElementById('ob-title').textContent = "⚖️ Simulador de Finales con IA";
+        document.getElementById('ob-desc').textContent = "Preparate para tus orales en la UNLZ con un profesor virtual estricto y socrático.";
+    } else {
+        localStorage.setItem('ob_done', 'true');
+        document.getElementById('onboarding-overlay').style.display = 'none';
+        notify('¡Listo!', 'Empecemos a estudiar.');
+    }
+}
+
+// --- INDEXEDDB & BACKUPS INTELIGENTES DIARIOS ---
+let db = null;
+const dbRequest = (typeof indexedDB !== 'undefined' && indexedDB) ? indexedDB.open('EstudioTrackerProDB', 5) : {};
+dbRequest.onupgradeneeded = function(e) {
+    db = e.target.result;
+    if(!db.objectStoreNames.contains('files')) db.createObjectStore('files', { keyPath: 'id' });
+    if(!db.objectStoreNames.contains('autobackups')) db.createObjectStore('autobackups', { keyPath: 'dateStr' });
+};
+dbRequest.onsuccess = function(e) { 
+    db = e.target.result; 
+    saveDailyBackup();
+    render();
+};
+dbRequest.onerror = function() {
+    console.warn("IndexedDB no disponible, operando en modo memoria local.");
+    render();
+};
+
+function saveDailyBackup() {
+    if(!db) return;
+    try {
+        const tx = db.transaction(['autobackups', 'files'], 'readwrite');
+        tx.objectStore('files').getAll().onsuccess = function(e) {
+            const files = e.target.result || [];
+            // Guardamos solo los metadatos o referencias sin duplicar pesado binario si es necesario, 
+            // pero mantenemos respaldo diario por fecha (1 por día)
+            const backupObj = {
+                dateStr: todayAR(),
+                timestamp: Date.now(),
+                mats: MATS,
+                history: loadHistory(),
+                filesCount: files.length
+            };
+            tx.objectStore('autobackups').put(backupObj);
+        };
+    } catch(err) {}
+}
+
+function saveFileToIDB(fileObj) {
+    if(!db) { notify('Aviso', 'Modo sin IDB: archivo en memoria volátil.'); return; }
+    try {
+        const tx = db.transaction('files', 'readwrite');
+        tx.objectStore('files').put(fileObj);
+        tx.oncomplete = () => { render(); saveDailyBackup(); };
+    } catch(err) {
+        alert("Error al guardar archivo en base de datos local.");
+    }
+}
+
+function deleteFileFromIDB(fileId) {
+    if(!db) return;
+    const tx = db.transaction('files', 'readwrite');
+    tx.objectStore('files').delete(fileId);
+    tx.oncomplete = () => { render(); };
+}
+
+function handleMateriaFileUpload(event, matId) {
+    const files = event.target.files;
+    if(!files || files.length === 0) return;
+    
+    Array.from(files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const fileData = {
+                id: Date.now() + Math.random(),
+                matId: matId,
+                name: file.name,
+                type: file.type || 'application/octet-stream',
+                size: (file.size / 1024).toFixed(1) + ' KB',
+                date: new Intl.DateTimeFormat('es-AR', {timeZone: 'America/Argentina/Buenos_Aires', dateStyle: 'short'}).format(new Date()),
+                content: e.target.result
+            };
+            saveFileToIDB(fileData);
+            notify('Archivo adjunto', file.name);
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+function openFileViewer(fileId) {
+    if(!db) return;
+    const tx = db.transaction('files', 'readonly');
+    tx.objectStore('files').get(fileId).onsuccess = function(e) {
+        const f = e.target.result;
+        if(!f) return alert("Archivo no encontrado.");
+        document.getElementById('viewer-title').textContent = f.name;
+        const vc = document.getElementById('viewer-content');
+        
+        if(f.type.startsWith('image/')) {
+            vc.innerHTML = `<img src="${f.content}" style="max-width:100%; border-radius:8px;" alt="${esc(f.name)}">`;
+        } else if(f.type === 'application/pdf') {
+            vc.innerHTML = `<iframe src="${f.content}" style="width:100%; height:500px; border:none; border-radius:8px;"></iframe>`;
+        } else if(f.content && f.content.startsWith('data:text')) {
+            try {
+                const base64Data = f.content.split(',')[1];
+                const binaryString = atob(base64Data);
+                const bytes = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; i++) { bytes[i] = binaryString.charCodeAt(i); }
+                const textDecoded = new TextDecoder('utf-8').decode(bytes);
+                vc.innerHTML = `<pre style="text-align:left; white-space:pre-wrap; font-family:'JetBrains Mono'; font-size:12px; color:var(--text);">${esc(textDecoded)}</pre>`;
+            } catch(err) {
+                vc.innerHTML = `<a href="${f.content}" download="${f.name}" class="btn btn-purple">📥 Descargar ${esc(f.name)}</a>`;
+            }
+        } else {
+            vc.innerHTML = `<div style="padding:2rem;"><p style="margin-bottom:12px; font-size:12px; color:var(--text2);">Este formato no se puede previsualizar directamente, pero podés descargarlo.</p><a href="${f.content}" download="${f.name}" class="btn btn-purple">📥 Descargar ${esc(f.name)}</a></div>`;
+        }
+        openModal('modal-file-viewer');
+    };
+}
+
+// --- PAPELERA Y DESHACER ---
+let trashBin = [];
+let lastDeletedItem = null;
+
+function pushToTrash(itemType, itemData) {
+    trashBin.push({ type: itemType, data: itemData, timestamp: Date.now() });
+    lastDeletedItem = { type: itemType, data: itemData };
+    renderTrashModal();
+    notify('Elemento eliminado', 'Podés deshacer desde el botón superior de papelera.');
+}
+
+function undoLastAction() {
+    if(!lastDeletedItem) return alert("No hay acciones recientes para deshacer.");
+    if(lastDeletedItem.type === 'materia') {
+        MATS.push(lastDeletedItem.data);
+    } else if(lastDeletedItem.type === 'unit') {
+        const m = MATS.find(x => x.id === lastDeletedItem.data.matId);
+        if(m) m.units.push(lastDeletedItem.data.unit);
+    }
+    saveMats(); render();
+    lastDeletedItem = null;
+    notify('Acción deshecha', 'Se recuperó el elemento.');
+    closeModal('modal-trash');
+}
+
+function renderTrashModal() {
+    const c = document.getElementById('trash-list-container');
+    if(!c) return;
+    if(trashBin.length === 0) {
+        c.innerHTML = `<div style="font-size:11px; color:var(--text3); text-align:center;">Papelera vacía.</div>`;
+        return;
+    }
+    c.innerHTML = trashBin.map((t, idx) => `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(0,0,0,0.2); padding:6px 10px; border-radius:6px; font-size:11px;">
+            <span>${t.type === 'materia' ? '📚 Materia: ' + t.data.name : '📝 Unidad: ' + t.data.unit.n}</span>
+            <button class="btn btn-blue" style="padding:2px 6px; font-size:10px;" onclick="restoreTrash(${idx})">Restaurar</button>
+        </div>
+    `).join('');
+}
+
+function restoreTrash(idx) {
+    const item = trashBin.splice(idx, 1)[0];
+    if(item.type === 'materia') MATS.push(item.data);
+    else {
+        const m = MATS.find(x => x.id === item.data.matId);
+        if(m) m.units.push(item.data.unit);
+    }
+    saveMats(); render(); renderTrashModal();
+    notify('Restaurado', 'Elemento devuelto a su lugar.');
+}
+
+// --- BÚSQUEDA GLOBAL REAL (Materias, Apuntes y Tarjetas) ---
+function handleGlobalSearch(query) {
+    const q = query.toLowerCase().trim();
+    const cards = document.querySelectorAll('.materia');
+    cards.forEach(card => {
+        const matId = parseInt(card.dataset.id);
+        const m = MATS.find(x => x.id === matId);
+        if(!m) return;
+        
+        const matName = m.name.toLowerCase();
+        const hasUnitMatch = m.units.some(u => (u.n && u.n.toLowerCase().includes(q)) || (u.note && u.note.toLowerCase().includes(q)));
+        
+        if(!q || matName.includes(q) || hasUnitMatch) {
+            card.style.display = 'block';
+            if(q && hasUnitMatch && !m.open) { m.open = true; }
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+window.addEventListener('keydown', (e) => {
+    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        document.getElementById('global-search-input').focus();
+    }
+});
+
+// --- ESTADOS Y PREFERENCIAS ---
+function nowAR(){ return new Date(new Date().toLocaleString("en-US", {timeZone: "America/Argentina/Buenos_Aires"})); }
+function todayAR(){
+    const d = nowAR();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+let studyMinCustom = parseInt(ls('pom_custom_study', '50'));
+let breakMinCustom = parseInt(ls('pom_custom_break', '10'));
+let STUDY = studyMinCustom * 60;
+let BREAK = breakMinCustom * 60;
+const CIRC = 2 * Math.PI * 96;
+
+let mode='study', total=STUDY, rem=STUDY, running=false, endTime=null;
+let poms=0, breaks=0, studMin=0;
+
+const COLORS=['#ef4444','#10b981','#f59e0b','#3b82f6','#a855f7','#14b8a6'];
+const DAYS=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+
+function ls(k,d=''){try{return localStorage.getItem(k)??d;}catch(e){return d;}}
+function lss(k,v){try{localStorage.setItem(k,v);}catch(e){alert("Almacenamiento lleno.");}}
+
+function loadMats(){
+  const s=ls('pom_mats');
+  if(!s) return [{id:1, name:'Derecho Procesal', color:COLORS[0], open:true, notebookUrl:'', promoted:false, needsFinal:false, units:[]}];
+  const m=JSON.parse(s);
+  m.forEach(mat=>{
+    if(!mat.notebookUrl) mat.notebookUrl = '';
+    if(mat.promoted === undefined) mat.promoted = false;
+    if(mat.needsFinal === undefined) mat.needsFinal = false;
+    if(!mat.color) mat.color = COLORS[0];
+    mat.units.forEach(u=>{
+      if(!u.srEase) u.srEase = 2.5;
+      if(!u.srInt) u.srInt = 0;
+      if(!u.srReps) u.srReps = 0;
+      if(!u.section) u.section = 'p1';
+    });
+  });
+  return m;
+}
+function saveMats(){
+    lss('pom_mats',JSON.stringify(MATS)); 
+    fillSelectors(); 
+    updateDueCount(); 
+    updatePriorityBox();
+    saveDailyBackup();
+}
+const MATS=loadMats();
+// IDs autoincrementales robustos basados en timestamp + random para evitar conflictos
+function generateUniqueId() {
+    return Date.now() + Math.floor(Math.random() * 1000);
+}
+let nextId = MATS.length ? Math.max(...MATS.map(m => m.id)) + 1 : 1;
+function loadHistory(){return JSON.parse(ls('pom_history','{}'));}
+
+let wakeLock = null;
+async function requestWakeLock() {
+    if ('wakeLock' in navigator && running) {
+        try { wakeLock = await navigator.wakeLock.request('screen'); } catch(e){}
+    }
+}
+
+function restoreTimerState() {
+    const savedEnd = ls('pom_end_time');
+    const savedMode = ls('pom_mode');
+    const savedTotal = ls('pom_total');
+    if(savedEnd && savedMode && savedTotal) {
+        const end = parseInt(savedEnd);
+        const now = Date.now();
+        if(end > now) {
+            endTime = end; mode = savedMode; total = parseInt(savedTotal);
+            rem = Math.max(0, Math.round((endTime - now)/1000));
+            running = true;
+            document.body.className = mode==='study' ? 'mode-study' : 'mode-break';
+            document.getElementById('btn-play').textContent = '⏸ PAUSAR';
+            document.getElementById('di-toggle-btn').textContent = 'Pausar';
+            document.getElementById('dynamic-island').classList.add('visible');
+            startTimerLoop();
+            requestWakeLock();
+        } else { 
+            // Si la app estaba cerrada cuando venció el temporizador
+            const expiredMode = ls('pom_mode');
+            const expiredTotal = parseInt(ls('pom_total') || '3000');
+            if(expiredMode === 'study') {
+                recordPomodoroSession(expiredTotal, 0);
+            }
+            localStorage.removeItem('pom_end_time'); 
+        }
+    }
+}
+
+function addMinutesToDateKey(dateStr, minsToAdd, matId) {
+    const hist = loadHistory();
+    if(!hist[dateStr]) hist[dateStr] = { mins:0, poms:0, mats:{} };
+    hist[dateStr].mins += minsToAdd;
+    if(matId != 0) {
+        if(!hist[dateStr].mats) hist[dateStr].mats = {};
+        hist[dateStr].mats[matId] = (hist[dateStr].mats[matId] || 0) + minsToAdd;
+    }
+    lss('pom_history', JSON.stringify(hist));
+}
+
+function recordPomodoroSession(totalSeconds, matId) {
+    const now = nowAR();
+    const todayStr = todayAR();
+    const totalMins = Math.round(totalSeconds / 60);
+    if(totalMins <= 0) return;
+    
+    const startDate = new Date(now.getTime() - totalSeconds * 1000);
+    const startDayStr = `${startDate.getFullYear()}-${String(startDate.getMonth()+1).padStart(2,'0')}-${String(startDate.getDate()).padStart(2,'0')}`;
+    
+    if(startDayStr !== todayStr) {
+        const midnight = new Date(todayStr + 'T00:00:00');
+        const minsBeforeMidnight = Math.round((midnight - startDate) / 60000);
+        const minsAfterMidnight = totalMins - minsBeforeMidnight;
+        if(minsBeforeMidnight > 0) addMinutesToDateKey(startDayStr, minsBeforeMidnight, matId);
+        if(minsAfterMidnight > 0) addMinutesToDateKey(todayStr, minsAfterMidnight, matId);
+    } else {
+        addMinutesToDateKey(todayStr, totalMins, matId);
+    }
+    
+    poms++;
+    lss('pom_day_poms', String(poms));
+    studMin += totalSeconds;
+    lss('pom_day_mins', String(Math.round(studMin/60)));
+    calculateStreakAndXP();
+    triggerHaptic();
+}
+
+(function initDaily(){
+  const today = todayAR(), last = ls('pom_last_day');
+  if(last !== today){
+    lss('pom_last_day', today); lss('pom_day_mins', '0'); lss('pom_day_poms', '0');
+    poms=0; studMin=0;
+  } else {
+    poms = parseInt(ls('pom_day_poms','0')); studMin = parseInt(ls('pom_day_mins','0'))*60;
+  }
+  document.getElementById('custom-min-input').value = mode === 'study' ? studyMinCustom : breakMinCustom;
+  calculateStreakAndXP();
+  updateDueCount();
+  updatePriorityBox();
+  restoreTimerState();
+  checkOnboarding();
+  
+  const savedTheme = ls('theme', 'dark');
+  changeTheme(savedTheme, false);
+  const savedFont = ls('font_size', '14px');
+  changeFontSize(savedFont, false);
+})();
+
+function playOrganicBell() {
+    try {
+        const ctx = (window._bellCtx = window._bellCtx || new (window.AudioContext || window.webkitAudioContext)()); if(ctx.state === 'suspended') ctx.resume();
+        const t = ctx.currentTime;
+        const osc = ctx.createOscillator(); const gain = ctx.createGain();
+        osc.type = 'sine'; osc.frequency.setValueAtTime(432, t);
+        gain.gain.setValueAtTime(1, t); gain.gain.exponentialRampToValueAtTime(0.001, t + 4);
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.start(t); osc.stop(t + 4);
+        setTimeout(() => { try { ctx.close(); } catch(e){} }, 4500);
+    } catch(e) {}
+}
+
+function notify(title,sub){
+  document.getElementById('n-title').textContent=title; document.getElementById('n-sub').textContent=sub;
+  const n=document.getElementById('notif'); n.classList.add('show');
+  setTimeout(()=>n.classList.remove('show'), 4000);
+}
+
+function setCustomMin(mins) {
+    if(running) return alert("Pausá el timer antes de cambiar el tiempo.");
+    if(mode === 'study') { studyMinCustom = mins; STUDY = mins * 60; lss('pom_custom_study', mins); }
+    else { breakMinCustom = mins; BREAK = mins * 60; lss('pom_custom_break', mins); }
+    document.getElementById('custom-min-input').value = mins;
+    setMode(mode);
+}
+
+function applyCustomMin(val) {
+    const mins = parseInt(val);
+    if(isNaN(mins) || mins < 1 || mins > 180) return alert("Ingresá un valor entre 1 y 180.");
+    setCustomMin(mins);
+}
+
+let lofiPlaying = false;
+function toggleLoFi() {
+    const player = document.getElementById('lofi-player');
+    const btn = document.getElementById('amb-lofi');
+    const status = document.getElementById('amb-status');
+    if(lofiPlaying) {
+        player.pause(); lofiPlaying = false; btn.classList.remove('on'); status.textContent = '🎧 Audio Ambiental: Apagado';
+    } else {
+        stopAmb();
+        player.play().catch(e => alert("No se pudo iniciar Lo-Fi."));
+        lofiPlaying = true; btn.classList.add('on'); status.textContent = '🎧 Audio Ambiental: ▶ Lo-Fi';
+    }
+}
+
+let ambCtx=null, ambGain=null, ambActive=null, ambStopFn=null;
+function getAmbCtx(){
+    if(!ambCtx){
+        ambCtx = new (window.AudioContext || window.webkitAudioContext)();
+        ambGain = ambCtx.createGain(); ambGain.gain.value = 0.4; ambGain.connect(ambCtx.destination);
+    }
+    if(ambCtx.state === 'suspended') ambCtx.resume();
+    return ambCtx;
+}
+
+function ambGenerators(ctx){
+    const sr = ctx.sampleRate;
+    function mkPink(sec){
+        const b = ctx.createBuffer(1, sr*sec, sr), d = b.getChannelData(0); let b0=0, b1=0, b2=0, b3=0, b4=0, b5=0;
+        for(let i=0; i<d.length; i++){ const w = Math.random()*2 - 1; b0 = 0.99886 * b0 + w * 0.0555179; b1 = 0.99332 * b1 + w * 0.0750759; b2 = 0.96900 * b2 + w * 0.1538520; b3 = 0.86650 * b3 + w * 0.3104856; b4 = 0.55000 * b4 + w * 0.5329522; b5 = -0.7616 * b5 - w * 0.0168980; d[i] = (b0 + b1 + b2 + b3 + b4 + b5 + w * 0.5362) * 0.11; }
+        const s = ctx.createBufferSource(); s.buffer = b; s.loop = true; return s;
+    }
+    function mkBrown(sec){ const b = ctx.createBuffer(1, sr*sec, sr), d = b.getChannelData(0); let l = 0; for(let i=0; i<d.length; i++){ l = (l + (Math.random()*2 - 1)*0.02) / 1.02; d[i] = l * 3.5; } const s = ctx.createBufferSource(); s.buffer = b; s.loop = true; return s; }
+    return {
+        rain: () => {
+            const pink = mkPink(4); const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1200;
+            const rumble = mkBrown(5); const lpr = ctx.createBiquadFilter(); lpr.type = 'lowpass'; lpr.frequency.value = 180;
+            const mg = ctx.createGain(); mg.gain.value = 1.2;
+            pink.connect(lp); lp.connect(mg); rumble.connect(lpr); lpr.connect(mg);
+            pink.start(); rumble.start();
+            return { src: pink, chain: [mg], stop: () => { try{ pink.stop(); rumble.stop(); }catch(e){} } };
+        },
+        cafe: () => {
+            const noise = mkPink(5); const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 600; bp.Q.value = 0.8;
+            const brown = mkBrown(4); const lpb = ctx.createBiquadFilter(); lpb.type = 'lowpass'; lpb.frequency.value = 320;
+            const mg = ctx.createGain(); mg.gain.value = 1.5;
+            noise.connect(bp); bp.connect(mg); brown.connect(lpb); lpb.connect(mg);
+            noise.start(); brown.start();
+            return { src: noise, chain: [mg], stop: () => { try{ noise.stop(); brown.stop(); }catch(e){} } };
+        }
+    };
+}
+
+function stopAmb(){
+    if(lofiPlaying) { document.getElementById('lofi-player').pause(); lofiPlaying = false; const b = document.getElementById('amb-lofi'); if(b) b.classList.remove('on'); }
+    if(ambStopFn){ try{ ambStopFn(); }catch(e){} }
+    ambStopFn = null; ambActive = null;
+    document.querySelectorAll('.amb-btn').forEach(b => b.classList.remove('on'));
+    const status = document.getElementById('amb-status'); if(status) status.textContent = '🎧 Audio Ambiental: Apagado';
+}
+
+function toggleAmb(type){
+    if(ambActive === type){ stopAmb(); return; }
+    stopAmb();
+    const ctx = getAmbCtx();
+    const gen = ambGenerators(ctx)[type];
+    if(!gen) return;
+    const obj = gen();
+    let lastNode = obj.src;
+    if(obj.chain){ for(let i=0; i<obj.chain.length-1; i++){ obj.chain[i].connect(obj.chain[i+1]); } lastNode = obj.chain[obj.chain.length-1]; }
+    lastNode.connect(ambGain);
+    if(obj.src.start) obj.src.start();
+    ambStopFn = obj.stop; ambActive = type;
+    const btn = document.getElementById('amb-'+type); if(btn) btn.classList.add('on');
+    const status = document.getElementById('amb-status'); if(status) status.textContent = `🎧 Audio Ambiental: ▶ ${type === 'rain' ? 'Lluvia' : 'Café'}`;
+}
+
+function setAmbVol(v){
+    const vol = v/100;
+    if(ambGain) ambGain.gain.value = vol;
+    const player = document.getElementById('lofi-player'); if(player) player.volume = vol;
+}
+
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  const tabBtn = document.querySelector(`.nav-tab[data-panel="${id}"]`);
+  if(tabBtn) tabBtn.classList.add('active');
+  
+  if(id==='tracker') render();
+  if(id==='more') { renderCharts(); loadConfig(); }
+  if(id==='flashcard') renderFCIdle();
+  if(id==='hoy') updatePriorityBox();
+}
+
+let timerInterval = null;
+function startTimerLoop() {
+    if(timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(() => {
+        if(!running || !endTime) return;
+        rem = Math.max(0, Math.round((endTime - Date.now()) / 1000));
+        updateDisp();
+        if(rem <= 0) onFinish();
+    }, 250);
+}
+
+function stopTimerLoop() {
+    if(timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+}
+
+function setMode(m){
+  mode=m; running=false; stopTimerLoop(); endTime=null;
+  localStorage.removeItem('pom_end_time');
+  total = m==='study'? STUDY : BREAK; rem=total;
+  document.body.className = m==='study' ? 'mode-study' : 'mode-break';
+  document.getElementById('tab-study').className='mode-tab'+(m==='study'?' active s-active':'');
+  document.getElementById('tab-break').className='mode-tab'+(m==='break'?' active b-active':'');
+  document.getElementById('btn-play').className='btn-play'+(m==='break'?' brk':'');
+  document.getElementById('btn-play').textContent='▶ INICIAR';
+  document.getElementById('mode-label').textContent=m==='study'?'POMODORO':'DESCANSO';
+  document.getElementById('ring').setAttribute('stroke',m==='study'?'#ef4444':'#10b981');
+  document.getElementById('custom-min-input').value = m === 'study' ? (STUDY/60) : (BREAK/60);
+  updateDisp();
+}
+
+function updateDisp(){
+  const ts = String(Math.floor(rem/60)).padStart(2,'0')+':'+String(rem%60).padStart(2,'0');
+  document.getElementById('time-num').textContent=ts; document.title=ts+' · Estudio';
+  document.getElementById('ring').setAttribute('stroke-dashoffset', (CIRC-(CIRC*(rem/total))).toFixed(2));
+  document.getElementById('s-pom').textContent=poms;
+  document.getElementById('s-time').textContent=Math.round(studMin/60)+'m'; 
+  document.getElementById('s-breaks').textContent=breaks;
+  document.getElementById('di-time').textContent = ts;
+  document.getElementById('di-dot').style.background = mode==='study' ? '#ef4444' : '#10b981';
+}
+
+function onFinish(){
+  running=false; stopTimerLoop(); localStorage.removeItem('pom_end_time'); playOrganicBell();
+  document.getElementById('dynamic-island').classList.remove('visible');
+  if(wakeLock) { wakeLock.release().catch(()=>{}); wakeLock = null; }
+  
+  if(mode==='study'){
+    const matId = document.getElementById('timer-mat-sel').value;
+    recordPomodoroSession(total, matId);
+    let goal = document.getElementById('session-goal').value.trim();
+    if(goal) {
+        const safeGoal = document.createElement('div');
+        safeGoal.textContent = goal;
+        const timeStr = new Intl.DateTimeFormat('es-AR', {timeZone: 'America/Argentina/Buenos_Aires', timeStyle: 'short'}).format(nowAR());
+        document.getElementById('session-log').innerHTML = `<div style="padding:4px 0;">✅ ${timeStr} - ${safeGoal.innerHTML}</div>` + document.getElementById('session-log').innerHTML;
+    }
+    notify('¡Pomodoro completado!', 'Momento de descansar.'); openRecallDump(goal, matId, distractions); distractions = 0;
+    
+    // CORRECCIÓN 1: El descanso largo (cada 4 pomodoros) configura 15 min de descanso sin alterar studyMinCustom
+    if(poms > 0 && poms % 4 === 0) {
+        notify('¡Descanso Largo!', 'Tomate 15 minutos.');
+        BREAK = 15 * 60;
+    } else {
+        BREAK = breakMinCustom * 60;
+    }
+    setMode('break');
+  } else {
+    breaks++; notify('¡Descanso terminado!', 'A volver al ruedo.'); setMode('study'); setCustomMin(studyMinCustom);
+  }
+}
+
+function togglePlay(){
+  if(window.Notification && Notification.permission !== "granted") Notification.requestPermission();
+  if(running){
+    running=false; stopTimerLoop(); localStorage.removeItem('pom_end_time');
+    rem=Math.max(0, Math.round((endTime-Date.now())/1000)); endTime=null;
+    document.getElementById('btn-play').textContent='▶ CONTINUAR';
+    document.getElementById('di-toggle-btn').textContent='Continuar';
+    document.getElementById('dynamic-island').classList.remove('visible');
+    if(wakeLock) { wakeLock.release().catch(()=>{}); wakeLock = null; }
+  } else {
+    running=true; endTime=Date.now()+rem*1000;
+    lss('pom_end_time', String(endTime)); lss('pom_mode', mode); lss('pom_total', String(total));
+    startTimerLoop();
+    document.getElementById('btn-play').textContent='⏸ PAUSAR';
+    document.getElementById('di-toggle-btn').textContent='Pausar';
+    document.getElementById('dynamic-island').classList.add('visible');
+    requestWakeLock();
+  }
+}
+
+function terminarAhora() {
+    if(!running || mode !== 'study') return alert("No hay una sesión activa.");
+    const elapsedSeconds = total - rem;
+    if(elapsedSeconds < 60) return alert("Sesión muy corta.");
+    if(confirm(`¿Guardar los ${Math.round(elapsedSeconds/60)} minutos estudiados?`)) {
+        recordPomodoroSession(elapsedSeconds, document.getElementById('timer-mat-sel').value);
+        notify('¡Sesión parcial guardada!', 'Excelente.'); resetTimer();
+    }
+}
+
+function resetTimer(){ 
+    running=false; stopTimerLoop(); localStorage.removeItem('pom_end_time');
+    setMode(mode); document.getElementById('dynamic-island').classList.remove('visible');
+    if(wakeLock) { wakeLock.release().catch(()=>{}); wakeLock = null; }
+}
+
+function fillSelectors() {
+    const sel = document.getElementById('timer-mat-sel');
+    if(sel) {
+        const act = sel.value;
+        sel.innerHTML = `<option value="0">General (Sin materia)</option>` + MATS.map(m => `<option value="${m.id}">${esc(m.name)}</option>`).join('');
+        if(MATS.find(m => m.id == act)) sel.value = act;
+    }
+
+    const examSel = document.getElementById('exam-mat-filter');
+    if(examSel) {
+        examSel.innerHTML = `<option value="all">🌐 Todas las materias (Azar global)</option>` + MATS.map(m => `<option value="${m.id}">${esc(m.name)}</option>`).join('');
+    }
+
+    const importSel = document.getElementById('import-mat-target');
+    if(importSel && MATS.length > 0) {
+        importSel.innerHTML = MATS.map(m => `<option value="${m.id}">${esc(m.name)}</option>`).join('');
+    }
+}
+
+function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+function upct(u){return Math.round(([u.l,u.r,u.a].filter(Boolean).length/3)*100);}
+
+function getDeadlineBadge(examDate) {
+    if(!examDate) return '';
+    const today = new Date(todayAR() + 'T00:00:00');
+    const exam = new Date(examDate + 'T00:00:00');
+    const diff = Math.round((exam - today)/(1000*60*60*24));
+    if(diff < 0) return `<span style="font-size:10px; padding:2px 8px; border-radius:10px; background:rgba(255,255,255,0.06); color:var(--text3)">Examen pasado</span>`;
+    if(diff === 0) return `<span style="font-size:10px; padding:2px 8px; border-radius:10px; background:rgba(239,68,68,.2); color:var(--red); font-weight:bold;">¡Rendís hoy! 🍀</span>`;
+    let color = diff <= 7 ? 'var(--red)' : diff <= 15 ? 'var(--amber)' : 'var(--blue)';
+    let bg = diff <= 7 ? 'rgba(239,68,68,.2)' : diff <= 15 ? 'rgba(245,158,11,.2)' : 'rgba(59,130,246,.2)';
+    return `<span style="font-size:10px; padding:2px 8px; border-radius:10px; background:${bg}; color:${color}; font-weight:500;">📅 Faltan ${diff} días</span>`;
+}
+
+function exportICS(matId) {
+    const m = MATS.find(x => x.id === matId);
+    if(!m || !m.exam) return;
+    const [y, mo, d] = m.exam.split('-');
+    const uid = 'exam-' + matId + '-' + y + mo + d + '@estudiotracker.unlz';
+    const dtstamp = new Date().toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
+    const icsData = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//EstudioTracker UNLZ//ES\nBEGIN:VTIMEZONE\nTZID:America/Argentina/Buenos_Aires\nBEGIN:STANDARD\nDTSTART:20001004T000000\nTZOFFSETFROM:-0300\nTZOFFSETTO:-0300\nTZNAME:ART\nEND:STANDARD\nEND:VTIMEZONE\nBEGIN:VEVENT\nUID:${uid}\nDTSTAMP:${dtstamp}\nDTSTART;TZID=America/Argentina/Buenos_Aires:${y}${mo}${d}T090000\nDTEND;TZID=America/Argentina/Buenos_Aires:${y}${mo}${d}T110000\nSUMMARY:Examen Final UNLZ: ${m.name}\nDESCRIPTION:Instancia de examen final o parcial para ${m.name}.\nBEGIN:VALARM\nTRIGGER:-P7D\nACTION:DISPLAY\nDESCRIPTION:Recordatorio examen en 7 días\nEND:VALARM\nBEGIN:VALARM\nTRIGGER:-P1D\nACTION:DISPLAY\nDESCRIPTION:Recordatorio examen mañana\nEND:VALARM\nEND:VEVENT\nEND:VCALENDAR`;
+    const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a'); link.href = URL.createObjectURL(blob);
+    link.download = `Examen_${m.name.replace(/\s+/g, '_')}.ics`; link.click();
+}
+
+// CORRECCIÓN 5: Prioridad corregida basada en el ritmo diario necesario (unidades pendientes ÷ días restantes)
+function updatePriorityBox() {
+    const box = document.getElementById('priority-content');
+    if(!box) return;
+    if(MATS.length === 0) { 
+        box.innerHTML = "Todavía no cargaste materias. Tocá en <strong>+ Materia</strong> para arrancar."; 
+        return; 
+    }
+    let scores = []; const today = new Date(todayAR() + 'T00:00:00');
+    MATS.forEach(m => {
+        if(m.promoted) return;
+        const totalU = m.units.length; const approvedU = m.units.filter(u => u.a).length;
+        const remainingUnits = totalU - approvedU;
+        if(remainingUnits <= 0) return;
+        
+        let daysLeft = 30;
+        if(m.exam) {
+            const examD = new Date(m.exam + 'T00:00:00');
+            daysLeft = Math.max(1, Math.round((examD - today)/(1000*60*60*24)));
+        }
+        // Ritmo diario necesario: unidades pendientes ÷ días hasta el examen. Cuanto mayor sea, más urgencia.
+        const requiredPace = remainingUnits / daysLeft;
+        scores.push({ m, daysLeft, remainingUnits, requiredPace });
+    });
+    scores.sort((a, b) => b.requiredPace - a.requiredPace);
+    if(scores.length === 0) { box.innerHTML = "¡Felicitaciones! Tenés todo al día o aprobado."; return; }
+    const top = scores[0];
+    box.innerHTML = `
+      <div style="font-weight:600; font-size:13px; color:var(--text); margin-bottom:4px;">🎯 Foco recomendado: ${esc(top.m.name)}</div>
+      <div style="font-size:11px; color:var(--text2);">Te quedan ${top.remainingUnits} unidades.<br>📅 Faltan ${top.daysLeft} días. Ritmo diario necesario: <strong>${top.requiredPace.toFixed(1)} unidades/día</strong>.</div>`;
+}
+
+function render(){
+  const cont = document.getElementById('materias'); if(!cont) return;
+  if(MATS.length === 0) {
+      cont.innerHTML = `<div class="card" style="text-align:center; padding:2rem; color:var(--text3);">Todavía no cargaste materias. Tocá acá arriba en <strong>+ Materia</strong> para empezar.</div>`;
+      return;
+  }
+  
+  if(!db) {
+      renderCardsContent([]);
+      return;
+  }
+  
+  const tx = db.transaction('files', 'readonly');
+  tx.objectStore('files').getAll().onsuccess = function(e) {
+      renderCardsContent(e.target.result || []);
+  };
+  tx.onerror = function() {
+      renderCardsContent([]);
+  };
+}
+
+function renderCardsContent(allFiles) {
+    const cont = document.getElementById('materias');
+    if(!cont) return;
+
+    const existingCards = {};
+    Array.from(cont.children).forEach(child => {
+        if(child.dataset && child.dataset.id) {
+            existingCards[child.dataset.id] = child;
+        }
+    });
+
+    const fragment = document.createDocumentFragment();
+
+    MATS.forEach((m) => {
+        const unitsP1 = m.units.filter(u => u.section === 'p1');
+        const unitsP2 = m.units.filter(u => u.section === 'p2');
+        const unitsFinal = m.units.filter(u => u.section === 'final');
+        const matFiles = allFiles.filter(f => f.matId === m.id);
+
+        const calcSecProg = (arr) => arr.length ? Math.round(arr.reduce((s,u)=>s+upct(u),0)/arr.length) : 0;
+        const progP1 = calcSecProg(unitsP1); const progP2 = calcSecProg(unitsP2); const progFinal = calcSecProg(unitsFinal);
+        const totalProg = m.units.length ? Math.round(m.units.reduce((s,u)=>s+upct(u),0)/m.units.length) : 0;
+        const badge = getDeadlineBadge(m.exam);
+        const safeNotebookUrl = (m.notebookUrl && m.notebookUrl.startsWith('http')) ? m.notebookUrl : '';
+        
+        const renderUnitRow = (u) => `<div class="u-row" data-uid="${u.id}">
+            <div class="u-left">
+              <input class="u-name" value="${esc(u.n)}" placeholder="Unidad / Tema" onchange="updUnit(${m.id},${u.id},'n',this.value)">
+              <textarea class="u-note" rows="1" placeholder="Notas..." onchange="updUnit(${m.id},${u.id},'note',this.value)">${esc(u.note||'')}</textarea>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <div class="chk-wrap"><input type="checkbox" ${u.l?'checked':''} onchange="updChk(${m.id},${u.id},'l',this.checked)"><span>LEÍ</span></div>
+              <div class="chk-wrap"><input type="checkbox" ${u.r?'checked':''} onchange="updChk(${m.id},${u.id},'r',this.checked)"><span>REP</span></div>
+              <div class="chk-wrap"><input type="checkbox" ${u.a?'checked':''} onchange="updChk(${m.id},${u.id},'a',this.checked)"><span>APR</span></div>
+            </div>
+            <div style="text-align:right;"><span style="font-size:11px; font-weight:bold; color:var(--green)">${upct(u)}%</span></div>
+            <button class="btn" style="padding:2px 6px; border:none;" onclick="delUnit(${m.id},${u.id})">✕</button>
+          </div>`;
+
+        let cardEl = existingCards[m.id];
+        if(!cardEl) {
+            cardEl = document.createElement('div');
+            cardEl.className = 'materia';
+            cardEl.dataset.id = m.id;
+        }
+
+        cardEl.innerHTML=`
+          <div class="materia-hd" onclick="toggleMat(${m.id})">
+            <div class="materia-color" style="background:${m.color}"></div>
+            <div style="flex:1; display:flex; flex-direction:column; gap:4px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-family:'JetBrains Mono'; font-size:12px; font-weight:600;">${esc(m.name)}</span>
+                    <button class="btn" style="padding:2px 6px; font-size:10px;" onclick="event.stopPropagation(); openEditMateria(${m.id})">⚙️</button>
+                </div>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <span style="font-size:11px; color:var(--text3)">${m.promoted ? '✅ Promocionada' : m.needsFinal ? '⚠️ Integrador / Final' : totalProg + '% · ' + m.units.length + ' items'}</span>
+                    ${badge} 
+                </div>
+            </div>
+          </div>
+          <div class="mat-prog"><div class="mat-prog-fill" style="width:${totalProg}%;background:${m.color}"></div></div>
+          
+          <div class="unidades${m.open?' open':''}">
+            
+            <div style="margin:10px 0; background:rgba(0,0,0,0.25); border:1px solid var(--border); border-radius:8px; padding:10px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span style="font-size:11px; font-weight:500; color:var(--purple);">📁 Archivos y Apuntes de la Materia</span>
+                <button class="btn btn-purple" style="padding:3px 8px; font-size:10px;" onclick="document.getElementById('mat-file-input-${m.id}').click()">+ Subir Archivo</button>
+                <input type="file" id="mat-file-input-${m.id}" style="display:none" multiple onchange="handleMateriaFileUpload(event, ${m.id})">
+              </div>
+              <div style="display:flex; flex-direction:column; gap:4px; max-height:120px; overflow-y:auto;">
+                ${matFiles.length === 0 ? '<div style="font-size:10px; color:var(--text3); text-align:center; padding:4px;">Sin archivos adjuntos.</div>' : matFiles.map(f => `
+                  <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.03); padding:4px 8px; border-radius:6px; font-size:11px;">
+                    <span style="cursor:pointer; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px;" onclick="openFileViewer(${f.id})" title="Ver archivo">📄 ${esc(f.name)} (${f.size})</span>
+                    <div style="display:flex; gap:4px;">
+                      <button class="btn btn-blue" style="padding:2px 6px; font-size:9px;" onclick="openFileViewer(${f.id})">Ver</button>
+                      <button class="btn" style="padding:2px 4px; font-size:9px; border:none;" onclick="deleteFileFromIDB(${f.id})">✕</button>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin:10px 0; background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:8px; border:1px solid var(--border);">
+                <span style="font-size:11px; color:var(--text2)">Régimen (UNLZ):</span>
+                <div style="display:flex; gap:6px; align-items:center;">
+                    <button class="btn ${m.promoted ? 'btn-green' : ''}" style="font-size:10px; padding:4px 8px;" onclick="togglePromoted(${m.id})">${m.promoted ? '⭐ Promocionada' : 'Promocionar'}</button>
+                    <button class="btn ${m.needsFinal ? 'btn-amber' : ''}" style="font-size:10px; padding:4px 8px;" onclick="toggleFinal(${m.id})">${m.needsFinal ? '⚠️ Integrador' : 'Ir a Integrador'}</button>
+                </div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin:10px 0; background:rgba(168,85,247,0.06); padding:8px 12px; border-radius:8px; border:1px solid rgba(168,85,247,0.25);">
+                <span style="font-size:11px; color:var(--purple)">📓 NotebookLM:</span>
+                <div style="display:flex; gap:6px; align-items:center; flex:1; margin-left:10px;">
+                    <input type="url" value="${esc(m.notebookUrl||'')}" placeholder="Link..." onchange="updNotebookUrl(${m.id},this.value)" style="background:transparent; border:none; color:var(--text); font-size:11px; width:100%; outline:none;">
+                    ${safeNotebookUrl ? `<a href="${safeNotebookUrl}" target="_blank" class="btn btn-purple" style="padding:4px 8px; font-size:10px; text-decoration:none;">Abrir ↗</a>` : ''}
+                </div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; margin:10px 0; background:rgba(255,255,255,0.025); padding:8px 12px; border-radius:8px; border:1px solid var(--border);">
+                <span style="font-size:11px; color:var(--text2)">📅 Examen:</span>
+                <div style="display:flex; gap:8px; align-items:center;">
+                    <input type="date" value="${m.exam||''}" onchange="updExam(${m.id},this.value)" style="background:transparent; border:1px solid var(--border2); color:var(--text); border-radius:4px; padding:4px; font-size:11px; color-scheme:dark;">
+                    ${m.exam ? `<button class="btn btn-blue" style="padding:4px 8px; font-size:10px;" onclick="exportICS(${m.id})">Agendar 🗓</button>` : ''}
+                </div>
+            </div>
+
+            <div class="divider-hd" style="display:flex; justify-content:space-between; align-items:center;">
+                <span>1️⃣ Primer Parcial (${progP1}%)</span>
+                <button class="btn" style="padding:1px 6px; font-size:9px;" onclick="addUnit(${m.id}, 'p1')">+ Tema</button>
+            </div>
+            ${unitsP1.length ? unitsP1.map(renderUnitRow).join('') : '<div style="font-size:11px; color:var(--text3); padding:4px 0;">Sin unidades.</div>'}
+
+            <div class="divider-hd" style="display:flex; justify-content:space-between; align-items:center; margin-top:12px;">
+                <span>2️⃣ Segundo Parcial (${progP2}%)</span>
+                <button class="btn" style="padding:1px 6px; font-size:9px;" onclick="addUnit(${m.id}, 'p2')">+ Tema</button>
+            </div>
+            ${unitsP2.length ? unitsP2.map(renderUnitRow).join('') : '<div style="font-size:11px; color:var(--text3); padding:4px 0;">Sin unidades.</div>'}
+
+            ${m.needsFinal ? `
+                <div class="divider-hd" style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; color:var(--amber);">
+                    <span>⚠️ Integrador / Final (${progFinal}%)</span>
+                    <button class="btn" style="padding:1px 6px; font-size:9px;" onclick="addUnit(${m.id}, 'final')">+ Tema Final</button>
+                </div>
+                ${unitsFinal.length ? unitsFinal.map(renderUnitRow).join('') : '<div style="font-size:11px; color:var(--text3); padding:4px 0;">Sin unidades.</div>'}
+            ` : ''}
+
+            <div style="margin-top:12px; display:flex;">
+                <button class="btn btn-purple" style="font-size:11px; width:100%;" onclick="generateFlashcardsIA(${m.id})">✨ Generar Tarjetas con IA</button>
+            </div>
+          </div>`;
+
+        fragment.appendChild(cardEl);
+    });
+
+    cont.innerHTML = '';
+    cont.appendChild(fragment);
+}
+
+function toggleMat(id){const m=MATS.find(x=>x.id===id); if(m){m.open=!m.open; render();}}
+function updExam(id,v){const m=MATS.find(x=>x.id===id); if(m){m.exam=v||null; saveMats(); render();}}
+function updNotebookUrl(id,v){const m=MATS.find(x=>x.id===id); if(m){m.notebookUrl=v||''; saveMats(); render();}}
+function togglePromoted(id){const m=MATS.find(x=>x.id===id); if(m){m.promoted=!m.promoted; if(m.promoted) m.needsFinal=false; saveMats(); render();}}
+function toggleFinal(id){const m=MATS.find(x=>x.id===id); if(m){m.needsFinal=!m.needsFinal; if(m.needsFinal) m.promoted=false; saveMats(); render();}}
+
+function addMateria(){
+    MATS.push({id: generateUniqueId(), name: 'Nueva Materia', color: COLORS[MATS.length%COLORS.length], open: true, notebookUrl: '', promoted: false, needsFinal: false, units: [{id: generateUniqueId(), n: 'Unidad 1', note: '', section: 'p1', l:false, r:false, a:false, srEase:2.5, srInt:0, srReps:0}]}); 
+    saveMats(); render();
+}
+
+function addUnit(mid, section){
+    const m=MATS.find(x=>x.id===mid); 
+    if(m){ m.units.push({id: generateUniqueId(), n:'', note:'', section, l:false, r:false, a:false, srEase:2.5, srInt:0, srReps:0}); saveMats(); render(); }
+}
+function delUnit(mid,uid){
+    const m=MATS.find(x=>x.id===mid); 
+    if(m){
+        const idx = m.units.findIndex(u => u.id === uid);
+        if(idx !== -1) {
+            const unit = m.units.splice(idx, 1)[0];
+            pushToTrash('unit', { matId: mid, unit });
+            saveMats(); render();
+        }
+    }
+}
+function updUnit(mid,uid,f,v){const m=MATS.find(x=>x.id===mid); if(m){const u=m.units.find(x=>x.id===uid); if(u){u[f]=v; saveMats();}}}
+function updChk(mid,uid,f,v){const m=MATS.find(x=>x.id===mid); if(m){const u=m.units.find(x=>x.id===uid); if(u){u[f]=v; saveMats(); render();}}}
+
+let currentEditingMatId = null;
+function openEditMateria(id) {
+    currentEditingMatId = id;
+    const m = MATS.find(x => x.id === id);
+    if(!m) return;
+    document.getElementById('edit-mat-id').value = id;
+    document.getElementById('edit-mat-name').value = m.name;
+    document.getElementById('color-picker-grid').innerHTML = COLORS.map(c => `<div onclick="selectColor('${c}')" style="width:30px; height:30px; border-radius:50%; background:${c}; cursor:pointer; border:${m.color===c?'3px solid white':'none'}"></div>`).join('');
+    openModal('modal-edit-materia');
+}
+function selectColor(c) { const m = MATS.find(x => x.id === currentEditingMatId); if(m) { m.color = c; openEditMateria(currentEditingMatId); } }
+function saveEditedMateria() {
+    const m = MATS.find(x => x.id === currentEditingMatId);
+    if(m) { m.name = document.getElementById('edit-mat-name').value; saveMats(); render(); closeModal('modal-edit-materia'); }
+}
+function deleteCurrentMateria() {
+    if(confirm("¿Seguro querés eliminar esta materia?")) {
+        const idx = MATS.findIndex(x => x.id === currentEditingMatId);
+        if(idx !== -1) {
+            const mat = MATS.splice(idx, 1)[0];
+            pushToTrash('materia', mat);
+            saveMats(); render(); closeModal('modal-edit-materia');
+        }
+    }
+}
+
+// --- FLASHCARDS SM-2 ESTÁNDAR CORREGIDO ---
+let fcDeck=[], fcIdx=0;
+function addDays(date, n){ const d=new Date(date+'T00:00:00'); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); }
+
+function processSM2(matId, uid, quality) {
+    const m = MATS.find(x=>x.id===matId); if(!m) return;
+    const u = m.units.find(x=>x.id===uid); if(!u) return;
+    u.srSeen = (u.srSeen || 0) + 1; if(quality < 3) u.srFails = (u.srFails || 0) + 1;
+    
+    // CORRECCIÓN 2: Si quality < 3 (Olvide), se reinicia el intervalo a 1 día y reps a 0 (SM-2 estándar)
+    if(quality < 3) {
+        u.srInt = 1;
+        u.srReps = 0;
+        u.srEase = Math.max(1.3, u.srEase - 0.2);
+    } else {
+        if(u.srReps === 0) u.srInt = 1; 
+        else if (u.srReps === 1) u.srInt = 6; 
+        else u.srInt = Math.round(u.srInt * u.srEase);
+        u.srReps++;
+    }
+    u.srEase = u.srEase + (0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
+    if(u.srEase < 1.3) u.srEase = 1.3;
+    u.srNext = addDays(todayAR(), u.srInt);
+    saveMats(); updateDueCount();
+    triggerHaptic();
+}
+
+function updateDueCount() {
+    let count = 0; const today = todayAR();
+    MATS.forEach(m => m.units.forEach(u => { if(u.note && u.note.trim().length > 0 && (!u.srNext || u.srNext <= today)) count++; }));
+    document.getElementById('fc-count-badge').textContent = count + ' pendientes';
+    document.getElementById('s-due').textContent = count;
+}
+
+function renderFCIdle() {
+    updateDueCount();
+    document.getElementById('fc-area').innerHTML = `<div class="flashcard-scene"><div class="fc-card" style="color:var(--text3)">Seleccioná un modo para empezar.</div></div>`;
+}
+
+function startFC(mode){
+  fcDeck=[]; const today = todayAR();
+  MATS.forEach(m=>m.units.filter(u=> u.note && u.note.trim().length>0).forEach(u=>{
+      if(mode==='all' || !u.srNext || u.srNext <= today) fcDeck.push({matId:m.id, uid:u.id, mat:m.name, color:m.color, q:u.n, a:u.note});
+  }));
+  fcDeck.sort((a,b) => (a.srNext||'') < (b.srNext||'') ? -1 : 1);
+  if(!fcDeck.length){ document.getElementById('fc-area').innerHTML=`<div class="flashcard-scene"><div class="fc-card" style="color:var(--green)">¡Al día! No hay tarjetas pendientes.</div></div>`; return; }
+  fcIdx=0; showFC();
+}
+
+function showFC(){
+  if(fcIdx>=fcDeck.length){ document.getElementById('fc-area').innerHTML='<div class="flashcard-scene"><div class="fc-card">¡Repaso completado! 🎉</div></div>'; return;}
+  const c = fcDeck[fcIdx];
+  document.getElementById('fc-area').innerHTML=`
+    <div style="font-size:11px; color:var(--text3); text-align:center; margin-bottom:10px;">Tarjeta ${fcIdx+1} de ${fcDeck.length}</div>
+    <div class="flashcard-scene">
+        <div class="fc-card" onclick="this.classList.toggle('flipped'); document.getElementById('fc-ctrls').style.display='flex';">
+          <div class="fc-face">
+              <span style="color:${c.color}; font-size:10px; letter-spacing:1px; text-transform:uppercase; margin-bottom:10px;">${esc(c.mat)}</span>
+              <div style="font-size:15px; font-weight:500;">${esc(c.q)}</div>
+              <div style="font-size:10px; color:var(--text3); margin-top:15px;">(Tocá para girar)</div>
+          </div>
+          <div class="fc-face fc-back">
+              <span style="color:${c.color}; font-size:10px; letter-spacing:1px; text-transform:uppercase; margin-bottom:10px;">Respuesta</span>
+              <div style="font-size:12px; color:var(--text2); white-space:pre-wrap; line-height:1.5;">${esc(c.a)}</div>
+          </div>
+        </div>
+    </div>
+    <div class="fc-btns" id="fc-ctrls" style="display:none; gap:6px; justify-content:center; margin-top:12px;">
+        <button class="btn btn-red" onclick="answerFC(1)" style="font-size:10px;">Olvide (1)</button>
+        <button class="btn btn-amber" onclick="answerFC(3)" style="font-size:10px;">Dudoso (3)</button>
+        <button class="btn btn-green" onclick="answerFC(4)" style="font-size:10px;">Bien (4)</button>
+        <button class="btn btn-purple" onclick="answerFC(5)" style="font-size:10px;">Perfecto (5)</button>
+    </div>`;
+}
+
+function answerFC(quality) { processSM2(fcDeck[fcIdx].matId, fcDeck[fcIdx].uid, quality); fcIdx++; showFC(); }
+
+// --- FINAL IA ROBUSTO (Manejo de 401/errores, streaming seguro, guardado de temas flojos) ---
+let examChatHistory = [];
+let examSystemPrompt = "";
+let currentExamTurn = 0;
+let maxExamTurns = 5;
+let examTimerInterval = null;
+let examSecondsLeft = 900;
+let currentExamMatId = null;
+
+function speakText(text) {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text.replace(/<[^>]*>?/gm, ''));
+        u.lang = 'es-AR'; u.rate = 1.0;
+        window.speechSynthesis.speak(u);
+    }
+}
+
+async function generateFlashcardsIA(matId) {
+    const key = ls('anthropic_key');
+    if(!key) { alert("Configurá tu API Key de Anthropic en Más."); return showPanel('more'); }
+    const text = prompt("Pegá tus apuntes resumidos:"); if(!text) return;
+    notify('IA Analizando...', 'Extrayendo conceptos...');
+    try {
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerously-allow-browser': 'true' },
+            body: JSON.stringify({ model: 'claude-haiku-5-5', max_tokens: 1500, messages: [{role: 'user', content: `Analizá y extraé entre 2 y 4 conceptos jurídicos clave. Devolvé estrictamente un JSON array: [{"n": "Tema", "note": "Doctrina", "section": "p1"}]. Texto: ${text}`}] })
+        });
+        if(!res.ok) throw new Error("Error de API: " + res.status);
+        const data = await res.json();
+        const jsonMatch = data.content[0].text.match(/\[[\s\S]*\]/);
+        if(!jsonMatch) throw new Error("Formato de respuesta inválido.");
+        const items = JSON.parse(jsonMatch[0]);
+        const m = MATS.find(x=>x.id===matId);
+        items.forEach(it => { m.units.push({id: generateUniqueId(), n: it.n, note: it.note, section: it.section||'p1', l:false, r:false, a:false, srEase:2.5, srInt:0, srReps:0}); });
+        saveMats(); render(); notify('¡Éxito!', `Se agregaron ${items.length} tarjetas a ${m.name}.`);
+    } catch(e) { alert("Error al generar tarjetas: " + e.message); }
+}
+
+async function startExamIA() {
+    const key = ls('anthropic_key');
+    if(!key) { alert("Configurá tu API Key de Anthropic en Más."); return showPanel('more'); }
+    
+    const filterMatId = document.getElementById('exam-mat-filter').value;
+    currentExamMatId = filterMatId === 'all' ? null : parseInt(filterMatId);
+    
+    let pool = []; 
+    MATS.forEach(m => {
+        if(currentExamMatId && m.id !== currentExamMatId) return;
+        m.units.filter(u => u.note && u.note.trim().length > 0).forEach(u => pool.push({matId: m.id, m: m.name, q: u.n, ref: u.note}));
+    });
+    
+    if(pool.length < 2) { alert("Cargá al menos 2 unidades con notas en la materia seleccionada para el bolillero."); return; }
+    
+    pool.sort(()=>Math.random()-.5);
+    const bolillas = pool.slice(0, 2);
+    const bolillasText = bolillas.map((b, i) => `Bolilla ${i+1} (${b.m}): ${b.q} [Doctrina: ${b.ref}]`).join('\n');
+
+    examSystemPrompt = `Sos un profesor titular exigente de la UNLZ evaluando un final oral de derecho.
+    REGLAS: 1. Evaluá con base en estas bolillas: ${bolillasText}. 2. Hacé preguntas socráticas rigurosas. 3. Al turno 5 o cuando termine, cerrá obligatoriamente con 'PUNTAJE FINAL: X/10'. Si el alumno muestra graves falencias, mencioná explícitamente el tema flojo en tu devolución.`;
+
+    examSystemPrompt += examStyleText();
+    currentExamTurn = 1;
+    examChatHistory = [{role: 'user', content: 'Buenas tardes profesor. Listo para el examen.'}];
+
+    document.getElementById('btn-start-exam').style.display = 'none';
+    document.getElementById('exam-area').style.display = 'block';
+    document.getElementById('exam-turn-counter').textContent = `Intercambio: ${currentExamTurn} / ${maxExamTurns}`;
+    
+    examSecondsLeft = 900;
+    if(examTimerInterval) clearInterval(examTimerInterval);
+    examTimerInterval = setInterval(() => {
+        examSecondsLeft--;
+        const m = String(Math.floor(examSecondsLeft/60)).padStart(2,'0');
+        const s = String(examSecondsLeft%60).padStart(2,'0');
+        document.getElementById('exam-timer-display').textContent = `${m}:${s}`;
+        if(examSecondsLeft <= 0) clearInterval(examTimerInterval);
+    }, 1000);
+
+    const chatBox = document.getElementById('exam-chat-box');
+    chatBox.innerHTML = `<div style="text-align:center; font-size:11px; color:var(--purple); margin-bottom:12px;">⚖️ Bolillas Sorteadas:<br>${esc(bolillas[0].q)} / ${esc(bolillas[1].q)}</div><div class="chat-bubble chat-ai"><strong>Profesor (UNLZ):</strong> Desarrolle sobre <em>"${esc(bolillas[0].q)}"</em>. Lo escucho.</div>`;
+    speakText(`Desarrolle sobre ${bolillas[0].q}. Lo escucho.`);
+    await callClaudeExamStreaming();
+}
+
+async function callClaudeExamStreaming() {
+    const key = ls('anthropic_key');
+    const chatBox = document.getElementById('exam-chat-box');
+    const aiId = 'ai-' + Date.now();
+    chatBox.innerHTML += `<div class="chat-bubble chat-ai" id="${aiId}"><strong>Profesor:</strong><br><span class="ai-text">Pensando...</span></div>`;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    const span = document.getElementById(aiId).querySelector('.ai-text');
+
+    try {
+        const res = await fetch('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerously-allow-browser': 'true' },
+            body: JSON.stringify({ model: 'claude-sonnet-5-5', max_tokens: 800, system: examSystemPrompt, messages: examChatHistory, stream: true })
+        });
+        
+        if(!res.ok) {
+            const errJson = await res.json().catch(()=>({}));
+            throw new Error(errJson.error?.message || `Error HTTP ${res.status}`);
+        }
+
+        const reader = res.body.getReader(); 
+        const decoder = new TextDecoder('utf-8'); 
+        let fullText = ""; let sseBuf = "";
+        span.innerHTML = "";
+
+        while (true) {
+            const { value, done } = await reader.read(); 
+            if (done) break;
+            sseBuf += decoder.decode(value, { stream: true }); const sseLines = sseBuf.split('\n'); sseBuf = sseLines.pop(); for (const line of sseLines) {
+                if (line.startsWith('data: ')) {
+                    try {
+                        const parsed = JSON.parse(line.slice(6));
+                        if (parsed.type === 'content_block_delta' && parsed.delta && parsed.delta.text) {
+                            fullText += parsed.delta.text; 
+                            span.innerHTML = esc(fullText).replace(/\n/g, '<br>');
+                            chatBox.scrollTop = chatBox.scrollHeight;
+                        } else if (parsed.delta && parsed.delta.text) {
+                            fullText += parsed.delta.text; 
+                            span.innerHTML = esc(fullText).replace(/\n/g, '<br>');
+                            chatBox.scrollTop = chatBox.scrollHeight;
+                        }
+                    } catch(e){}
+                }
+            }
+        }
+        
+        if(!fullText.trim()) {
+            fullText = "El profesor no emitió respuesta. Continuemos.";
+            span.innerHTML = esc(fullText);
+        }
+
+        examChatHistory.push({role: 'assistant', content: fullText});
+        speakText(fullText);
+
+        if(fullText.includes('PUNTAJE FINAL')) {
+            clearInterval(examTimerInterval);
+            try { const mm = fullText.match(/PUNTAJE FINAL:\s*(\d+(?:[.,]\d+)?)/); if(mm) { const eh = JSON.parse(ls('exam_hist','[]')); eh.push({d: todayAR(), mat: currentExamMatId, score: parseFloat(mm[1].replace(',','.'))}); lss('exam_hist', JSON.stringify(eh.slice(-100))); } } catch(e) {}
+            document.getElementById('btn-start-exam').style.display = 'block';
+            document.getElementById('btn-start-exam').textContent = '▶ Sortear nuevo bolillero';
+            
+            // Convertir automáticamente temas flojos detectados a tarjetas de repaso
+            if(confirm("Examen finalizado. ¿Querés convertir los conceptos flojos evaluados en tarjetas de repaso SM-2?")) {
+                const targetMatId = currentExamMatId || (MATS[0] ? MATS[0].id : null);
+                if(targetMatId) {
+                    const targetMat = MATS.find(x => x.id === targetMatId);
+                    if(targetMat) {
+                        targetMat.units.push({
+                            id: generateUniqueId(),
+                            n: "Repaso Oral: Tema Flojo Examen",
+                            note: fullText.slice(0, 400),
+                            section: 'final',
+                            l: false, r: false, a: false,
+                            srEase: 2.5, srInt: 0, srReps: 0
+                        });
+                        saveMats();
+                        notify('¡Tarjeta creada!', 'Se guardó el feedback en tus unidades de repaso.');
+                    }
+                }
+            }
+        }
+    } catch(e) {
+        span.innerHTML = `<span style="color:var(--red);">Error en examen: ${esc(e.message)}. Verificá tu API Key.</span>`;
+        examChatHistory.pop(); // Remover último input del usuario para evitar 400 en siguiente intento
+    }
+}
+
+async function submitExamIA() {
+    const ansInput = document.getElementById('exam-ans'); const ans = ansInput.value.trim(); if(!ans) return;
+    const chatBox = document.getElementById('exam-chat-box');
+    chatBox.innerHTML += `<div class="chat-bubble chat-user">${esc(ans)}</div>`; chatBox.scrollTop = chatBox.scrollHeight;
+    examChatHistory.push({role: 'user', content: ans}); ansInput.value = '';
+    currentExamTurn++; document.getElementById('exam-turn-counter').textContent = `Intercambio: ${currentExamTurn} / ${maxExamTurns}`;
+    if(currentExamTurn >= maxExamTurns) examChatHistory.push({role: 'user', content: '[Sistema: Emitir PUNTAJE FINAL: X/10].'});
+    await callClaudeExamStreaming();
+}
+
+let recognition = null;
+function toggleSpeech() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if(!SpeechRecognition) return alert("Voz no soportada.");
+    if(!recognition) {
+        recognition = new SpeechRecognition(); recognition.lang = 'es-AR';
+        recognition.onresult = (e) => { document.getElementById('exam-ans').value += ' ' + e.results[0][0].transcript; };
+    }
+    document.getElementById('btn-mic').style.background = 'var(--red)';
+    recognition.start();
+    setTimeout(() => { document.getElementById('btn-mic').style.background = 'var(--surface2)'; }, 5000);
+}
+
+function processImportData() {
+    const text = document.getElementById('import-textarea').value.trim(); if(!text) return;
+    const targetMatId = parseInt(document.getElementById('import-mat-target').value);
+    const targetMat = MATS.find(x => x.id === targetMatId) || MATS[0];
+    if(!targetMat) return alert("Seleccioná una materia válida.");
+
+    try {
+        const imported = text.startsWith('[') ? JSON.parse(text) : text.split('\n').map(l => { const p = l.split('\t'); return { q: p[0], a: p[1] }; });
+        imported.forEach(c => { 
+            if(c.q || c.front) {
+                targetMat.units.push({id: generateUniqueId(), n: c.q||c.front, note: c.a||c.back||'', section:'p1', l:false, r:false, a:false, srEase:2.5, srInt:0, srReps:0}); 
+            }
+        });
+        saveMats(); render(); closeModal('modal-import'); alert(`¡Importadas ${imported.length} tarjetas a ${targetMat.name}!`);
+    } catch(e) { alert("Formato de importación inválido."); }
+}
+
+function loadConfig() { const k = ls('anthropic_key'); if(k) document.getElementById('api-key').value = k; }
+function saveConfig() { lss('anthropic_key', document.getElementById('api-key').value.trim()); notify('Guardado', 'API Key local.'); }
+
+function exportBackupJSON() {
+    if(!db) return;
+    db.transaction('files', 'readonly').objectStore('files').getAll().onsuccess = function(e) {
+        const data = { 
+            mats: MATS, 
+            history: loadHistory(), 
+            filesHub: e.target.result, 
+            theme: ls('theme'),
+            fontSize: ls('font_size'),
+            studyMin: studyMinCustom,
+            breakMin: breakMinCustom,
+            version: 8 
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+        a.download = `EstudioTracker_Backup_${todayAR()}.json`; a.click();
+    };
+}
+
+function importBackupJSON(event) {
+    const file = event.target.files[0]; if(!file) return;
+    if(!confirm("¿Importar backup? Se sobrescribirán los datos actuales.")) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            if(!confirm('Esto reemplaza tus materias e historial actuales por los del archivo. ¿Continuar?')) return; if(data.mats) lss('pom_mats', JSON.stringify(data.mats));
+            if(data.history) lss('pom_history', JSON.stringify(data.history));
+            if(data.theme) lss('theme', data.theme);
+            if(data.fontSize) lss('font_size', data.fontSize);
+            if(data.studyMin) lss('pom_custom_study', data.studyMin);
+            if(data.breakMin) lss('pom_custom_break', data.breakMin);
+
+            if(data.filesHub && db) {
+                const tx = db.transaction('files', 'readwrite');
+                data.filesHub.forEach(f => tx.objectStore('files').put(f));
+                tx.oncomplete = () => {
+                    alert("¡Backup importado con éxito!"); 
+                    location.reload();
+                };
+            } else {
+                alert("¡Backup importado con éxito!"); 
+                location.reload();
+            }
+        } catch(err) { alert("Archivo de backup inválido."); }
+    };
+    reader.readAsText(file);
+}
+
+function generateWeeklySummaryCard() {
+    const hist = loadHistory(); let mins = 0; const per = {};
+    for(let i = 0; i < 7; i++) { const x = hist[addDays(todayAR(), -i)]; if(!x) continue; mins += x.mins || 0; Object.keys(x.mats || {}).forEach(id => per[id] = (per[id] || 0) + x.mats[id]); }
+    const from = addDays(todayAR(), -6);
+    const rec = JSON.parse(ls('pom_recall','[]')).filter(r => r.d >= from);
+    const ex = JSON.parse(ls('exam_hist','[]')).filter(r => r.d >= from);
+    const avg = rec.length ? (rec.reduce((s,r) => s + r.score, 0) / rec.length).toFixed(1) : '–';
+    const lines = Object.keys(per).map(id => { const m = MATS.find(x => String(x.id) === id); return '• ' + (m ? m.name : 'General') + ': ' + (per[id]/60).toFixed(1) + ' h'; });
+    const txt = '📊 Mi semana de estudio\nTotal (7 días): ' + (mins/60).toFixed(1) + ' h\n' + lines.join('\n') + '\nRecuerdo promedio en volcados: ' + avg + '/5\nFinales simulados: ' + ex.length + (ex.length ? ' (promedio ' + (ex.reduce((s,r) => s + r.score, 0) / ex.length).toFixed(1) + '/10)' : '');
+    try { navigator.clipboard.writeText(txt); } catch(e) {}
+    alert(txt + '\n\n(Copiado al portapapeles para compartir)');
+}
+
+function changeTheme(theme, save=true) {
+    if(theme === 'amoled') document.documentElement.setAttribute('data-theme', 'amoled');
+    else if(theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    else document.documentElement.removeAttribute('data-theme');
+    if(save) lss('theme', theme);
+}
+
+function changeFontSize(size, save=true) {
+    document.documentElement.style.setProperty('--font-size', size);
+    if(save) lss('font_size', size);
+}
+
+function toggleHaptics(val) { lss('haptics', val); }
+
+function openModal(id) { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+let cPie, cBar;
+function renderCharts() {
+    if(typeof Chart === 'undefined') { return; }
+    const hist = loadHistory(); const pomsData = [], labelsData = []; const matsAccum = {};
+    for(let i=6; i>=0; i--){
+        const d = nowAR(); d.setDate(d.getDate()-i);
+        const k = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        const dayData = hist[k] || { poms:0, mins:0, mats:{} }; 
+        // Gráfico en minutos exactos para evitar redondeos erróneos a 0
+        pomsData.push(dayData.mins ? Math.round(dayData.mins) : 0); 
+        labelsData.push(DAYS[d.getDay()]);
+        if(dayData.mats) Object.keys(dayData.mats).forEach(matId => { matsAccum[matId] = (matsAccum[matId] || 0) + dayData.mats[matId]; });
+    }
+    Chart.defaults.color = '#94908a'; Chart.defaults.font.family = 'Inter';
+
+    const ctxBar = document.getElementById('barChart');
+    if(ctxBar) {
+        if(cBar) cBar.destroy();
+        cBar = new Chart(ctxBar.getContext('2d'), { 
+            type: 'bar', 
+            data: { labels: labelsData, datasets: [{ data: pomsData, backgroundColor: '#a855f7', borderRadius: 6 }] }, 
+            options: { 
+                plugins: { 
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: (context) => `Estudiado: ${context.raw} minutos` } }
+                }, 
+                scales: { 
+                    x: { grid: { display: false } }, 
+                    y: { beginAtZero: true, title: {display:true, text:'Minutos'}, grid: { color: 'rgba(255, 255, 255, 0.03)' } } 
+                } 
+            } 
+        });
+    }
+
+    const ctxPie = document.getElementById('pieChart');
+    if(ctxPie) {
+        if(cPie) cPie.destroy();
+        const pieLabels = [], pieData = [], pieColors = [];
+        Object.keys(matsAccum).forEach(matId => { const m = MATS.find(x => x.id == matId); if(m && matsAccum[matId] > 0) { pieLabels.push(m.name); pieData.push(matsAccum[matId]); pieColors.push(m.color); } });
+        if(pieData.length === 0) { pieLabels.push("Sin datos"); pieData.push(1); pieColors.push("#1a1a1a"); }
+        cPie = new Chart(ctxPie.getContext('2d'), { type: 'doughnut', data: { labels: pieLabels, datasets: [{ data: pieData, backgroundColor: pieColors, borderWidth:0 }] }, options: { cutout: '72%', plugins: { legend: { position: 'right', labels:{ boxWidth: 10, font:{size:11} } } } } });
+    }
+}
+
+function calculateStreakAndXP() {
+    const hist = loadHistory(); let streak = 0; let totalMinsAll = 0; const d = nowAR();
+    Object.keys(hist).forEach(k => { totalMinsAll += (hist[k].mins || 0); });
+    
+    // CORRECCIÓN Racha: Verifica si hoy o ayer tienen estudio activo para no mostrar 0 injustamente
+    while(true) {
+        const k = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        if(hist[k] && hist[k].mins > 0) { 
+            streak++; 
+            d.setDate(d.getDate() - 1); 
+        } else {
+            if(streak === 0) {
+                // Chequear si ayer estudió para iniciar la racha
+                d.setDate(d.getDate() - 1);
+                const kYesterday = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+                if(hist[kYesterday] && hist[kYesterday].mins > 0) {
+                    streak++;
+                    d.setDate(d.getDate() - 1);
+                    continue;
+                }
+            }
+            break;
+        }
+    }
+    const xp = totalMinsAll * 10; const level = Math.floor(xp / 500) + 1;
+    document.getElementById('xp-display').textContent = xp + ' XP';
+    document.getElementById('xp-label-sub').textContent = `Nivel ${level}`;
+    document.getElementById('streak-display').textContent = streak + ' d';
+}
+
+fillSelectors(); updateDisp();
+
+// === v3: volcado de memoria, puntos débiles, subrayar → tarjeta, estilos de profesor ===
+let distractions = 0;
+document.addEventListener('visibilitychange', () => { if(document.hidden && running && mode === 'study') distractions++; });
+function openRecallDump(goal, matId, dist) {
+    const o = document.createElement('div');
+    o.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:16px';
+    o.innerHTML = `<div class="card" style="width:100%;max-width:480px"><h2 style="font-size:14px;margin-bottom:6px">🧠 Volcado de memoria</h2>
+      <p style="font-size:12px;color:var(--text2);margin-bottom:8px;line-height:1.5">Sin mirar tus apuntes, escribí (o decí en voz alta) todo lo que recordás${goal ? ' de «' + esc(goal) + '»' : ''}. Recordar activamente fija más que releer. Después compará con tus notas.</p>
+      <textarea id="rd-text" rows="5" style="width:100%" placeholder="Lo que recuerdo..."></textarea>
+      <div style="font-size:12px;margin:8px 0">¿Cuánto recordaste? <select id="rd-score"><option value="1">1 · casi nada</option><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5 · todo</option></select> · Cambios de pestaña: ${dist}</div>
+      <div style="display:flex;gap:8px"><button class="btn btn-purple" id="rd-save" style="flex:1">Guardar</button><button class="btn" id="rd-skip">Saltear</button></div></div>`;
+    document.body.appendChild(o);
+    o.querySelector('#rd-skip').onclick = () => o.remove();
+    o.querySelector('#rd-save').onclick = () => {
+        const sc = +o.querySelector('#rd-score').value;
+        const hs = JSON.parse(ls('pom_recall', '[]')); hs.push({d: todayAR(), mat: matId, goal: goal, score: sc, dist: dist});
+        lss('pom_recall', JSON.stringify(hs.slice(-200)));
+        if(sc <= 2 && goal) { const m = MATS.find(x => String(x.id) === String(matId)); const u = m && m.units.find(x => x.n === goal); if(u) { u.srNext = todayAR(); u.srInt = 1; u.srReps = 0; saveMats(); } }
+        o.remove(); notify('Guardado', sc <= 2 ? 'Ese tema vuelve al repaso de hoy.' : '¡Bien! Ahora descansá.');
+    };
+}
+
+// --- Puntos débiles (en "Hoy") ---
+function renderWeakPanel() {
+    const panel = document.getElementById('panel-hoy'); if(!panel) return;
+    let box = document.getElementById('weak-box');
+    if(!box) { box = document.createElement('div'); box.id = 'weak-box'; box.className = 'card'; const ref = document.getElementById('priority-recommendation-box'); if(ref && ref.parentNode === panel) ref.insertAdjacentElement('afterend', box); else panel.prepend(box); }
+    const hist = loadHistory(), rec = JSON.parse(ls('pom_recall','[]')), ex = JSON.parse(ls('exam_hist','[]')), from = addDays(todayAR(), -13);
+    const weakUnits = [];
+    MATS.forEach(m => m.units.forEach(u => { if((u.srSeen || 0) >= 2) { const r = (u.srFails || 0) / u.srSeen; if(r >= 0.34) weakUnits.push({m: m.name, n: u.n, r, f: u.srFails, s: u.srSeen}); } }));
+    weakUnits.sort((a, b) => b.r - a.r);
+    const rows = MATS.filter(m => !m.promoted).map(m => {
+        let mins = 0; for(let i = 0; i < 14; i++) { const x = hist[addDays(todayAR(), -i)]; if(x && x.mats && x.mats[m.id]) mins += x.mats[m.id]; }
+        const rr = rec.filter(r => String(r.mat) === String(m.id) && r.d >= from), er = ex.filter(r => String(r.mat) === String(m.id));
+        const days = m.exam ? Math.round((new Date(m.exam + 'T00:00:00') - new Date(todayAR() + 'T00:00:00')) / 86400000) : null;
+        const alerta = days !== null && days >= 0 && days <= 14 && mins < 300;
+        return `<div style="font-size:11px;color:var(--text2);padding:3px 0">${alerta ? '⚠️ ' : ''}<strong style="color:var(--text)">${esc(m.name)}</strong>: ${(mins/60).toFixed(1)} h en 14 días${rr.length ? ' · recuerdo ' + (rr.reduce((s,r) => s + r.score, 0) / rr.length).toFixed(1) + '/5' : ''}${er.length ? ' · oral ' + (er.reduce((s,r) => s + r.score, 0) / er.length).toFixed(1) + '/10' : ''}${alerta ? ' — examen en ' + days + ' días y poco tiempo' : ''}</div>`;
+    }).join('');
+    box.innerHTML = `<div class="section-hd" style="margin-bottom:6px"><h2 style="font-size:12px">🔎 Puntos débiles</h2></div>` +
+        (weakUnits.length ? weakUnits.slice(0, 5).map(w => `<div style="font-size:12px;padding:3px 0">• <strong>${esc(w.n || '(sin título)').slice(0, 90)}</strong> <span style="color:var(--text3)">(${esc(w.m)}) falló ${w.f} de ${w.s} · ${Math.round(w.r * 100)}%</span></div>`).join('') : '<div style="font-size:11px;color:var(--text3);padding:3px 0">Todavía no hay temas con fallos repetidos. Aparecen después de repasar tarjetas varias veces.</div>') +
+        `<div style="margin-top:8px;border-top:1px solid var(--border);padding-top:6px">${rows || ''}</div>`;
+}
+(function(){ const _sp = showPanel; showPanel = function(id) { _sp(id); if(id === 'hoy') renderWeakPanel(); }; })();
+
+// --- Subrayar → tarjeta con hueco ---
+let lastSel = null, selBtn = null;
+function selInfo() {
+    const ae = document.activeElement;
+    if(ae && ae.tagName === 'TEXTAREA' && ae.classList.contains('u-note') && ae.selectionEnd > ae.selectionStart) {
+        const t = ae.value, s = ae.selectionStart, e = ae.selectionEnd, st = t.lastIndexOf('\n', s - 1) + 1; let en = t.indexOf('\n', e); if(en < 0) en = t.length;
+        return {ans: t.slice(s, e).trim(), ctx: t.slice(st, en), s: s - st, e: e - st};
+    }
+    const sel = window.getSelection(), vc = document.getElementById('viewer-content');
+    if(!sel || sel.isCollapsed || !vc || !sel.anchorNode || !vc.contains(sel.anchorNode)) return null;
+    const ans = sel.toString().trim(), full = sel.anchorNode.textContent, i = full.indexOf(ans);
+    if(i < 0) return {ans: ans, ctx: ans, s: 0, e: ans.length};
+    const st = full.lastIndexOf('\n', i - 1) + 1; let en = full.indexOf('\n', i + ans.length); if(en < 0) en = full.length;
+    return {ans: ans, ctx: full.slice(st, en), s: i - st, e: i - st + ans.length};
+}
+function makeCardFromSel() {
+    if(!lastSel) return;
+    const m = MATS.find(x => String(x.id) === document.getElementById('timer-mat-sel').value) || MATS[0];
+    if(!m) { alert('Creá una materia primero.'); return; }
+    const q = (lastSel.ctx.slice(0, lastSel.s) + '_____' + lastSel.ctx.slice(lastSel.e)).trim().slice(0, 220);
+    m.units.push({id: generateUniqueId(), n: q, note: lastSel.ans, section: 'p1', l: false, r: false, a: false, srEase: 2.5, srInt: 0, srReps: 0});
+    saveMats(); render(); selBtn.style.display = 'none'; lastSel = null;
+    notify('Tarjeta creada', 'Quedó en «' + m.name + '» con un hueco para completar.');
+}
+document.addEventListener('selectionchange', () => {
+    if(!selBtn) {
+        selBtn = document.createElement('button'); selBtn.className = 'btn btn-purple'; selBtn.textContent = '➕ Crear tarjeta con hueco';
+        selBtn.style.cssText = 'position:fixed;left:50%;transform:translateX(-50%);bottom:84px;z-index:9998;display:none;padding:10px 14px';
+        selBtn.onmousedown = e => e.preventDefault(); selBtn.onclick = makeCardFromSel; document.body.appendChild(selBtn);
+    }
+    const info = selInfo(); if(info && info.ans.length >= 3) { lastSel = info; selBtn.style.display = 'block'; } else if(document.activeElement !== selBtn) { selBtn.style.display = 'none'; }
+});
+
+// --- Estilos de profesor ---
+const EXAM_STYLES = {
+    estricto: '',
+    amable: ' Estilo: sé amable y orientador; si el alumno se traba, dale una pista antes de calificar.',
+    repreguntador: ' Estilo: repreguntá siempre por el artículo, la norma o el fallo que fundamenta cada afirmación y pedí la cita exacta; no aceptes respuestas vagas.'
+};
+function examStyleText() { const k = ls('exam_style', 'estricto'); if(k === 'custom') return ' Estilo de la cátedra, descrito por el alumno: ' + ls('exam_style_custom', ''); return EXAM_STYLES[k] || ''; }
+(function(){
+    const ref = document.getElementById('exam-mat-filter'); if(!ref || document.getElementById('exam-style')) return;
+    const s = document.createElement('select'); s.id = 'exam-style'; s.style.cssText = ref.style.cssText; s.className = ref.className; s.setAttribute('aria-label', 'Estilo del profesor');
+    s.innerHTML = '<option value="estricto">👨‍⚖️ Profesor estricto</option><option value="amable">🙂 Amable y orientador</option><option value="repreguntador">🔎 Repreguntador (artículos y fallos)</option><option value="custom">✍️ Mi cátedra (describirla)</option>';
+    s.value = ls('exam_style', 'estricto');
+    s.onchange = () => { lss('exam_style', s.value); if(s.value === 'custom') { const d = prompt('Describí cómo toma tu cátedra (ej: pregunta casos prácticos, exige citar artículos, toma 3 bolillas):', ls('exam_style_custom', '')); if(d !== null) lss('exam_style_custom', d.trim().slice(0, 500)); } };
+    ref.insertAdjacentElement('afterend', s);
+})();
+render(); renderWeakPanel();
+</script>
+</body>
+</html>
