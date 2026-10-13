@@ -276,6 +276,41 @@ h1.app-title .dot{display:none}
 }
 @media (prefers-reduced-motion:reduce){.nav-tab,.nav-tab.bounce{animation:none!important;transition:none!important}.nav-bottom.dock-on .nav-tab{transform:none!important}}
 
+
+/* ===== Estado "sonando" de los botones de audio ===== */
+.amb-btn.on{border-color:var(--purple);background:var(--purple-dim);color:var(--text);box-shadow:0 0 0 1px var(--purple),0 6px 22px var(--purple-dim);position:relative}
+.amb-btn.on::after{content:'';position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 var(--green-dim);animation:ambPulse 1.4s infinite}
+@keyframes ambPulse{0%{box-shadow:0 0 0 0 var(--green)}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion:reduce){.amb-btn.on::after{animation:none}}
+
+/* ===== TEMAS (especificidad alta para ganarle al :root del diseño) ===== */
+:root[data-theme="amoled"]{color-scheme:dark;--bg:#000;--surface:#000;--surface2:#050507;--surface3:#0c0c10;--border:rgba(255,255,255,.14);--border2:rgba(255,255,255,.3);--text:#fff;--text2:#d4d0de;--text3:#9a95a8}
+html[data-theme="amoled"]{background:#000;background-image:none}
+html[data-theme="amoled"] :is(.card,.materia,.overview-tile,.badge-box,#panel-hoy>.card:nth-of-type(3)){background:#000;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+html[data-theme="amoled"] .welcome-hero{background:#050507;box-shadow:none;border-color:var(--border)}
+html[data-theme="amoled"] :is(.hero-orb,.welcome-hero::after){display:none}
+html[data-theme="amoled"] :is(.mode-tabs,.stat-box,.chart-container,.time-custom-bar,.global-search-input){background:#08080b}
+html[data-theme="amoled"] :is(.nav-bottom,#dynamic-island){background:#000;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;border-color:var(--border2)}
+
+:root[data-theme="light"]{color-scheme:light;--bg:#f4f1fa;--surface:rgba(255,255,255,.88);--surface2:rgba(255,255,255,.97);--surface3:#ece8f6;--border:rgba(40,25,80,.12);--border2:rgba(40,25,80,.26);--text:#1b1530;--text2:#4a4262;--text3:#6c6485;--purple:#7c3aed;--purple-dim:rgba(124,58,237,.12);--rose:#be185d;--indigo:#4f46e5;--red:#dc2626;--red-dim:rgba(220,38,38,.12);--green:#059669;--green-dim:rgba(5,150,105,.13);--amber:#b45309;--amber-dim:rgba(180,83,9,.13);--blue:#2563eb;--blue-dim:rgba(37,99,235,.12)}
+html[data-theme="light"]{background-image:radial-gradient(ellipse at 14% 0%,rgba(190,140,255,.22),transparent 36%),radial-gradient(ellipse at 92% 12%,rgba(120,130,255,.18),transparent 34%)}
+html[data-theme="light"] .card{box-shadow:0 8px 30px rgba(60,40,120,.10)}
+html[data-theme="light"] :is(.materia,.overview-tile,#panel-hoy>.card:nth-of-type(3)){background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(246,242,255,.92));box-shadow:0 8px 24px rgba(60,40,120,.08)}
+html[data-theme="light"] :is(.badge-box,.global-search-input){background:rgba(255,255,255,.88)}
+html[data-theme="light"] .welcome-hero{background:linear-gradient(118deg,#f1e6ff 0%,#e5e7ff 50%,#e4f0ff 100%);box-shadow:0 18px 45px rgba(90,60,160,.14);border-color:rgba(60,40,120,.14)}
+html[data-theme="light"] .welcome-hero h2{color:#1b1530}
+html[data-theme="light"] .welcome-hero h2 span{background:linear-gradient(95deg,#c026a3,#7c3aed 50%,#4f46e5);-webkit-background-clip:text;background-clip:text}
+html[data-theme="light"] .hero-secondary{background:rgba(255,255,255,.72);border-color:rgba(60,40,120,.2);color:#3b2f66}
+html[data-theme="light"] :is(.hero-bottomline,.hero-copy p){color:var(--text2)}
+html[data-theme="light"] .overview-tile strong{color:var(--text)}
+html[data-theme="light"] .overview-icon{background:rgba(124,58,237,.08)}
+html[data-theme="light"] .nav-bottom{background:rgba(255,255,255,.86);box-shadow:0 12px 40px rgba(60,40,120,.18);border-color:rgba(60,40,120,.16)}
+html[data-theme="light"] #dynamic-island{background:rgba(255,255,255,.95);border-color:rgba(60,40,120,.16);box-shadow:0 10px 30px rgba(60,40,120,.18)}
+html[data-theme="light"] .modal-overlay{background:rgba(30,20,60,.45)}
+html[data-theme="light"] :is(.fc-card,.modal-box,.notif){box-shadow:0 16px 40px rgba(60,40,120,.18)}
+html[data-theme="light"] :where(.mode-tabs,.stat-box,.chart-container,.time-custom-bar,.time-custom-input,.time-preset,.mat-prog,.amb-btn){background:rgba(40,25,80,.05)}
+html[data-theme="light"] [style*="rgba(0,0,0,0.2"],html[data-theme="light"] [style*="rgba(0,0,0,0.3"],html[data-theme="light"] [style*="rgba(0,0,0,0.4"]{background:rgba(40,25,80,.05)!important}
+html[data-theme="light"] [style*="rgba(255,255,255,0.0"]{background:rgba(40,25,80,.04)!important}
 </style>
 </head>
 <body class="mode-study">
@@ -1045,33 +1080,99 @@ function getAmbCtx(){
     return ambCtx;
 }
 
-function ambGenerators(ctx){
-    const sr = ctx.sampleRate;
-    function mkPink(sec){
-        const b = ctx.createBuffer(1, sr*sec, sr), d = b.getChannelData(0); let b0=0, b1=0, b2=0, b3=0, b4=0, b5=0;
-        for(let i=0; i<d.length; i++){ const w = Math.random()*2 - 1; b0 = 0.99886 * b0 + w * 0.0555179; b1 = 0.99332 * b1 + w * 0.0750759; b2 = 0.96900 * b2 + w * 0.1538520; b3 = 0.86650 * b3 + w * 0.3104856; b4 = 0.55000 * b4 + w * 0.5329522; b5 = -0.7616 * b5 - w * 0.0168980; d[i] = (b0 + b1 + b2 + b3 + b4 + b5 + w * 0.5362) * 0.11; }
-        const s = ctx.createBufferSource(); s.buffer = b; s.loop = true; return s;
-    }
-    function mkBrown(sec){ const b = ctx.createBuffer(1, sr*sec, sr), d = b.getChannelData(0); let l = 0; for(let i=0; i<d.length; i++){ l = (l + (Math.random()*2 - 1)*0.02) / 1.02; d[i] = l * 3.5; } const s = ctx.createBufferSource(); s.buffer = b; s.loop = true; return s; }
-    return {
-        rain: () => {
-            const pink = mkPink(4); const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1200;
-            const rumble = mkBrown(5); const lpr = ctx.createBiquadFilter(); lpr.type = 'lowpass'; lpr.frequency.value = 180;
-            const mg = ctx.createGain(); mg.gain.value = 1.2;
-            pink.connect(lp); lp.connect(mg); rumble.connect(lpr); lpr.connect(mg);
-            pink.start(); rumble.start();
-            return { src: pink, chain: [mg], stop: () => { try{ pink.stop(); rumble.stop(); }catch(e){} } };
-        },
-        cafe: () => {
-            const noise = mkPink(5); const bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 600; bp.Q.value = 0.8;
-            const brown = mkBrown(4); const lpb = ctx.createBiquadFilter(); lpb.type = 'lowpass'; lpb.frequency.value = 320;
-            const mg = ctx.createGain(); mg.gain.value = 1.5;
-            noise.connect(bp); bp.connect(mg); brown.connect(lpb); lpb.connect(mg);
-            noise.start(); brown.start();
-            return { src: noise, chain: [mg], stop: () => { try{ noise.stop(); brown.stop(); }catch(e){} } };
+
+// ===== Motor de audio ambiental (v5): lluvia y café realistas =====
+const _ambNoiseCache = {};
+function ambNoise(ctx, kind){
+    const sr = ctx.sampleRate, key = kind + sr; if(_ambNoiseCache[key]) return _ambNoiseCache[key];
+    const len = Math.floor(sr * 8), xf = Math.floor(sr * 0.6), buf = ctx.createBuffer(2, len, sr);
+    for(let ch = 0; ch < 2; ch++){
+        const raw = new Float32Array(len + xf); let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0,last=0;
+        for(let i = 0; i < raw.length; i++){
+            const w = Math.random()*2 - 1;
+            if(kind === 'white') raw[i] = w;
+            else if(kind === 'pink'){ b0=0.99886*b0+w*0.0555179; b1=0.99332*b1+w*0.0750759; b2=0.969*b2+w*0.153852; b3=0.8665*b3+w*0.3104856; b4=0.55*b4+w*0.5329522; b5=-0.7616*b5-w*0.016898; raw[i]=(b0+b1+b2+b3+b4+b5+b6+w*0.5362)*0.11; b6=w*0.115926; }
+            else { last=(last+0.02*w)/1.02; raw[i]=last*3.5; }
         }
-    };
+        const d = buf.getChannelData(ch);
+        for(let i = 0; i < len; i++) d[i] = raw[i];
+        for(let i = 0; i < xf; i++){ const a = i/xf; d[i] = raw[i]*Math.sin(a*Math.PI/2) + raw[len+i]*Math.cos(a*Math.PI/2); }  // bucle sin cortes
+    }
+    return (_ambNoiseCache[key] = buf);
 }
+function ambSrc(ctx, kind, rate){ const s = ctx.createBufferSource(); s.buffer = ambNoise(ctx, kind); s.loop = true; if(rate) s.playbackRate.value = rate; s.start(0, Math.random()*6); return s; }
+function ambFilter(ctx, type, f, q){ const n = ctx.createBiquadFilter(); n.type = type; n.frequency.value = f; if(q !== undefined) n.Q.value = q; return n; }
+function ambGainNode(ctx, v){ const g = ctx.createGain(); g.gain.value = v; return g; }
+function ambPan(ctx, p){ if(ctx.createStereoPanner){ const n = ctx.createStereoPanner(); n.pan.value = p; return n; } return ctx.createGain(); }
+function ambFadeStop(ctx, out, srcs, timers, tos){
+    timers.forEach(clearInterval); tos.forEach(clearTimeout);
+    const now = ctx.currentTime; try{ out.gain.cancelScheduledValues(now); out.gain.setValueAtTime(out.gain.value, now); out.gain.linearRampToValueAtTime(0, now + 0.25); }catch(e){}
+    setTimeout(() => { srcs.forEach(s => { try{ s.stop(); }catch(e){} }); try{ out.disconnect(); }catch(e){} }, 350);
+}
+
+function ambRain(ctx, out){
+    const srcs = [], timers = []; let alive = true;
+    // cama continua de lluvia (agua cayendo sobre muchas superficies)
+    const bedSrc = ambSrc(ctx, 'white'); srcs.push(bedSrc);
+    const hp = ambFilter(ctx, 'highpass', 650, 0.7), body = ambFilter(ctx, 'peaking', 2600, 0.8), lp = ambFilter(ctx, 'lowpass', 7800, 0.5), bed = ambGainNode(ctx, 0.22);
+    body.gain.value = 3; bedSrc.connect(hp); hp.connect(body); body.connect(lp); lp.connect(bed); bed.connect(out);
+    const lfo = ctx.createOscillator(); lfo.frequency.value = 0.06; const lfoG = ambGainNode(ctx, 0.06); lfo.connect(lfoG); lfoG.connect(bed.gain); lfo.start(); srcs.push(lfo);  // la intensidad sube y baja despacio
+    const rum = ambSrc(ctx, 'brown'); srcs.push(rum); const rl = ambFilter(ctx, 'lowpass', 170, 0.7), rg = ambGainNode(ctx, 0.12); rum.connect(rl); rl.connect(rg); rg.connect(out);
+    const mid = ambSrc(ctx, 'pink', 1.1); srcs.push(mid); const mb = ambFilter(ctx, 'bandpass', 1500, 0.6), mg = ambGainNode(ctx, 0.5); mid.connect(mb); mb.connect(mg); mg.connect(out);
+    // gotas individuales, con tiempos al azar (proceso de Poisson), distintas alturas y posición estéreo
+    const dropBuf = ambNoise(ctx, 'white');
+    function drop(t){
+        const plip = Math.random() < 0.28, s = ctx.createBufferSource(); s.buffer = dropBuf;
+        const f = ambFilter(ctx, 'bandpass', plip ? 900 + Math.random()*1900 : 2800 + Math.random()*5200, plip ? 7 + Math.random()*9 : 0.9 + Math.random()*1.3);
+        const g = ctx.createGain(), peak = (plip ? 2.2 : 0.9) * (0.35 + Math.random()*0.9), dec = plip ? 0.05 + Math.random()*0.09 : 0.012 + Math.random()*0.03;
+        g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(peak, t + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, t + dec + 0.01);
+        const p = ambPan(ctx, Math.random()*2 - 1); s.connect(f); f.connect(g); g.connect(p); p.connect(out); s.start(t, Math.random()*6, dec + 0.05);
+    }
+    let next = ctx.currentTime + 0.05;
+    timers.push(setInterval(() => { if(!alive) return; const now = ctx.currentTime, rate = 26 + 22*(0.5 + 0.5*Math.sin(now*0.09)); while(next < now + 0.3){ drop(next); next += -Math.log(1 - Math.random())/rate; } }, 90));
+    return { stop(){ alive = false; ambFadeStop(ctx, out, srcs, timers, []); } };
+}
+
+function ambCafe(ctx, out){
+    const srcs = [], timers = [], tos = []; let alive = true;
+    // sonido de sala + graves del local
+    const room = ambSrc(ctx, 'pink'); srcs.push(room); const rf = ambFilter(ctx, 'lowpass', 1000, 0.5), rgn = ambGainNode(ctx, 0.6); room.connect(rf); rf.connect(rgn); rgn.connect(out);
+    const lowS = ambSrc(ctx, 'brown'); srcs.push(lowS); const lf = ambFilter(ctx, 'lowpass', 130, 0.7), lg = ambGainNode(ctx, 0.10); lowS.connect(lf); lf.connect(lg); lg.connect(out);
+    // murmullo: 8 "personas" que hablan y callan, cada una en un lugar del estéreo, con formantes que se mueven
+    const voices = [];
+    for(let k = 0; k < 8; k++){
+        const s = ambSrc(ctx, 'pink', 0.85 + Math.random()*0.3); srcs.push(s);
+        const f1 = ambFilter(ctx, 'bandpass', 300 + Math.random()*450, 4), f2 = ambFilter(ctx, 'bandpass', 1100 + Math.random()*1400, 5);
+        const vg = ambGainNode(ctx, 0), p = ambPan(ctx, -0.85 + 1.7*k/7 + (Math.random() - 0.5)*0.2);
+        s.connect(f1); s.connect(f2); f1.connect(vg); f2.connect(vg); vg.connect(p); p.connect(out);
+        voices.push({ f1, f2, vg, until: 0, talking: false });
+    }
+    timers.push(setInterval(() => {
+        if(!alive) return; const now = ctx.currentTime;
+        voices.forEach(v => {
+            if(now < v.until){ if(v.talking){ v.vg.gain.setTargetAtTime(1.2 + Math.random()*2, now, 0.04); v.f1.frequency.setTargetAtTime(280 + Math.random()*600, now, 0.05); v.f2.frequency.setTargetAtTime(1000 + Math.random()*1800, now, 0.05); } return; }
+            v.talking = !v.talking; v.until = now + (v.talking ? 1 + Math.random()*3.5 : 0.6 + Math.random()*3);
+            if(!v.talking) v.vg.gain.setTargetAtTime(0, now, 0.15);
+        });
+    }, 130));
+    // tintineo de tazas, cucharas y platos
+    function clink(){
+        if(!alive) return; const t = ctx.currentTime + 0.02, base = 2300 + Math.random()*2600, p = ambPan(ctx, Math.random()*1.6 - 0.8); p.connect(out);
+        const hits = Math.random() < 0.4 ? 2 : 1;
+        for(let h = 0; h < hits; h++){
+            const t0 = t + h*(0.07 + Math.random()*0.05), vol = 0.05 + Math.random()*0.07;
+            [[1, 1], [2.32, 0.5], [4.25, 0.25]].forEach(([r, a]) => {
+                const o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = base*r*(1 + (Math.random() - 0.5)*0.01);
+                const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t0); g.gain.linearRampToValueAtTime(vol*a, t0 + 0.002); g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.14 + Math.random()*0.22);
+                o.connect(g); g.connect(p); o.start(t0); o.stop(t0 + 0.5);
+            });
+        }
+        tos.push(setTimeout(clink, 3500 + Math.random()*8000));
+    }
+    tos.push(setTimeout(clink, 1500 + Math.random()*3000));
+    return { stop(){ alive = false; ambFadeStop(ctx, out, srcs, timers, tos); } };
+}
+
 
 function stopAmb(){
     if(lofiPlaying) { document.getElementById('lofi-player').pause(); lofiPlaying = false; const b = document.getElementById('amb-lofi'); if(b) b.classList.remove('on'); }
@@ -1084,17 +1185,17 @@ function stopAmb(){
 function toggleAmb(type){
     if(ambActive === type){ stopAmb(); return; }
     stopAmb();
-    const ctx = getAmbCtx();
-    const gen = ambGenerators(ctx)[type];
-    if(!gen) return;
-    const obj = gen();
-    let lastNode = obj.src;
-    if(obj.chain){ for(let i=0; i<obj.chain.length-1; i++){ obj.chain[i].connect(obj.chain[i+1]); } lastNode = obj.chain[obj.chain.length-1]; }
-    lastNode.connect(ambGain);
-    if(obj.src.start) obj.src.start();
-    ambStopFn = obj.stop; ambActive = type;
-    const btn = document.getElementById('amb-'+type); if(btn) btn.classList.add('on');
-    const status = document.getElementById('amb-status'); if(status) status.textContent = `🎧 Audio Ambiental: ▶ ${type === 'rain' ? 'Lluvia' : 'Café'}`;
+    try{
+        const ctx = getAmbCtx(), make = type === 'rain' ? ambRain : type === 'cafe' ? ambCafe : null; if(!make) return;
+        const out = ctx.createGain(); out.gain.setValueAtTime(0, ctx.currentTime); out.gain.linearRampToValueAtTime(1, ctx.currentTime + 1.2); out.connect(ambGain);
+        const obj = make(ctx, out);
+        ambStopFn = obj.stop; ambActive = type;
+        const btn = document.getElementById('amb-' + type); if(btn) btn.classList.add('on');
+        const status = document.getElementById('amb-status'); if(status) status.textContent = '🎧 Audio Ambiental: ▶ ' + (type === 'rain' ? 'Lluvia' : 'Café') + ' (tocá de nuevo para detener)';
+    }catch(e){
+        console.error(e); stopAmb(); notify('Audio ambiental', 'Tu navegador no pudo iniciar este sonido.');
+    }
+    document.querySelectorAll('.amb-btn').forEach(b => b.setAttribute('aria-pressed', b.classList.contains('on') ? 'true' : 'false'));
 }
 
 function setAmbVol(v){
@@ -1904,7 +2005,7 @@ function renderCharts() {
         labelsData.push(DAYS[d.getDay()]);
         if(dayData.mats) Object.keys(dayData.mats).forEach(matId => { matsAccum[matId] = (matsAccum[matId] || 0) + dayData.mats[matId]; });
     }
-    Chart.defaults.color = '#94908a'; Chart.defaults.font.family = 'Inter';
+    Chart.defaults.color = (document.documentElement.getAttribute('data-theme') === 'light') ? '#6c6485' : '#94908a'; Chart.defaults.font.family = 'Inter';
 
     const ctxBar = document.getElementById('barChart');
     if(ctxBar) {
@@ -1919,7 +2020,7 @@ function renderCharts() {
                 }, 
                 scales: { 
                     x: { grid: { display: false } }, 
-                    y: { beginAtZero: true, title: {display:true, text:'Minutos'}, grid: { color: 'rgba(255, 255, 255, 0.03)' } } 
+                    y: { beginAtZero: true, title: {display:true, text:'Minutos'}, grid: { color: getChartGrid() } } 
                 } 
             } 
         });
@@ -2090,6 +2191,19 @@ renderVisualDashboard(); setInterval(renderVisualDashboard, 3000);
   nav.addEventListener('pointerenter',()=>nav.classList.add('dock-on'));
   nav.addEventListener('pointermove',e=>{ tabs.forEach(t=>{ const r=t.getBoundingClientRect(), c=r.left+r.width/2, d=Math.abs(e.clientX-c); const k=d>=R?0:Math.cos(d/R*Math.PI/2); const s=1+0.7*k*k; t.style.setProperty('--s',s.toFixed(3)); t.style.setProperty('--lift',((s-1)*20).toFixed(1)); t.style.setProperty('--z',Math.round(k*10)); }); });
   nav.addEventListener('pointerleave',()=>{ tabs.forEach(t=>{ t.style.setProperty('--s',1); t.style.setProperty('--lift',0); t.style.setProperty('--z',0); }); setTimeout(()=>nav.classList.remove('dock-on'),180); });
+})();
+
+// ===== Temas: gráficos, color de la barra del navegador y selector =====
+function getChartGrid(){ return document.documentElement.getAttribute('data-theme') === 'light' ? 'rgba(40,25,80,0.08)' : 'rgba(255,255,255,0.03)'; }
+(function(){
+    const _ct = changeTheme;
+    changeTheme = function(theme, save = true){
+        _ct(theme, save);
+        const colors = { light: '#f4f1fa', amoled: '#000000' }, m = document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute('content', colors[theme] || '#08070d');
+        const s = document.getElementById('theme-select'); if(s) s.value = (theme === 'light' || theme === 'amoled') ? theme : 'dark';
+        try{ if(save !== false && typeof Chart !== 'undefined') renderCharts(); }catch(e){}
+    };
+    changeTheme(ls('theme', 'dark'), false);
 })();
 </script>
 </body>
