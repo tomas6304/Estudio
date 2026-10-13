@@ -342,6 +342,70 @@ html[data-theme="light"] .badge-box{border-color:rgba(60,40,120,.16)}
 html[data-theme="light"] .overview-tile span,html[data-theme="light"] .overview-tile small{color:var(--text2)}
 html[data-theme="light"] .u-row{border-bottom-color:rgba(60,40,120,.08)}
 html[data-theme="light"] .welcome-hero .hero-primary{color:#1b1530}
+/* === v7: Carrera (notas y correlatividades) === */
+.car-hero{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.car-ring{position:relative;width:132px;height:132px;flex:0 0 auto}
+.car-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.car-ring .bg{stroke:rgba(127,127,150,.18)}
+.car-ring .fg{stroke:url(#carGrad);transition:stroke-dashoffset .9s cubic-bezier(.2,.8,.2,1)}
+.car-ring-txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.car-ring-txt b{font-size:28px;font-weight:800;color:var(--text);line-height:1}
+.car-ring-txt span{font-size:10px;color:var(--text3);margin-top:3px;letter-spacing:.06em;text-transform:uppercase}
+.car-kpis{flex:1;min-width:200px;display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.car-kpi{background:rgba(127,127,150,.10);border:1px solid var(--border);border-radius:14px;padding:10px 12px}
+.car-kpi b{display:block;font-size:21px;font-weight:800;color:var(--text);line-height:1.1}
+.car-kpi small{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em}
+.car-sub{font-size:11px;color:var(--text2);margin:2px 0 12px}
+.car-year-row{display:grid;grid-template-columns:54px 1fr 64px;gap:10px;align-items:center;margin:8px 0;font-size:12px;color:var(--text2)}
+.car-bar{height:10px;border-radius:99px;background:rgba(127,127,150,.18);overflow:hidden}
+.car-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--purple),var(--green));transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.car-year-row em{font-style:normal;text-align:right;font-variant-numeric:tabular-nums}
+.car-hist{display:flex;align-items:flex-end;gap:6px;height:120px;padding-top:8px}
+.car-hist div{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:10px;color:var(--text3)}
+.car-hist i{display:block;width:100%;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--purple),rgba(168,85,247,.35));min-height:3px;transition:height .8s}
+.car-hist b{font-size:10px;color:var(--text2);margin-bottom:3px}
+.car-hist span{margin-top:4px}
+.car-calc{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--text2)}
+.car-calc input{width:74px;padding:8px;border-radius:10px;border:1px solid var(--border2);background:rgba(127,127,150,.10);color:var(--text);font-size:14px;text-align:center}
+.car-calc-out{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--purple-dim);color:var(--text);font-size:12px;line-height:1.5}
+.car-chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.car-chip{padding:5px 11px;border-radius:99px;border:1px solid var(--border2);background:rgba(127,127,150,.10);color:var(--text2);font-size:11px;cursor:pointer;font-family:inherit}
+.car-chip.on{background:var(--purple-dim);color:var(--text);border-color:var(--purple)}
+.car-search{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border2);background:rgba(127,127,150,.10);color:var(--text);font-size:13px;margin-top:6px}
+.car-year-h{display:flex;justify-content:space-between;align-items:center;margin:16px 2px 6px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+.car-row{display:grid;grid-template-columns:30px minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;text-align:left;padding:10px 12px;margin:5px 0;border-radius:14px;border:1px solid var(--border);background:rgba(127,127,150,.07);color:var(--text);cursor:pointer;font-family:inherit;transition:transform .15s,border-color .15s,background .15s}
+.car-row:hover{transform:translateY(-1px);border-color:var(--border2);background:rgba(127,127,150,.13)}
+.car-row .cod{font-size:11px;font-weight:700;color:var(--text3);text-align:center}
+.car-row .nm{font-size:13px;line-height:1.25}
+.car-row .nm small{display:block;font-size:10px;color:var(--text3);margin-top:2px}
+.car-st{font-size:10px;font-weight:700;padding:4px 9px;border-radius:99px;white-space:nowrap}
+.car-st.apr{background:var(--green-dim);color:var(--green)}
+.car-st.reg{background:var(--blue-dim);color:var(--blue)}
+.car-st.curs{background:var(--amber-dim);color:var(--amber)}
+.car-st.hab{background:var(--purple-dim);color:var(--purple)}
+.car-st.blo{background:rgba(127,127,150,.16);color:var(--text3)}
+.car-row.apr{border-left:3px solid var(--green)}
+.car-row.hab{border-left:3px solid var(--purple)}
+.car-row.blo{opacity:.72}
+.car-modal-h{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:6px}
+.car-modal-h h3{font-size:17px;line-height:1.25;color:var(--text);margin:0}
+.car-x{background:none;border:none;color:var(--text3);font-size:22px;cursor:pointer;line-height:1}
+.car-sec{margin-top:14px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+.car-states{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+.car-states button{padding:9px 4px;border-radius:12px;border:1px solid var(--border2);background:rgba(127,127,150,.10);color:var(--text2);font-size:11px;cursor:pointer;font-family:inherit}
+.car-states button.on{background:var(--purple-dim);border-color:var(--purple);color:var(--text);font-weight:700}
+.car-fields{display:flex;gap:10px;margin-top:10px}
+.car-fields label{flex:1;font-size:10px;color:var(--text3);display:flex;flex-direction:column;gap:4px}
+.car-fields input{padding:9px;border-radius:10px;border:1px solid var(--border2);background:rgba(127,127,150,.10);color:var(--text);font-size:14px;font-family:inherit}
+.car-req{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:8px 10px;margin:4px 0;border-radius:12px;border:1px solid var(--border);background:rgba(127,127,150,.07);color:var(--text);font-size:12px;cursor:pointer;font-family:inherit}
+.car-req .ok{color:var(--green);font-weight:800}.car-req .no{color:var(--red);font-weight:800}
+.car-warn{margin-top:10px;padding:9px 11px;border-radius:12px;background:var(--amber-dim);color:var(--text);font-size:12px;line-height:1.45}
+.car-empty{font-size:12px;color:var(--text3);padding:6px 2px}
+.car-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+html[data-theme="light"] .modal-box{background:#fff;border-color:rgba(60,40,120,.18);color:#1c1633}
+html[data-theme="light"] .car-modal-h h3,html[data-theme="light"] .car-req,html[data-theme="light"] .car-calc-out,html[data-theme="light"] .car-warn{color:#1c1633}
+html[data-theme="light"] .car-states button.on,html[data-theme="light"] .car-chip.on{color:#3b1d86}
+html[data-theme="light"] .car-fields input,html[data-theme="light"] .car-calc input,html[data-theme="light"] .car-search{color-scheme:light}
 </style>
 </head>
 <body class="mode-study">
@@ -399,9 +463,9 @@ html[data-theme="light"] .welcome-hero .hero-primary{color:#1b1530}
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
     Repaso
   </button>
-  <button class="nav-tab" data-panel="examen" onclick="showPanel('examen')" aria-label="Final IA">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v1a7 7 0 0 1-14 0v-1"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
-    Final IA
+  <button class="nav-tab" data-panel="carrera" onclick="showPanel('carrera')" aria-label="Carrera">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"></path><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"></path><line x1="22" y1="10" x2="22" y2="16"></line></svg>
+    Carrera
   </button>
   <button class="nav-tab" data-panel="more" onclick="showPanel('more')" aria-label="Más">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
@@ -528,33 +592,31 @@ html[data-theme="light"] .welcome-hero .hero-primary{color:#1b1530}
   </div>
 </div>
 
-<div class="panel" id="panel-examen">
+<div class="panel" id="panel-carrera">
   <div class="card">
-    <h2>⚖️ Simulador de Finales con IA (UNLZ)</h2>
-    <p style="font-size:11px; color:var(--text2); margin-bottom:12px;">Examen oral estricto con bolillero filtrado por materia, lectura por voz y conversión automática de temas flojos a tarjetas.</p>
-    
-    <div style="margin-bottom:12px;">
-        <label style="font-size:11px; color:var(--text2); display:block; margin-bottom:4px;">Seleccionar Materia:</label>
-        <select id="exam-mat-filter" style="width:100%; background:rgba(0,0,0,0.3); border:1px solid var(--border); border-radius:8px; padding:8px; color:var(--text); font-size:12px;">
-            <option value="all">🌐 Todas las materias (Azar global)</option>
-        </select>
+    <h2>🎓 Mi Carrera · Abogacía UNLZ</h2>
+    <p class="car-sub">Notas, avance y correlatividades de tus 42 materias.</p>
+    <div class="car-hero">
+      <div class="car-ring">
+        <svg viewBox="0 0 120 120"><defs><linearGradient id="carGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#10b981"/></linearGradient></defs>
+          <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke-width="11"/>
+          <circle class="fg" id="car-ring-fg" cx="60" cy="60" r="52" fill="none" stroke-width="11" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg>
+        <div class="car-ring-txt"><b id="car-pct">0%</b><span>de la carrera</span></div>
+      </div>
+      <div class="car-kpis" id="car-kpis"></div>
     </div>
-
-    <button class="btn btn-purple" id="btn-start-exam" onclick="startExamIA()" style="width:100%; padding:14px; font-size:13px;">▶ Iniciar Bolillero Oral (15m)</button>
-    
-    <div id="exam-area" style="margin-top:16px; display:none;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; font-size:11px; color:var(--text3);">
-            <span id="exam-turn-counter">Turno de intercambio: 0 / 5</span>
-            <span id="exam-timer-display" style="font-family:'JetBrains Mono'; color:var(--red);">15:00</span>
-        </div>
-        <div id="exam-chat-box" style="height:260px; overflow-y:auto; background:rgba(0,0,0,0.25); border:1px solid var(--border); padding:12px; border-radius:12px; margin-bottom:10px; display:flex; flex-direction:column;">
-        </div>
-        <div style="display:flex; gap:8px;">
-            <textarea id="exam-ans" style="flex:1; height:75px; background:rgba(0,0,0,0.35); border:1px solid var(--border); padding:10px; border-radius:8px; font-family:'Inter', sans-serif; resize:vertical;" placeholder="Escribí o respondé por voz..."></textarea>
-            <button class="btn" id="btn-mic" onclick="toggleSpeech()" style="background:var(--surface2);" title="Dictar por voz">🎤</button>
-        </div>
-        <button class="btn btn-blue" id="btn-send-exam" style="margin-top:8px; width:100%" onclick="submitExamIA()">Enviar Respuesta</button>
-    </div>
+  </div>
+  <div class="card"><h2>📈 Avance por año</h2><div id="car-years"></div></div>
+  <div class="card"><h2>📊 Distribución de notas</h2><div class="car-hist" id="car-hist"></div><div id="car-extremes" class="car-sub" style="margin-top:8px"></div></div>
+  <div class="card"><h2>🧮 ¿Qué promedio necesito?</h2>
+    <div class="car-calc">Quiero terminar con promedio <input type="number" id="car-target" min="4" max="10" step="0.1" value="7" oninput="carCalc()"><span id="car-calc-n"></span></div>
+    <div class="car-calc-out" id="car-calc-out"></div></div>
+  <div class="card"><h2>✅ Habilitadas para cursar o rendir</h2><p class="car-sub">Tenés aprobadas todas sus correlativas.</p><div id="car-hab"></div></div>
+  <div class="card"><h2>📚 Todas las materias</h2>
+    <input class="car-search" id="car-q" type="search" placeholder="🔍 Buscar materia o número…" oninput="renderCarList()">
+    <div class="car-chips" id="car-filters"></div>
+    <div id="car-list"></div>
+    <div class="car-tools"><button class="btn" onclick="carExport()">📤 Exportar notas</button><button class="btn" onclick="carReset()">↩︎ Restaurar datos iniciales</button></div>
   </div>
 </div>
 
@@ -594,10 +656,7 @@ html[data-theme="light"] .welcome-hero .hero-primary{color:#1b1530}
 
   <div class="card">
     <h2>💾 Backups y Seguridad</h2>
-    <div style="display:flex; flex-direction:column; gap:8px; margin-top:8px;">
-        <input type="password" id="api-key" placeholder="API Key de Anthropic (Claude)" style="padding:8px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:8px;">
-        <button class="btn btn-blue" onclick="saveConfig()">💾 Guardar API Key Local</button>
-    </div>
+    
     <div style="display:flex; gap:8px; margin-top:12px;">
         <button class="btn" onclick="exportBackupJSON()">📤 Exportar Backup</button>
         <button class="btn" onclick="document.getElementById('file-import').click()">📥 Importar Backup</button>
@@ -609,6 +668,8 @@ html[data-theme="light"] .welcome-hero .hero-primary{color:#1b1530}
 </div>
 
 <!-- MODAL PAPELERA & DESHACER -->
+<div class="modal-overlay" id="modal-carrera" onclick="if(event.target===this)carClose()"><div class="modal-box" id="car-modal-body"></div></div>
+
 <div class="modal-overlay" id="modal-trash">
     <div class="modal-box">
         <div class="section-hd">
@@ -706,8 +767,8 @@ function nextOnboarding() {
         document.getElementById('ob-title').textContent = "⏱ Pomodoro & Repaso Inteligente";
         document.getElementById('ob-desc').textContent = "Administrá tus tiempos de estudio y memoriza doctrina jurídica mediante algoritmos de repetición espaciada (SM-2).";
     } else if(obStep === 3) {
-        document.getElementById('ob-title').textContent = "⚖️ Simulador de Finales con IA";
-        document.getElementById('ob-desc').textContent = "Preparate para tus orales en la UNLZ con un profesor virtual estricto y socrático.";
+        document.getElementById('ob-title').textContent = "🎓 Tu carrera, a la vista";
+        document.getElementById('ob-desc').textContent = "Cargá tus notas, mirá tu promedio y descubrí qué correlativas necesitás para cada materia.";
     } else {
         localStorage.setItem('ob_done', 'true');
         document.getElementById('onboarding-overlay').style.display = 'none';
@@ -1243,7 +1304,8 @@ function showPanel(id){
   if(tabBtn) tabBtn.classList.add('active');
   
   if(id==='tracker') render();
-  if(id==='more') { renderCharts(); loadConfig(); }
+  if(id==='more') { renderCharts(); }
+  if(id==='carrera') renderCarrera();
   if(id==='flashcard') renderFCIdle();
   if(id==='hoy') updatePriorityBox();
 }
@@ -1366,10 +1428,6 @@ function fillSelectors() {
         if(MATS.find(m => m.id == act)) sel.value = act;
     }
 
-    const examSel = document.getElementById('exam-mat-filter');
-    if(examSel) {
-        examSel.innerHTML = `<option value="all">🌐 Todas las materias (Azar global)</option>` + MATS.map(m => `<option value="${m.id}">${esc(m.name)}</option>`).join('');
-    }
 
     const importSel = document.getElementById('import-mat-target');
     if(importSel && MATS.length > 0) {
@@ -1584,9 +1642,7 @@ function renderCardsContent(allFiles) {
                 ${unitsFinal.length ? unitsFinal.map(renderUnitRow).join('') : '<div style="font-size:11px; color:var(--text3); padding:4px 0;">Sin unidades.</div>'}
             ` : ''}
 
-            <div style="margin-top:12px; display:flex;">
-                <button class="btn btn-purple" style="font-size:11px; width:100%;" onclick="generateFlashcardsIA(${m.id})">✨ Generar Tarjetas con IA</button>
-            </div>
+            
           </div>`;
 
         fragment.appendChild(cardEl);
@@ -1728,202 +1784,6 @@ function showFC(){
 
 function answerFC(quality) { processSM2(fcDeck[fcIdx].matId, fcDeck[fcIdx].uid, quality); fcIdx++; showFC(); }
 
-// --- FINAL IA ROBUSTO (Manejo de 401/errores, streaming seguro, guardado de temas flojos) ---
-let examChatHistory = [];
-let examSystemPrompt = "";
-let currentExamTurn = 0;
-let maxExamTurns = 5;
-let examTimerInterval = null;
-let examSecondsLeft = 900;
-let currentExamMatId = null;
-
-function speakText(text) {
-    if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text.replace(/<[^>]*>?/gm, ''));
-        u.lang = 'es-AR'; u.rate = 1.0;
-        window.speechSynthesis.speak(u);
-    }
-}
-
-async function generateFlashcardsIA(matId) {
-    const key = ls('anthropic_key');
-    if(!key) { alert("Configurá tu API Key de Anthropic en Más."); return showPanel('more'); }
-    const text = prompt("Pegá tus apuntes resumidos:"); if(!text) return;
-    notify('IA Analizando...', 'Extrayendo conceptos...');
-    try {
-        const res = await fetch('https://api.anthropic.com/v1/messages', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerously-allow-browser': 'true' },
-            body: JSON.stringify({ model: 'claude-haiku-5-5', max_tokens: 1500, messages: [{role: 'user', content: `Analizá y extraé entre 2 y 4 conceptos jurídicos clave. Devolvé estrictamente un JSON array: [{"n": "Tema", "note": "Doctrina", "section": "p1"}]. Texto: ${text}`}] })
-        });
-        if(!res.ok) throw new Error("Error de API: " + res.status);
-        const data = await res.json();
-        const jsonMatch = data.content[0].text.match(/\[[\s\S]*\]/);
-        if(!jsonMatch) throw new Error("Formato de respuesta inválido.");
-        const items = JSON.parse(jsonMatch[0]);
-        const m = MATS.find(x=>x.id===matId);
-        items.forEach(it => { m.units.push({id: generateUniqueId(), n: it.n, note: it.note, section: it.section||'p1', l:false, r:false, a:false, srEase:2.5, srInt:0, srReps:0}); });
-        saveMats(); render(); notify('¡Éxito!', `Se agregaron ${items.length} tarjetas a ${m.name}.`);
-    } catch(e) { alert("Error al generar tarjetas: " + e.message); }
-}
-
-async function startExamIA() {
-    const key = ls('anthropic_key');
-    if(!key) { alert("Configurá tu API Key de Anthropic en Más."); return showPanel('more'); }
-    
-    const filterMatId = document.getElementById('exam-mat-filter').value;
-    currentExamMatId = filterMatId === 'all' ? null : parseInt(filterMatId);
-    
-    let pool = []; 
-    MATS.forEach(m => {
-        if(currentExamMatId && m.id !== currentExamMatId) return;
-        m.units.filter(u => u.note && u.note.trim().length > 0).forEach(u => pool.push({matId: m.id, m: m.name, q: u.n, ref: u.note}));
-    });
-    
-    if(pool.length < 2) { alert("Cargá al menos 2 unidades con notas en la materia seleccionada para el bolillero."); return; }
-    
-    pool.sort(()=>Math.random()-.5);
-    const bolillas = pool.slice(0, 2);
-    const bolillasText = bolillas.map((b, i) => `Bolilla ${i+1} (${b.m}): ${b.q} [Doctrina: ${b.ref}]`).join('\n');
-
-    examSystemPrompt = `Sos un profesor titular exigente de la UNLZ evaluando un final oral de derecho.
-    REGLAS: 1. Evaluá con base en estas bolillas: ${bolillasText}. 2. Hacé preguntas socráticas rigurosas. 3. Al turno 5 o cuando termine, cerrá obligatoriamente con 'PUNTAJE FINAL: X/10'. Si el alumno muestra graves falencias, mencioná explícitamente el tema flojo en tu devolución.`;
-
-    examSystemPrompt += examStyleText();
-    currentExamTurn = 1;
-    examChatHistory = [{role: 'user', content: 'Buenas tardes profesor. Listo para el examen.'}];
-
-    document.getElementById('btn-start-exam').style.display = 'none';
-    document.getElementById('exam-area').style.display = 'block';
-    document.getElementById('exam-turn-counter').textContent = `Intercambio: ${currentExamTurn} / ${maxExamTurns}`;
-    
-    examSecondsLeft = 900;
-    if(examTimerInterval) clearInterval(examTimerInterval);
-    examTimerInterval = setInterval(() => {
-        examSecondsLeft--;
-        const m = String(Math.floor(examSecondsLeft/60)).padStart(2,'0');
-        const s = String(examSecondsLeft%60).padStart(2,'0');
-        document.getElementById('exam-timer-display').textContent = `${m}:${s}`;
-        if(examSecondsLeft <= 0) clearInterval(examTimerInterval);
-    }, 1000);
-
-    const chatBox = document.getElementById('exam-chat-box');
-    chatBox.innerHTML = `<div style="text-align:center; font-size:11px; color:var(--purple); margin-bottom:12px;">⚖️ Bolillas Sorteadas:<br>${esc(bolillas[0].q)} / ${esc(bolillas[1].q)}</div><div class="chat-bubble chat-ai"><strong>Profesor (UNLZ):</strong> Desarrolle sobre <em>"${esc(bolillas[0].q)}"</em>. Lo escucho.</div>`;
-    speakText(`Desarrolle sobre ${bolillas[0].q}. Lo escucho.`);
-    await callClaudeExamStreaming();
-}
-
-async function callClaudeExamStreaming() {
-    const key = ls('anthropic_key');
-    const chatBox = document.getElementById('exam-chat-box');
-    const aiId = 'ai-' + Date.now();
-    chatBox.innerHTML += `<div class="chat-bubble chat-ai" id="${aiId}"><strong>Profesor:</strong><br><span class="ai-text">Pensando...</span></div>`;
-    chatBox.scrollTop = chatBox.scrollHeight;
-
-    const span = document.getElementById(aiId).querySelector('.ai-text');
-
-    try {
-        const res = await fetch('https://api.anthropic.com/v1/messages', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerously-allow-browser': 'true' },
-            body: JSON.stringify({ model: 'claude-sonnet-5-5', max_tokens: 800, system: examSystemPrompt, messages: examChatHistory, stream: true })
-        });
-        
-        if(!res.ok) {
-            const errJson = await res.json().catch(()=>({}));
-            throw new Error(errJson.error?.message || `Error HTTP ${res.status}`);
-        }
-
-        const reader = res.body.getReader(); 
-        const decoder = new TextDecoder('utf-8'); 
-        let fullText = ""; let sseBuf = "";
-        span.innerHTML = "";
-
-        while (true) {
-            const { value, done } = await reader.read(); 
-            if (done) break;
-            sseBuf += decoder.decode(value, { stream: true }); const sseLines = sseBuf.split('\n'); sseBuf = sseLines.pop(); for (const line of sseLines) {
-                if (line.startsWith('data: ')) {
-                    try {
-                        const parsed = JSON.parse(line.slice(6));
-                        if (parsed.type === 'content_block_delta' && parsed.delta && parsed.delta.text) {
-                            fullText += parsed.delta.text; 
-                            span.innerHTML = esc(fullText).replace(/\n/g, '<br>');
-                            chatBox.scrollTop = chatBox.scrollHeight;
-                        } else if (parsed.delta && parsed.delta.text) {
-                            fullText += parsed.delta.text; 
-                            span.innerHTML = esc(fullText).replace(/\n/g, '<br>');
-                            chatBox.scrollTop = chatBox.scrollHeight;
-                        }
-                    } catch(e){}
-                }
-            }
-        }
-        
-        if(!fullText.trim()) {
-            fullText = "El profesor no emitió respuesta. Continuemos.";
-            span.innerHTML = esc(fullText);
-        }
-
-        examChatHistory.push({role: 'assistant', content: fullText});
-        speakText(fullText);
-
-        if(fullText.includes('PUNTAJE FINAL')) {
-            clearInterval(examTimerInterval);
-            try { const mm = fullText.match(/PUNTAJE FINAL:\s*(\d+(?:[.,]\d+)?)/); if(mm) { const eh = JSON.parse(ls('exam_hist','[]')); eh.push({d: todayAR(), mat: currentExamMatId, score: parseFloat(mm[1].replace(',','.'))}); lss('exam_hist', JSON.stringify(eh.slice(-100))); } } catch(e) {}
-            document.getElementById('btn-start-exam').style.display = 'block';
-            document.getElementById('btn-start-exam').textContent = '▶ Sortear nuevo bolillero';
-            
-            // Convertir automáticamente temas flojos detectados a tarjetas de repaso
-            if(confirm("Examen finalizado. ¿Querés convertir los conceptos flojos evaluados en tarjetas de repaso SM-2?")) {
-                const targetMatId = currentExamMatId || (MATS[0] ? MATS[0].id : null);
-                if(targetMatId) {
-                    const targetMat = MATS.find(x => x.id === targetMatId);
-                    if(targetMat) {
-                        targetMat.units.push({
-                            id: generateUniqueId(),
-                            n: "Repaso Oral: Tema Flojo Examen",
-                            note: fullText.slice(0, 400),
-                            section: 'final',
-                            l: false, r: false, a: false,
-                            srEase: 2.5, srInt: 0, srReps: 0
-                        });
-                        saveMats();
-                        notify('¡Tarjeta creada!', 'Se guardó el feedback en tus unidades de repaso.');
-                    }
-                }
-            }
-        }
-    } catch(e) {
-        span.innerHTML = `<span style="color:var(--red);">Error en examen: ${esc(e.message)}. Verificá tu API Key.</span>`;
-        examChatHistory.pop(); // Remover último input del usuario para evitar 400 en siguiente intento
-    }
-}
-
-async function submitExamIA() {
-    const ansInput = document.getElementById('exam-ans'); const ans = ansInput.value.trim(); if(!ans) return;
-    const chatBox = document.getElementById('exam-chat-box');
-    chatBox.innerHTML += `<div class="chat-bubble chat-user">${esc(ans)}</div>`; chatBox.scrollTop = chatBox.scrollHeight;
-    examChatHistory.push({role: 'user', content: ans}); ansInput.value = '';
-    currentExamTurn++; document.getElementById('exam-turn-counter').textContent = `Intercambio: ${currentExamTurn} / ${maxExamTurns}`;
-    if(currentExamTurn >= maxExamTurns) examChatHistory.push({role: 'user', content: '[Sistema: Emitir PUNTAJE FINAL: X/10].'});
-    await callClaudeExamStreaming();
-}
-
-let recognition = null;
-function toggleSpeech() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if(!SpeechRecognition) return alert("Voz no soportada.");
-    if(!recognition) {
-        recognition = new SpeechRecognition(); recognition.lang = 'es-AR';
-        recognition.onresult = (e) => { document.getElementById('exam-ans').value += ' ' + e.results[0][0].transcript; };
-    }
-    document.getElementById('btn-mic').style.background = 'var(--red)';
-    recognition.start();
-    setTimeout(() => { document.getElementById('btn-mic').style.background = 'var(--surface2)'; }, 5000);
-}
-
 function processImportData() {
     const text = document.getElementById('import-textarea').value.trim(); if(!text) return;
     const targetMatId = parseInt(document.getElementById('import-mat-target').value);
@@ -1941,9 +1801,6 @@ function processImportData() {
     } catch(e) { alert("Formato de importación inválido."); }
 }
 
-function loadConfig() { const k = ls('anthropic_key'); if(k) document.getElementById('api-key').value = k; }
-function saveConfig() { lss('anthropic_key', document.getElementById('api-key').value.trim()); notify('Guardado', 'API Key local.'); }
-
 function exportBackupJSON() {
     if(!db) return;
     db.transaction('files', 'readonly').objectStore('files').getAll().onsuccess = function(e) {
@@ -1952,6 +1809,7 @@ function exportBackupJSON() {
             history: loadHistory(), 
             filesHub: e.target.result, 
             theme: ls('theme'),
+            carrera: ls('carrera_v1'),
             fontSize: ls('font_size'),
             studyMin: studyMinCustom,
             breakMin: breakMinCustom,
@@ -1973,6 +1831,7 @@ function importBackupJSON(event) {
             if(!confirm('Esto reemplaza tus materias e historial actuales por los del archivo. ¿Continuar?')) return; if(data.mats) lss('pom_mats', JSON.stringify(data.mats));
             if(data.history) lss('pom_history', JSON.stringify(data.history));
             if(data.theme) lss('theme', data.theme);
+            if(data.carrera) lss('carrera_v1', data.carrera);
             if(data.fontSize) lss('font_size', data.fontSize);
             if(data.studyMin) lss('pom_custom_study', data.studyMin);
             if(data.breakMin) lss('pom_custom_break', data.breakMin);
@@ -1998,10 +1857,9 @@ function generateWeeklySummaryCard() {
     for(let i = 0; i < 7; i++) { const x = hist[addDays(todayAR(), -i)]; if(!x) continue; mins += x.mins || 0; Object.keys(x.mats || {}).forEach(id => per[id] = (per[id] || 0) + x.mats[id]); }
     const from = addDays(todayAR(), -6);
     const rec = JSON.parse(ls('pom_recall','[]')).filter(r => r.d >= from);
-    const ex = JSON.parse(ls('exam_hist','[]')).filter(r => r.d >= from);
     const avg = rec.length ? (rec.reduce((s,r) => s + r.score, 0) / rec.length).toFixed(1) : '–';
     const lines = Object.keys(per).map(id => { const m = MATS.find(x => String(x.id) === id); return '• ' + (m ? m.name : 'General') + ': ' + (per[id]/60).toFixed(1) + ' h'; });
-    const txt = '📊 Mi semana de estudio\nTotal (7 días): ' + (mins/60).toFixed(1) + ' h\n' + lines.join('\n') + '\nRecuerdo promedio en volcados: ' + avg + '/5\nFinales simulados: ' + ex.length + (ex.length ? ' (promedio ' + (ex.reduce((s,r) => s + r.score, 0) / ex.length).toFixed(1) + '/10)' : '');
+    const txt = '📊 Mi semana de estudio\nTotal (7 días): ' + (mins/60).toFixed(1) + ' h\n' + lines.join('\n') + '\nRecuerdo promedio en volcados: ' + avg + '/5';
     try { navigator.clipboard.writeText(txt); } catch(e) {}
     alert(txt + '\n\n(Copiado al portapapeles para compartir)');
 }
@@ -2126,16 +1984,16 @@ function renderWeakPanel() {
     const panel = document.getElementById('panel-hoy'); if(!panel) return;
     let box = document.getElementById('weak-box');
     if(!box) { box = document.createElement('div'); box.id = 'weak-box'; box.className = 'card'; const ref = document.getElementById('priority-recommendation-box'); if(ref && ref.parentNode === panel) ref.insertAdjacentElement('afterend', box); else panel.prepend(box); }
-    const hist = loadHistory(), rec = JSON.parse(ls('pom_recall','[]')), ex = JSON.parse(ls('exam_hist','[]')), from = addDays(todayAR(), -13);
+    const hist = loadHistory(), rec = JSON.parse(ls('pom_recall','[]')), from = addDays(todayAR(), -13);
     const weakUnits = [];
     MATS.forEach(m => m.units.forEach(u => { if((u.srSeen || 0) >= 2) { const r = (u.srFails || 0) / u.srSeen; if(r >= 0.34) weakUnits.push({m: m.name, n: u.n, r, f: u.srFails, s: u.srSeen}); } }));
     weakUnits.sort((a, b) => b.r - a.r);
     const rows = MATS.filter(m => !m.promoted).map(m => {
         let mins = 0; for(let i = 0; i < 14; i++) { const x = hist[addDays(todayAR(), -i)]; if(x && x.mats && x.mats[m.id]) mins += x.mats[m.id]; }
-        const rr = rec.filter(r => String(r.mat) === String(m.id) && r.d >= from), er = ex.filter(r => String(r.mat) === String(m.id));
+        const rr = rec.filter(r => String(r.mat) === String(m.id) && r.d >= from);
         const days = m.exam ? Math.round((new Date(m.exam + 'T00:00:00') - new Date(todayAR() + 'T00:00:00')) / 86400000) : null;
         const alerta = days !== null && days >= 0 && days <= 14 && mins < 300;
-        return `<div style="font-size:11px;color:var(--text2);padding:3px 0">${alerta ? '⚠️ ' : ''}<strong style="color:var(--text)">${esc(m.name)}</strong>: ${(mins/60).toFixed(1)} h en 14 días${rr.length ? ' · recuerdo ' + (rr.reduce((s,r) => s + r.score, 0) / rr.length).toFixed(1) + '/5' : ''}${er.length ? ' · oral ' + (er.reduce((s,r) => s + r.score, 0) / er.length).toFixed(1) + '/10' : ''}${alerta ? ' — examen en ' + days + ' días y poco tiempo' : ''}</div>`;
+        return `<div style="font-size:11px;color:var(--text2);padding:3px 0">${alerta ? '⚠️ ' : ''}<strong style="color:var(--text)">${esc(m.name)}</strong>: ${(mins/60).toFixed(1)} h en 14 días${rr.length ? ' · recuerdo ' + (rr.reduce((s,r) => s + r.score, 0) / rr.length).toFixed(1) + '/5' : ''}${alerta ? ' — examen en ' + days + ' días y poco tiempo' : ''}</div>`;
     }).join('');
     box.innerHTML = `<div class="section-hd" style="margin-bottom:6px"><h2 style="font-size:12px">🔎 Puntos débiles</h2></div>` +
         (weakUnits.length ? weakUnits.slice(0, 5).map(w => `<div style="font-size:12px;padding:3px 0">• <strong>${esc(w.n || '(sin título)').slice(0, 90)}</strong> <span style="color:var(--text3)">(${esc(w.m)}) falló ${w.f} de ${w.s} · ${Math.round(w.r * 100)}%</span></div>`).join('') : '<div style="font-size:11px;color:var(--text3);padding:3px 0">Todavía no hay temas con fallos repetidos. Aparecen después de repasar tarjetas varias veces.</div>') +
@@ -2176,21 +2034,6 @@ document.addEventListener('selectionchange', () => {
     const info = selInfo(); if(info && info.ans.length >= 3) { lastSel = info; selBtn.style.display = 'block'; } else if(document.activeElement !== selBtn) { selBtn.style.display = 'none'; }
 });
 
-// --- Estilos de profesor ---
-const EXAM_STYLES = {
-    estricto: '',
-    amable: ' Estilo: sé amable y orientador; si el alumno se traba, dale una pista antes de calificar.',
-    repreguntador: ' Estilo: repreguntá siempre por el artículo, la norma o el fallo que fundamenta cada afirmación y pedí la cita exacta; no aceptes respuestas vagas.'
-};
-function examStyleText() { const k = ls('exam_style', 'estricto'); if(k === 'custom') return ' Estilo de la cátedra, descrito por el alumno: ' + ls('exam_style_custom', ''); return EXAM_STYLES[k] || ''; }
-(function(){
-    const ref = document.getElementById('exam-mat-filter'); if(!ref || document.getElementById('exam-style')) return;
-    const s = document.createElement('select'); s.id = 'exam-style'; s.style.cssText = ref.style.cssText; s.className = ref.className; s.setAttribute('aria-label', 'Estilo del profesor');
-    s.innerHTML = '<option value="estricto">👨‍⚖️ Profesor estricto</option><option value="amable">🙂 Amable y orientador</option><option value="repreguntador">🔎 Repreguntador (artículos y fallos)</option><option value="custom">✍️ Mi cátedra (describirla)</option>';
-    s.value = ls('exam_style', 'estricto');
-    s.onchange = () => { lss('exam_style', s.value); if(s.value === 'custom') { const d = prompt('Describí cómo toma tu cátedra (ej: pregunta casos prácticos, exige citar artículos, toma 3 bolillas):', ls('exam_style_custom', '')); if(d !== null) lss('exam_style_custom', d.trim().slice(0, 500)); } };
-    ref.insertAdjacentElement('afterend', s);
-})();
 render(); renderWeakPanel();
 
 // === v4: diseño nuevo (resumen del día, modo concentración) + efecto Dock ===
@@ -2236,6 +2079,153 @@ function getChartGrid(){ return document.documentElement.getAttribute('data-them
     };
     changeTheme(ls('theme', 'dark'), false);
 })();
+
+// === v7: CARRERA — notas, avance y correlatividades (UNLZ Abogacía, 42 materias) ===
+const CAR_MATS = [
+ [1,'Introducción al Derecho',1,[]],[2,'Derecho Romano',1,[]],[3,'Derecho Político',1,[]],[4,'Teoría Constitucional',1,[]],
+ [5,'Realidad Social Latinoamericana y Derecho',1,[]],[6,'Teoría General del Proceso',1,[]],
+ [7,'Derecho Constitucional Argentino',2,[1,3,4,6]],[8,'Derecho Privado Parte General',2,[1,2,6]],[9,'Derecho Penal Parte General',2,[1,2,4,6]],
+ [10,'Sociología',2,[]],[11,'Derechos Humanos',2,[1,4,5,6]],[12,'Economía Política',2,[]],[13,'Derecho de las Obligaciones',2,[8]],
+ [14,'Metodología de la Investigación',2,[10]],
+ [15,'Derecho Público Provincial y Municipal',3,[7]],[16,'Derecho de los Contratos',3,[13]],[17,'Derecho Penal Parte Especial',3,[9]],
+ [18,'Taller de Doctrina y Jurisprudencia',3,[14]],[19,'Derecho Internacional Público y de la Integración',3,[11]],
+ [20,'Derecho Procesal Civil y Comercial',3,[8]],[21,'Criminología',3,[10,17]],[22,'Derecho Procesal Penal y Correccional',3,[17]],
+ [23,'Derecho del Consumidor y de la Empresa',4,[13]],[24,'Filosofía del Derecho',4,[1,10]],[25,'Instituciones de Derecho Administrativo',4,[15,16]],
+ [26,'Práctica Profesional I',4,[13,18,20,22]],[27,'Derecho de Familia',4,[13,20]],[28,'Derechos Reales, Intelectuales y Registral',4,[16]],
+ [29,'Derecho del Trabajo',4,[16,20]],[30,'Derecho del Transporte',4,[16]],
+ [31,'Personas Jurídicas Privadas',5,[23]],[32,'Finanzas Públicas y Derecho Tributario',5,[17,20,25]],[33,'Derecho Procesal Administrativo',5,[25]],
+ [34,'Práctica Profesional II',5,[26,27]],[35,'Derecho de la Seguridad Social',5,[29]],[36,'Derecho de las Sucesiones',5,[28]],
+ [37,'Concursos, Quiebras y Títulos Circulatorios',5,[31]],[38,'Seminario de Ética y Formación Profesional',5,[34]],
+ [39,'Derecho Ambiental y de los Recursos Naturales',6,[28]],[40,'Derecho Internacional Privado',6,[36,37]],
+ [41,'Seminario de Problemáticas Jurídicas Contemporáneas',6,[14,17,27]],[42,'Práctica Profesional III',6,[29,34]]
+].map(a => ({id:a[0], name:a[1], year:a[2], req:a[3]}));
+const CAR_BY = {}; CAR_MATS.forEach(m => CAR_BY[m.id] = m);
+const CAR_SEED = {1:6,2:6,3:6,4:6,5:6,6:6,7:6,9:6,13:4,8:4,10:7,14:5,11:4,12:4,15:6,16:6,17:4,18:8,20:6,21:7,22:7,23:7,24:8};
+const CAR_YEARS = ['1° año','2° año','3° año','4° año','5° año','6° año'];
+const CAR_LABEL = {apr:'Aprobada', reg:'Regular', curs:'Cursando', hab:'Habilitada', blo:'Bloqueada', pend:'Pendiente'};
+let CAR = {}, carFilter = 'all', carOpenId = null;
+
+function carSeed() { const o = {}; Object.keys(CAR_SEED).forEach(id => { o[id] = {s:'apr', n:CAR_SEED[id]}; }); return o; }
+function carLoad() {
+  try { const raw = ls('carrera_v1'); CAR = raw ? JSON.parse(raw) : carSeed(); if(!CAR || typeof CAR !== 'object') CAR = carSeed(); } catch(e) { CAR = carSeed(); }
+  if(!ls('carrera_v1')) carSave();
+}
+function carSave() { try { lss('carrera_v1', JSON.stringify(CAR)); } catch(e) {} }
+function carRec(id) { return CAR[id] || {s:'pend'}; }
+function carApr(id) { return carRec(id).s === 'apr'; }
+function carReqOk(id) { return CAR_BY[id].req.every(carApr); }
+function carState(id) { const s = carRec(id).s; if(s === 'apr' || s === 'reg' || s === 'curs') return s; return carReqOk(id) ? 'hab' : 'blo'; }
+function carMissingChain(id) {
+  const seen = new Set(), out = [];
+  (function walk(x) { CAR_BY[x].req.forEach(r => { if(!carApr(r) && !seen.has(r)) { seen.add(r); walk(r); out.push(r); } }); })(id);
+  return out; // orden: primero lo que hay que aprobar antes
+}
+function carUnlocks(id) { return CAR_MATS.filter(m => m.req.includes(id)); }
+function carStats() {
+  const apr = CAR_MATS.filter(m => carApr(m.id)), graded = apr.filter(m => typeof carRec(m.id).n === 'number');
+  const sum = graded.reduce((s, m) => s + carRec(m.id).n, 0);
+  const avg = graded.length ? sum / graded.length : null;
+  const years = CAR_YEARS.map((_, i) => { const ms = CAR_MATS.filter(m => m.year === i + 1), a = ms.filter(m => carApr(m.id)), g = a.filter(m => typeof carRec(m.id).n === 'number');
+    return {total: ms.length, apr: a.length, avg: g.length ? g.reduce((s, m) => s + carRec(m.id).n, 0) / g.length : null}; });
+  const dist = {}; for(let i = 4; i <= 10; i++) dist[i] = 0; graded.forEach(m => { const n = Math.round(carRec(m.id).n); if(dist[n] !== undefined) dist[n]++; });
+  return {apr: apr.length, total: CAR_MATS.length, graded: graded.length, sum, avg, years, dist, rest: CAR_MATS.length - apr.length,
+          hab: CAR_MATS.filter(m => carState(m.id) === 'hab'), best: graded.slice().sort((a, b) => carRec(b.id).n - carRec(a.id).n), };
+}
+function carFmt(n) { return n == null ? '–' : (Math.round(n * 100) / 100).toFixed(2).replace(/\.?0+$/, '').replace('.', ','); }
+
+function renderCarrera() {
+  const st = carStats(), pct = Math.round(st.apr / st.total * 100);
+  const fg = document.getElementById('car-ring-fg'); if(!fg) return;
+  fg.style.strokeDashoffset = String(326.7 * (1 - st.apr / st.total));
+  document.getElementById('car-pct').textContent = pct + '%';
+  document.getElementById('car-kpis').innerHTML =
+    `<div class="car-kpi"><b>${st.apr}<span style="font-size:13px;color:var(--text3)"> / ${st.total}</span></b><small>Aprobadas</small></div>` +
+    `<div class="car-kpi"><b>${carFmt(st.avg)}</b><small>Promedio</small></div>` +
+    `<div class="car-kpi"><b>${st.rest}</b><small>Te faltan</small></div>` +
+    `<div class="car-kpi"><b>${st.hab.length}</b><small>Habilitadas</small></div>`;
+  document.getElementById('car-years').innerHTML = st.years.map((y, i) =>
+    `<div class="car-year-row"><span>${CAR_YEARS[i]}</span><div class="car-bar"><i style="width:${Math.round(y.apr / y.total * 100)}%"></i></div><em>${y.apr}/${y.total}${y.avg != null ? ' · ' + carFmt(y.avg) : ''}</em></div>`).join('');
+  const max = Math.max(1, ...Object.values(st.dist));
+  document.getElementById('car-hist').innerHTML = Object.keys(st.dist).map(n => `<div><b>${st.dist[n] || ''}</b><i style="height:${Math.round(st.dist[n] / max * 78)}px;${st.dist[n] ? '' : 'opacity:.25'}"></i><span>${n}</span></div>`).join('');
+  const hi = st.best[0], lo = st.best[st.best.length - 1];
+  document.getElementById('car-extremes').innerHTML = hi ? `🏆 Mejor nota: <b>${carRec(hi.id).n}</b> en ${esc(hi.name)}${lo && lo !== hi ? ` · 🌱 Más baja: <b>${carRec(lo.id).n}</b> en ${esc(lo.name)}` : ''}` : 'Cargá tus notas para ver estadísticas.';
+  document.getElementById('car-hab').innerHTML = st.hab.length ? st.hab.map(m => carRowHTML(m)).join('') : '<div class="car-empty">Por ahora no hay materias nuevas habilitadas.</div>';
+  carCalc();
+  const filters = [['all','Todas'],['apr','Aprobadas'],['hab','Habilitadas'],['curs','Cursando'],['reg','Regulares'],['blo','Bloqueadas']];
+  document.getElementById('car-filters').innerHTML = filters.map(f => `<button class="car-chip ${carFilter === f[0] ? 'on' : ''}" onclick="carSetFilter('${f[0]}')">${f[1]}</button>`).join('');
+  renderCarList();
+}
+function carSetFilter(f) { carFilter = f; renderCarrera(); }
+function carRowHTML(m) {
+  const s = carState(m.id), r = carRec(m.id);
+  const lab = s === 'apr' ? (typeof r.n === 'number' ? 'Nota ' + r.n : 'Aprobada') : CAR_LABEL[s];
+  const sub = s === 'blo' ? 'Falta: ' + CAR_BY[m.id].req.filter(x => !carApr(x)).map(x => '#' + x).join(', ') : (m.req.length ? 'Correlativas: ' + m.req.map(x => '#' + x).join(' · ') : 'Sin correlativas');
+  return `<button class="car-row ${s}" onclick="carOpen(${m.id})"><span class="cod">${m.id}</span><span class="nm">${esc(m.name)}<small>${sub}</small></span><span class="car-st ${s}">${lab}</span></button>`;
+}
+function renderCarList() {
+  const q = (document.getElementById('car-q') || {value:''}).value.trim().toLowerCase();
+  const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  let html = '';
+  CAR_YEARS.forEach((label, i) => {
+    const ms = CAR_MATS.filter(m => m.year === i + 1 && (carFilter === 'all' || carState(m.id) === carFilter) && (!q || norm(m.name).includes(norm(q)) || String(m.id) === q));
+    if(!ms.length) return;
+    html += `<div class="car-year-h"><span>${label}</span><span>${ms.filter(m => carApr(m.id)).length}/${CAR_MATS.filter(m => m.year === i + 1).length}</span></div>` + ms.map(carRowHTML).join('');
+  });
+  document.getElementById('car-list').innerHTML = html || '<div class="car-empty">No hay materias con ese filtro.</div>';
+}
+function carCalc() {
+  const out = document.getElementById('car-calc-out'); if(!out) return;
+  const st = carStats(), t = parseFloat(document.getElementById('car-target').value);
+  document.getElementById('car-calc-n').textContent = `(te quedan ${st.rest} materias)`;
+  if(!t || t < 4 || t > 10) { out.textContent = 'Ingresá un promedio objetivo entre 4 y 10.'; return; }
+  if(!st.rest) { out.textContent = `Ya terminaste: tu promedio final es ${carFmt(st.avg)}.`; return; }
+  const need = (t * (st.graded + st.rest) - st.sum) / st.rest;
+  if(need > 10) out.innerHTML = `Con ${st.rest} materias restantes <b>no alcanza ni sacando 10</b> en todas. Lo máximo posible es <b>${carFmt((st.sum + 10 * st.rest) / (st.graded + st.rest))}</b>.`;
+  else if(need <= 4) out.innerHTML = `Aprobando todas con <b>4</b> ya llegás a ${carFmt(t)} o más. 🎯`;
+  else out.innerHTML = `Necesitás sacar <b>${carFmt(need)} de promedio</b> en las ${st.rest} materias que te faltan para cerrar en ${carFmt(t)}. Es decir, algo así como un ${Math.min(10, Math.ceil(need))} en cada final que te queda.`;
+}
+
+function carOpen(id) { carOpenId = id; carRenderModal(); document.getElementById('modal-carrera').classList.add('active'); }
+function carClose() { document.getElementById('modal-carrera').classList.remove('active'); carOpenId = null; renderCarrera(); }
+function carRenderModal() {
+  const id = carOpenId, m = CAR_BY[id], r = carRec(id), s = carState(id), box = document.getElementById('car-modal-body');
+  const reqs = m.req.map(x => `<button class="car-req" onclick="carOpen(${x})"><span class="${carApr(x) ? 'ok' : 'no'}">${carApr(x) ? '✓' : '✗'}</span><span>${x}. ${esc(CAR_BY[x].name)}</span></button>`).join('') || '<div class="car-empty">Esta materia no tiene correlativas. Podés cursarla desde el inicio.</div>';
+  const chain = carMissingChain(id), unl = carUnlocks(id);
+  const stBtn = [['pend','Pendiente'],['curs','Cursando'],['reg','Regular'],['apr','Aprobada']].map(b => `<button class="${(r.s || 'pend') === b[0] ? 'on' : ''}" onclick="carSetState(${id},'${b[0]}')">${b[1]}</button>`).join('');
+  box.innerHTML = `<div class="car-modal-h"><div><div style="font-size:11px;color:var(--text3)">#${id} · ${CAR_YEARS[m.year - 1]}</div><h3>${esc(m.name)}</h3></div><button class="car-x" onclick="carClose()" aria-label="Cerrar">×</button></div>
+    <span class="car-st ${s}">${s === 'apr' && typeof r.n === 'number' ? 'Aprobada · ' + r.n : CAR_LABEL[s]}</span>
+    <div class="car-sec">Estado</div><div class="car-states">${stBtn}</div>
+    <div class="car-fields"><label>Nota del final (4–10)<input type="number" min="4" max="10" step="1" value="${typeof r.n === 'number' ? r.n : ''}" onchange="carSetNote(${id},this.value)" placeholder="–"></label>
+      <label>Fecha de aprobación<input type="date" value="${r.d || ''}" onchange="carSetDate(${id},this.value)"></label></div>
+    ${r.s === 'apr' && !carReqOk(id) ? '<div class="car-warn">⚠️ La tenés aprobada pero aún faltan correlativas cargadas. Revisá la lista de abajo.</div>' : ''}
+    <div class="car-sec">Correlativas (tenés que tener aprobadas)</div>${reqs}
+    ${(!carApr(id) && chain.length) ? `<div class="car-sec">Camino que te falta recorrer</div><div class="car-warn">${chain.map(x => `<b>${x}</b>. ${esc(CAR_BY[x].name)}`).join('<br>↓<br>')}<br>↓<br>🎯 <b>${id}</b>. ${esc(m.name)}</div>` : ''}
+    ${(!carApr(id) && !chain.length && carReqOk(id)) ? '<div class="car-warn" style="background:var(--green-dim)">✅ Tenés todas las correlativas: ya podés cursarla y rendirla.</div>' : ''}
+    <div class="car-sec">Al aprobarla se habilita</div>${unl.map(u => `<button class="car-req" onclick="carOpen(${u.id})"><span>🔓</span><span>${u.id}. ${esc(u.name)}</span></button>`).join('') || '<div class="car-empty">No es correlativa de ninguna otra materia.</div>'}`;
+}
+function carSetState(id, s) {
+  const r = Object.assign({}, CAR[id] || {}); r.s = s;
+  if(s === 'apr' && !r.d) r.d = todayAR();
+  if(s !== 'apr') { delete r.d; }
+  if(s === 'pend') { delete r.n; }
+  CAR[id] = r; carSave(); carRenderModal(); renderCarrera();
+}
+function carSetNote(id, v) {
+  const n = parseFloat(v), r = Object.assign({}, CAR[id] || {});
+  if(v === '' || isNaN(n)) { delete r.n; }
+  else if(n < 4 || n > 10) { notify('Nota inválida', 'La nota de aprobación va de 4 a 10.'); carRenderModal(); return; }
+  else { r.n = Math.round(n * 2) / 2; r.s = 'apr'; if(!r.d) r.d = todayAR(); }
+  CAR[id] = r; carSave(); carRenderModal(); renderCarrera();
+}
+function carSetDate(id, v) { const r = Object.assign({}, CAR[id] || {}); if(v) r.d = v; else delete r.d; CAR[id] = r; carSave(); }
+function carReset() { if(!confirm('¿Volver a los datos iniciales cargados desde tu Excel? Se pierden los cambios que hiciste.')) return; CAR = carSeed(); carSave(); renderCarrera(); }
+function carExport() {
+  const rows = [['Cod','Materia','Año','Estado','Nota','Fecha','Correlativas']].concat(CAR_MATS.map(m => { const r = carRec(m.id); return [m.id, m.name, CAR_YEARS[m.year - 1], CAR_LABEL[carState(m.id)], r.n != null ? r.n : '', r.d || '', m.req.join('-')]; }));
+  const csv = '﻿' + rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(';')).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv;charset=utf-8'})); a.download = 'Mi_Carrera_' + todayAR() + '.csv'; a.click();
+}
+carLoad();
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && carOpenId) carClose(); });
 </script>
 </body>
 </html>
