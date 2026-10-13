@@ -406,6 +406,37 @@ html[data-theme="light"] .modal-box{background:#fff;border-color:rgba(60,40,120,
 html[data-theme="light"] .car-modal-h h3,html[data-theme="light"] .car-req,html[data-theme="light"] .car-calc-out,html[data-theme="light"] .car-warn{color:#1c1633}
 html[data-theme="light"] .car-states button.on,html[data-theme="light"] .car-chip.on{color:#3b1d86}
 html[data-theme="light"] .car-fields input,html[data-theme="light"] .car-calc input,html[data-theme="light"] .car-search{color-scheme:light}
+/* === v8: tarjetas propias en Repaso === */
+.fcm-in{width:100%;margin-top:8px;padding:10px 12px;border-radius:12px;border:1px solid var(--border2);background:rgba(127,127,150,.10);color:var(--text);font-size:13px;font-family:inherit;resize:vertical}
+.fcm-row{margin-top:10px;padding:10px;border-radius:14px;border:1px solid var(--border);background:rgba(127,127,150,.07)}
+.fcm-row .fcm-in{margin-top:6px;font-size:12px}
+.fcm-meta{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--text3);gap:8px}
+.fcm-del{background:none;border:none;color:var(--red);cursor:pointer;font-size:12px;font-family:inherit}
+html[data-theme="light"] .fcm-in{color-scheme:light}
+/* === v9: buscador, píldora del timer, objetivo === */
+.global-search-bar{position:relative}
+#gs-results{display:none;position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:1500;max-height:min(60vh,420px);overflow-y:auto;background:var(--surface3);border:1px solid var(--border2);border-radius:16px;padding:6px;box-shadow:0 18px 48px rgba(0,0,0,.5)}
+#gs-results.open{display:block}
+.gs-item{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;padding:9px 10px;border:none;border-radius:11px;background:transparent;color:var(--text);cursor:pointer;font-family:inherit}
+.gs-item:hover,.gs-item.sel{background:var(--purple-dim)}
+.gs-ic{font-size:16px;line-height:1.3}
+.gs-tx{display:flex;flex-direction:column;min-width:0}
+.gs-tx b{font-size:13px;font-weight:600;line-height:1.3}
+.gs-tx small{font-size:11px;color:var(--text3);line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gs-empty,.gs-more{padding:12px;font-size:12px;color:var(--text3);text-align:center}
+.gs-flash{animation:gsflash 2.2s ease}
+@keyframes gsflash{0%,60%{box-shadow:0 0 0 3px var(--purple),0 0 28px var(--purple-dim)}100%{box-shadow:0 0 0 0 transparent}}
+html[data-theme="light"] #gs-results{background:#fff;box-shadow:0 18px 48px rgba(60,40,120,.2)}
+.di-btn{background:transparent;border:none;outline:none;color:#fff;font:inherit;font-weight:700;font-size:12px;padding:4px 2px;cursor:pointer;letter-spacing:.02em;-webkit-appearance:none;appearance:none}
+.di-btn:hover{opacity:.8}
+html[data-theme="light"] .di-btn{color:#1c1633}
+.session-goal-box{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.session-goal-box #timer-mat-sel,.session-goal-box #session-goal{width:100%;box-sizing:border-box;padding:12px 14px;border-radius:14px;border:1px solid var(--border2);background:rgba(127,127,150,.14);color:var(--text);font-size:14px;font-family:inherit;outline:none;-webkit-appearance:none;appearance:none}
+.session-goal-box #timer-mat-sel{background-image:linear-gradient(45deg,transparent 50%,var(--text2) 50%),linear-gradient(135deg,var(--text2) 50%,transparent 50%);background-position:calc(100% - 20px) 55%,calc(100% - 14px) 55%;background-size:6px 6px;background-repeat:no-repeat;padding-right:36px}
+.session-goal-box #session-goal::placeholder{color:var(--text2);opacity:.85}
+.session-goal-box #timer-mat-sel:focus,.session-goal-box #session-goal:focus{border-color:var(--purple);box-shadow:0 0 0 3px var(--purple-dim)}
+.session-goal-box option{background:var(--surface3);color:var(--text)}
+body.mode-break #ring{stroke:#10b981;filter:drop-shadow(0 0 7px rgba(16,185,129,.35))}
 </style>
 </head>
 <body class="mode-study">
@@ -447,7 +478,7 @@ html[data-theme="light"] .car-fields input,html[data-theme="light"] .car-calc in
 </div>
 
 <div class="global-search-bar">
-    <input type="text" id="global-search-input" class="global-search-input" placeholder="🔍 Buscar materias, apuntes o tarjetas (Ctrl+K)..." oninput="handleGlobalSearch(this.value)">
+    <input type="text" id="global-search-input" class="global-search-input" placeholder="🔍 Buscar materias, temas, tarjetas o carrera (Ctrl+K)..." oninput="handleGlobalSearch(this.value)" autocomplete="off"><div id="gs-results" role="listbox"></div>
 </div>
 
 <nav class="nav-bottom" aria-label="Navegación principal">
@@ -529,8 +560,9 @@ html[data-theme="light"] .car-fields input,html[data-theme="light"] .car-calc in
 
     <div class="ring-wrap">
       <svg width="210" height="210" viewBox="0 0 220 220" aria-hidden="true">
-        <circle cx="110" cy="110" r="96" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="8"/>
-        <circle id="ring" cx="110" cy="110" r="96" fill="none" stroke="#ef4444" stroke-width="7" stroke-linecap="round" stroke-dasharray="603.19" stroke-dashoffset="0" transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s linear"/>
+        <defs><linearGradient id="timerGradient" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f3a5d4"/><stop offset="55%" stop-color="#b68cff"/><stop offset="100%" stop-color="#858bff"/></linearGradient></defs>
+        <circle cx="110" cy="110" r="96" fill="none" stroke="rgba(127,127,150,0.2)" stroke-width="8"/>
+        <circle id="ring" cx="110" cy="110" r="96" fill="none" stroke="#ef4444" stroke-width="7" stroke-linecap="round" stroke-dasharray="603.19" stroke-dashoffset="603.19" transform="rotate(-90 110 110)" style="transition:stroke-dashoffset 1s linear"/>
       </svg>
       <div class="ring-center">
         <div class="time-num" id="time-num">50:00</div>
@@ -589,6 +621,23 @@ html[data-theme="light"] .car-fields input,html[data-theme="light"] .car-calc in
       <div class="flashcard-scene">
           <div class="fc-card" style="color:var(--text3)">Seleccioná un modo para empezar a repasar.</div>
       </div>
+  </div>
+  <div class="card" id="fc-new-card">
+    <h2>✍️ Nueva tarjeta</h2>
+    <p class="car-sub">Escribí acá lo que querés recordar. Es independiente de las notas de tus temas.</p>
+    <select id="fc-new-mat" class="fcm-in" aria-label="Materia"></select>
+    <input id="fc-new-q" class="fcm-in" placeholder="Pregunta o concepto (ej: ¿Qué es el dolo?)" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('fc-new-a').focus()}">
+    <textarea id="fc-new-a" class="fcm-in" rows="3" placeholder="Respuesta (ej: Engaño intencional para inducir a otro a un acto jurídico…)" onkeydown="if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){event.preventDefault();fcAdd()}"></textarea>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px">
+      <button class="btn btn-blue" onclick="fcAdd()">➕ Agregar tarjeta</button>
+      <span style="font-size:10px;color:var(--text3)">Atajo: Cmd/Ctrl + Enter</span>
+    </div>
+  </div>
+  <div class="card" id="fc-manage">
+    <div class="section-hd"><h2>🗂️ Mis tarjetas</h2><span id="fc-total" style="font-size:12px;color:var(--purple)"></span></div>
+    <select id="fc-list-mat" class="fcm-in" onchange="renderFCManager()" aria-label="Filtrar por materia"></select>
+    <div id="fc-list"></div>
+    <label style="display:flex;gap:8px;align-items:center;font-size:11px;color:var(--text2);margin-top:14px;cursor:pointer"><input type="checkbox" id="fc-use-notes" onchange="fcToggleNotes(this.checked)"> Incluir también las notas de los temas de Materias en el repaso</label>
   </div>
 </div>
 
@@ -938,26 +987,6 @@ function restoreTrash(idx) {
 }
 
 // --- BÚSQUEDA GLOBAL REAL (Materias, Apuntes y Tarjetas) ---
-function handleGlobalSearch(query) {
-    const q = query.toLowerCase().trim();
-    const cards = document.querySelectorAll('.materia');
-    cards.forEach(card => {
-        const matId = parseInt(card.dataset.id);
-        const m = MATS.find(x => x.id === matId);
-        if(!m) return;
-        
-        const matName = m.name.toLowerCase();
-        const hasUnitMatch = m.units.some(u => (u.n && u.n.toLowerCase().includes(q)) || (u.note && u.note.toLowerCase().includes(q)));
-        
-        if(!q || matName.includes(q) || hasUnitMatch) {
-            card.style.display = 'block';
-            if(q && hasUnitMatch && !m.open) { m.open = true; }
-        } else {
-            card.style.display = 'none';
-        }
-    });
-}
-
 window.addEventListener('keydown', (e) => {
     if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
@@ -989,13 +1018,14 @@ function lss(k,v){try{localStorage.setItem(k,v);}catch(e){alert("Almacenamiento 
 
 function loadMats(){
   const s=ls('pom_mats');
-  if(!s) return [{id:1, name:'Derecho Procesal', color:COLORS[0], open:true, notebookUrl:'', promoted:false, needsFinal:false, units:[]}];
+  if(!s) return [{id:1, name:'Derecho Procesal', color:COLORS[0], open:true, notebookUrl:'', promoted:false, needsFinal:false, units:[], cards:[]}];
   const m=JSON.parse(s);
   m.forEach(mat=>{
     if(!mat.notebookUrl) mat.notebookUrl = '';
     if(mat.promoted === undefined) mat.promoted = false;
     if(mat.needsFinal === undefined) mat.needsFinal = false;
     if(!mat.color) mat.color = COLORS[0];
+    if(!Array.isArray(mat.cards)) mat.cards = [];
     mat.units.forEach(u=>{
       if(!u.srEase) u.srEase = 2.5;
       if(!u.srInt) u.srInt = 0;
@@ -1346,7 +1376,7 @@ function setMode(m){
 function updateDisp(){
   const ts = String(Math.floor(rem/60)).padStart(2,'0')+':'+String(rem%60).padStart(2,'0');
   document.getElementById('time-num').textContent=ts; document.title=ts+' · Estudio';
-  document.getElementById('ring').setAttribute('stroke-dashoffset', (CIRC-(CIRC*(rem/total))).toFixed(2));
+  document.getElementById('ring').setAttribute('stroke-dashoffset', (CIRC*(total>0?Math.min(1,Math.max(0,rem/total)):0)).toFixed(2));
   document.getElementById('s-pom').textContent=poms;
   document.getElementById('s-time').textContent=Math.round(studMin/60)+'m'; 
   document.getElementById('s-breaks').textContent=breaks;
@@ -1713,7 +1743,7 @@ function addDays(date, n){ const d=new Date(date+'T00:00:00'); d.setDate(d.getDa
 
 function processSM2(matId, uid, quality) {
     const m = MATS.find(x=>x.id===matId); if(!m) return;
-    const u = m.units.find(x=>x.id===uid); if(!u) return;
+    const u = (m.cards||[]).find(x=>x.id===uid) || m.units.find(x=>x.id===uid); if(!u) return;
     u.srSeen = (u.srSeen || 0) + 1; if(quality < 3) u.srFails = (u.srFails || 0) + 1;
     
     // CORRECCIÓN 2: Si quality < 3 (Olvide), se reinicia el intervalo a 1 día y reps a 0 (SM-2 estándar)
@@ -1736,23 +1766,23 @@ function processSM2(matId, uid, quality) {
 
 function updateDueCount() {
     let count = 0; const today = todayAR();
-    MATS.forEach(m => m.units.forEach(u => { if(u.note && u.note.trim().length > 0 && (!u.srNext || u.srNext <= today)) count++; }));
+    MATS.forEach(m => fcItems(m).forEach(it => { if(!it.o.srNext || it.o.srNext <= today) count++; }));
     document.getElementById('fc-count-badge').textContent = count + ' pendientes';
     document.getElementById('s-due').textContent = count;
 }
 
 function renderFCIdle() {
-    updateDueCount();
+    updateDueCount(); renderFCManager();
     document.getElementById('fc-area').innerHTML = `<div class="flashcard-scene"><div class="fc-card" style="color:var(--text3)">Seleccioná un modo para empezar.</div></div>`;
 }
 
 function startFC(mode){
   fcDeck=[]; const today = todayAR();
-  MATS.forEach(m=>m.units.filter(u=> u.note && u.note.trim().length>0).forEach(u=>{
-      if(mode==='all' || !u.srNext || u.srNext <= today) fcDeck.push({matId:m.id, uid:u.id, mat:m.name, color:m.color, q:u.n, a:u.note});
+  MATS.forEach(m=>fcItems(m).forEach(it=>{
+      if(mode==='all' || !it.o.srNext || it.o.srNext <= today) fcDeck.push({matId:m.id, uid:it.o.id, mat:m.name, color:m.color, q:it.q, a:it.a, srNext:it.o.srNext});
   }));
   fcDeck.sort((a,b) => (a.srNext||'') < (b.srNext||'') ? -1 : 1);
-  if(!fcDeck.length){ document.getElementById('fc-area').innerHTML=`<div class="flashcard-scene"><div class="fc-card" style="color:var(--green)">¡Al día! No hay tarjetas pendientes.</div></div>`; return; }
+  if(!fcDeck.length){ document.getElementById('fc-area').innerHTML=`<div class="flashcard-scene"><div class="fc-card" style="color:var(--green)">${MATS.some(m=>fcItems(m).length) ? '¡Al día! No hay tarjetas pendientes.' : 'Todavía no tenés tarjetas. Creá la primera en «Nueva tarjeta» más abajo.'}</div></div>`; return; }
   fcIdx=0; showFC();
 }
 
@@ -1793,8 +1823,8 @@ function processImportData() {
     try {
         const imported = text.startsWith('[') ? JSON.parse(text) : text.split('\n').map(l => { const p = l.split('\t'); return { q: p[0], a: p[1] }; });
         imported.forEach(c => { 
-            if(c.q || c.front) {
-                targetMat.units.push({id: generateUniqueId(), n: c.q||c.front, note: c.a||c.back||'', section:'p1', l:false, r:false, a:false, srEase:2.5, srInt:0, srReps:0}); 
+            if((c.q || c.front) && (c.a || c.back)) {
+                (targetMat.cards = targetMat.cards || []).push({id: generateUniqueId(), q: c.q||c.front, a: c.a||c.back||'', srEase:2.5, srInt:0, srReps:0}); 
             }
         });
         saveMats(); render(); closeModal('modal-import'); alert(`¡Importadas ${imported.length} tarjetas a ${targetMat.name}!`);
@@ -1986,7 +2016,7 @@ function renderWeakPanel() {
     if(!box) { box = document.createElement('div'); box.id = 'weak-box'; box.className = 'card'; const ref = document.getElementById('priority-recommendation-box'); if(ref && ref.parentNode === panel) ref.insertAdjacentElement('afterend', box); else panel.prepend(box); }
     const hist = loadHistory(), rec = JSON.parse(ls('pom_recall','[]')), from = addDays(todayAR(), -13);
     const weakUnits = [];
-    MATS.forEach(m => m.units.forEach(u => { if((u.srSeen || 0) >= 2) { const r = (u.srFails || 0) / u.srSeen; if(r >= 0.34) weakUnits.push({m: m.name, n: u.n, r, f: u.srFails, s: u.srSeen}); } }));
+    MATS.forEach(m => m.units.concat(m.cards || []).forEach(u => { if((u.srSeen || 0) >= 2) { const r = (u.srFails || 0) / u.srSeen; if(r >= 0.34) weakUnits.push({m: m.name, n: u.n || u.q, r, f: u.srFails, s: u.srSeen}); } }));
     weakUnits.sort((a, b) => b.r - a.r);
     const rows = MATS.filter(m => !m.promoted).map(m => {
         let mins = 0; for(let i = 0; i < 14; i++) { const x = hist[addDays(todayAR(), -i)]; if(x && x.mats && x.mats[m.id]) mins += x.mats[m.id]; }
@@ -2021,9 +2051,9 @@ function makeCardFromSel() {
     const m = MATS.find(x => String(x.id) === document.getElementById('timer-mat-sel').value) || MATS[0];
     if(!m) { alert('Creá una materia primero.'); return; }
     const q = (lastSel.ctx.slice(0, lastSel.s) + '_____' + lastSel.ctx.slice(lastSel.e)).trim().slice(0, 220);
-    m.units.push({id: generateUniqueId(), n: q, note: lastSel.ans, section: 'p1', l: false, r: false, a: false, srEase: 2.5, srInt: 0, srReps: 0});
-    saveMats(); render(); selBtn.style.display = 'none'; lastSel = null;
-    notify('Tarjeta creada', 'Quedó en «' + m.name + '» con un hueco para completar.');
+    (m.cards = m.cards || []).push({id: generateUniqueId(), q: q, a: lastSel.ans, srEase: 2.5, srInt: 0, srReps: 0});
+    saveMats(); renderFCManager(); updateHeroDue(); selBtn.style.display = 'none'; lastSel = null;
+    notify('Tarjeta creada', 'Quedó en Repaso → «' + m.name + '» con un hueco para completar.');
 }
 document.addEventListener('selectionchange', () => {
     if(!selBtn) {
@@ -2043,7 +2073,7 @@ function renderVisualDashboard(){
   const h=loadHistory()[todayAR()]||{}; const mins=Math.round(h.mins||0);
   const t=document.getElementById('hero-study-time'); if(t) t.textContent=mins>=60?`${Math.floor(mins/60)} h ${mins%60} min`:`${mins} min`;
   const p=document.getElementById('hero-poms'); if(p) p.textContent=String(h.poms||0);
-  const d=document.getElementById('hero-due'); if(d){ let due=0; const today=todayAR(); MATS.forEach(m=>m.units.forEach(u=>{ if(u.note&&u.note.trim().length>0&&(!u.srNext||u.srNext<=today)) due++; })); d.textContent=String(due); }
+  const d=document.getElementById('hero-due'); if(d){ updateHeroDue(); }
   const mc=document.getElementById('hero-microcopy'); if(mc) mc.textContent=mins>=120?'Buen ritmo. Seguí cuidando tus pausas.':mins>0?'Ya empezaste: mantené el impulso.':'Tu próxima sesión puede ser el comienzo.';
 }
 function toggleFocusMode(){
@@ -2226,6 +2256,87 @@ function carExport() {
 }
 carLoad();
 document.addEventListener('keydown', e => { if(e.key === 'Escape' && carOpenId) carClose(); });
+
+// === v8: tarjetas propias (separadas de las notas de los temas) ===
+function fcMat(id) { return MATS.find(x => String(x.id) === String(id)); }
+function fcUseNotes() { return ls('fc_use_notes') === '1'; }
+function fcItems(m) {
+  const a = (m.cards || []).filter(c => c.q && c.a).map(c => ({o: c, q: c.q, a: c.a}));
+  if(fcUseNotes()) m.units.forEach(u => { if(u.note && u.note.trim()) a.push({o: u, q: u.n, a: u.note}); });
+  return a;
+}
+function fcToggleNotes(on) { lss('fc_use_notes', on ? '1' : '0'); updateDueCount(); updateHeroDue(); }
+function updateHeroDue() { const d = document.getElementById('hero-due'); if(!d) return; let n = 0; const t = todayAR(); MATS.forEach(m => fcItems(m).forEach(it => { if(!it.o.srNext || it.o.srNext <= t) n++; })); d.textContent = String(n); }
+function fcAdd() {
+  const m = fcMat(document.getElementById('fc-new-mat').value), qE = document.getElementById('fc-new-q'), aE = document.getElementById('fc-new-a');
+  const q = qE.value.trim(), a = aE.value.trim();
+  if(!m) { alert('Creá una materia primero en la pestaña Materias.'); return; }
+  if(!q || !a) { notify('Falta completar', 'Escribí la pregunta y la respuesta.'); (q ? aE : qE).focus(); return; }
+  (m.cards = m.cards || []).push({id: generateUniqueId(), q, a, srEase: 2.5, srInt: 0, srReps: 0});
+  saveMats(); qE.value = ''; aE.value = ''; qE.focus(); renderFCManager(); updateHeroDue();
+  notify('Tarjeta agregada', 'Quedó en «' + m.name + '».');
+}
+function fcEdit(mid, cid, field, v) { const m = fcMat(mid), c = m && (m.cards || []).find(x => x.id === cid); if(!c) return; c[field] = v.trim(); saveMats(); updateHeroDue(); }
+function fcDel(mid, cid) {
+  const m = fcMat(mid); if(!m || !confirm('¿Borrar esta tarjeta?')) return;
+  m.cards = (m.cards || []).filter(x => x.id !== cid); saveMats(); renderFCManager(); updateHeroDue();
+}
+function renderFCManager() {
+  const sel = document.getElementById('fc-new-mat'), flt = document.getElementById('fc-list-mat'); if(!sel || !flt) return;
+  const opts = MATS.map(m => `<option value="${m.id}">${esc(m.name)}</option>`).join('');
+  const p1 = sel.value, p2 = flt.value;
+  sel.innerHTML = opts; if(p1 && fcMat(p1)) sel.value = p1;
+  flt.innerHTML = '<option value="all">Todas las materias</option>' + opts; if(p2 && (p2 === 'all' || fcMat(p2))) flt.value = p2;
+  document.getElementById('fc-use-notes').checked = fcUseNotes();
+  const rows = []; MATS.forEach(m => { if(flt.value === 'all' || String(m.id) === flt.value) (m.cards || []).slice().reverse().forEach(c => rows.push({m, c})); });
+  const t = todayAR();
+  document.getElementById('fc-total').textContent = rows.length + (rows.length === 1 ? ' tarjeta' : ' tarjetas');
+  document.getElementById('fc-list').innerHTML = rows.length ? rows.map(({m, c}) => `<div class="fcm-row">
+    <div class="fcm-meta"><span style="color:${m.color}">${esc(m.name)}</span><span>${!c.srNext ? '🆕 Nueva' : (c.srNext <= t ? '📅 Para repasar hoy' : 'Próximo repaso: ' + c.srNext.split('-').reverse().join('/'))}</span><button class="fcm-del" onclick="fcDel(${m.id},${c.id})">✕ Borrar</button></div>
+    <input class="fcm-in" value="${esc(c.q)}" onchange="fcEdit(${m.id},${c.id},'q',this.value)" aria-label="Pregunta">
+    <textarea class="fcm-in" rows="2" onchange="fcEdit(${m.id},${c.id},'a',this.value)" aria-label="Respuesta">${esc(c.a)}</textarea></div>`).join('')
+    : '<div class="car-empty" style="margin-top:10px">Todavía no creaste tarjetas. Escribí la primera arriba. 👆</div>';
+}
+
+// === v9: buscador global (materias, temas, tarjetas y carrera) ===
+function gsNorm(s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+let gsItems = [], gsIdx = -1;
+function gsSnip(text, q) { const t = String(text || '').replace(/\s+/g, ' '); const i = gsNorm(t).indexOf(q); if(i < 0) return t.slice(0, 70); const a = Math.max(0, i - 25); return (a ? '…' : '') + t.slice(a, a + 80) + (t.length > a + 80 ? '…' : ''); }
+function handleGlobalSearch(query) {
+  const box = document.getElementById('gs-results'); if(!box) return;
+  const q = gsNorm(query).trim(); gsItems = []; gsIdx = -1;
+  if(q.length < 2) { box.classList.remove('open'); box.innerHTML = ''; return; }
+  const has = s => gsNorm(s).includes(q);
+  MATS.forEach(m => {
+    if(has(m.name)) gsItems.push({ic: '📚', t: m.name, s: 'Materia · ' + m.units.length + ' temas', go: () => gsGoMat(m.id)});
+    m.units.forEach(u => { if(has(u.n) || has(u.note)) gsItems.push({ic: '📝', t: u.n || '(tema sin nombre)', s: m.name + ' · ' + gsSnip(has(u.n) ? u.note || 'Tema' : u.note, q), go: () => gsGoMat(m.id, u.id)}); });
+    (m.cards || []).forEach(c => { if(has(c.q) || has(c.a)) gsItems.push({ic: '🃏', t: c.q, s: 'Tarjeta · ' + m.name + ' · ' + gsSnip(has(c.q) ? c.a : c.a, q), go: () => gsGoCard(m.id)}); });
+  });
+  if(typeof CAR_MATS !== 'undefined') CAR_MATS.forEach(c => { if(has(c.name) || String(c.id) === q) gsItems.push({ic: '🎓', t: c.name, s: 'Carrera · ' + CAR_YEARS[c.year - 1] + ' · ' + CAR_LABEL[carState(c.id)], go: () => gsGoCar(c.id)}); });
+  const shown = gsItems.slice(0, 30);
+  box.innerHTML = shown.length ? shown.map((r, i) => `<button class="gs-item" data-i="${i}" onclick="gsPick(${i})"><span class="gs-ic">${r.ic}</span><span class="gs-tx"><b>${esc(r.t)}</b><small>${esc(r.s)}</small></span></button>`).join('') + (gsItems.length > 30 ? `<div class="gs-more">Mostrando 30 de ${gsItems.length}. Escribí más para afinar.</div>` : '')
+    : `<div class="gs-empty">No encontré nada para «${esc(query.trim())}».</div>`;
+  box.classList.add('open');
+}
+function gsClose(clear) { const b = document.getElementById('gs-results'); if(b) b.classList.remove('open'); if(clear) { const i = document.getElementById('global-search-input'); if(i) i.value = ''; } }
+function gsPick(i) { const r = gsItems[i]; if(!r) return; gsClose(true); r.go(); }
+function gsFlash(el) { if(!el) return; el.scrollIntoView({behavior: 'smooth', block: 'center'}); el.classList.add('gs-flash'); setTimeout(() => el.classList.remove('gs-flash'), 2200); }
+function gsGoMat(mid, uid) {
+  const m = fcMat(mid); if(!m) return; m.open = true; saveMats(); showPanel('tracker');
+  setTimeout(() => { const card = document.querySelector(`.materia[data-id="${mid}"]`); const row = uid ? document.querySelector(`.u-name[onchange^="updUnit(${mid},${uid},"]`) : null; gsFlash(row ? (row.closest('.u-row') || row) : card); }, 80);
+}
+function gsGoCard(mid) { showPanel('flashcard'); const f = document.getElementById('fc-list-mat'); if(f) { f.value = String(mid); renderFCManager(); } setTimeout(() => gsFlash(document.getElementById('fc-manage')), 80); }
+function gsGoCar(id) { showPanel('carrera'); carOpen(id); }
+document.addEventListener('keydown', e => {
+  const inp = document.getElementById('global-search-input'), box = document.getElementById('gs-results'); if(!inp || !box) return;
+  if(e.key === 'Escape' && box.classList.contains('open')) { gsClose(false); return; }
+  if(document.activeElement !== inp || !box.classList.contains('open')) return;
+  const els = box.querySelectorAll('.gs-item'); if(!els.length) return;
+  if(e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); gsIdx = (gsIdx + (e.key === 'ArrowDown' ? 1 : -1) + els.length) % els.length; els.forEach((x, i) => x.classList.toggle('sel', i === gsIdx)); els[gsIdx].scrollIntoView({block: 'nearest'}); }
+  else if(e.key === 'Enter') { e.preventDefault(); gsPick(gsIdx >= 0 ? gsIdx : 0); }
+});
+document.addEventListener('click', e => { if(!e.target.closest('.global-search-bar')) gsClose(false); });
+document.getElementById('global-search-input').addEventListener('focus', function() { if(this.value.trim().length >= 2) handleGlobalSearch(this.value); });
 </script>
 </body>
 </html>
