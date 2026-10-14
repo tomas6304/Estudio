@@ -1,0 +1,8 @@
+Estudio Tracker usa estas librerías de código abierto, incluidas tal cual en este repositorio:
+- pdf.js (Mozilla) - Apache 2.0 - pdf.min.js, pdf.worker.min.js
+- mammoth.js - BSD 2-Clause - mammoth.browser.min.js
+- JSZip - MIT - jszip.min.js
+- heic2any - MIT - heic2any.min.js
+- Tesseract.js y Tesseract OCR core - Apache 2.0 - tesseract.min.js, tesseract-worker.min.js, tesseract-core-*.wasm.js
+- Datos de idioma español de Tesseract (tessdata_best) - Apache 2.0 - spa.traineddata.gz
+- Chart.js - MIT - chart.umd.js
