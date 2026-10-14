@@ -1,5 +1,5 @@
 /* Estudio Tracker · service worker (funciona sin internet) */
-const VERSION = 'et-1.1.0';
+const VERSION = 'et-1.2.0';
 const FONTS = VERSION + '-fonts';
 const CORE = ['./', 'index.html', 'manifest.webmanifest', 'chart.umd.js', 'icon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 
@@ -35,4 +35,12 @@ self.addEventListener('fetch', e => {
       return hit || net;
     })));
   }
+});
+
+self.addEventListener('notificationclick', e => {
+  e.notification.close();
+  e.waitUntil(self.clients.matchAll({type: 'window', includeUncontrolled: true}).then(cs => {
+    for(const c of cs) { if('focus' in c) return c.focus(); }
+    return self.clients.openWindow('./');
+  }));
 });
