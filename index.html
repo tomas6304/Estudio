@@ -6,10 +6,15 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#070707">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='110' fill='%23070707'/><text x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='-apple-system, sans-serif' font-weight='700' font-size='320' fill='%23f5f3f0'>9</text></svg>">
-<title>Estudio Tracker UNLZ Pro</title>
+<link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Estudio">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Estudio Tracker</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="vendor/chart.umd.js"></script>
 <style>
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -437,14 +442,25 @@ html[data-theme="light"] .di-btn{color:#1c1633}
 .session-goal-box #timer-mat-sel:focus,.session-goal-box #session-goal:focus{border-color:var(--purple);box-shadow:0 0 0 3px var(--purple-dim)}
 .session-goal-box option{background:var(--surface3);color:var(--text)}
 body.mode-break #ring{stroke:#10b981;filter:drop-shadow(0 0 7px rgba(16,185,129,.35))}
+/* === v10: edición de la carrera, instalación === */
+.car-reqbox{max-height:230px;overflow-y:auto;margin-top:8px;border:1px solid var(--border);border-radius:12px;padding:4px;background:rgba(127,127,150,.06)}
+.car-reqopt{display:flex;gap:10px;align-items:flex-start;padding:8px;border-radius:9px;font-size:12px;color:var(--text);cursor:pointer}
+.car-reqopt:hover{background:rgba(127,127,150,.12)}
+.car-reqopt input{margin-top:2px;accent-color:var(--purple)}
+.car-reqopt small{color:var(--text3)}
+.btn-red{background:var(--red-dim);color:var(--red);border-color:rgba(239,68,68,.35)}
+html[data-theme="light"] .btn-red{color:#b91c1c;border-color:rgba(185,28,28,.4)}
+#pwa-card p{font-size:12px;color:var(--text2);line-height:1.55;margin:8px 0}
+.car-fields input,.car-fields select{width:100%;box-sizing:border-box;min-width:0}
+.car-fields label{min-width:0}
 </style>
 </head>
 <body class="mode-study">
 
 <div id="onboarding-overlay" style="display:none;">
     <div class="card" style="width:100%; max-width:440px; text-align:center;">
-        <h2 id="ob-title" style="margin-bottom:10px; font-size:1.3rem;">⚖️ Bienvenido a Estudio Tracker UNLZ</h2>
-        <p id="ob-desc" style="font-size:12px; color:var(--text2); margin-bottom:1.5rem; line-height:1.6;">Tu organizador académico definitivo para la carrera de derecho y materias exigentes.</p>
+        <h2 id="ob-title" style="margin-bottom:10px; font-size:1.3rem;">🎓 Bienvenido a Estudio Tracker</h2>
+        <p id="ob-desc" style="font-size:12px; color:var(--text2); margin-bottom:1.5rem; line-height:1.6;">Tu organizador de estudio para la facultad: pomodoro, materias, repaso espaciado y seguimiento de tu carrera. Todo queda guardado en tu dispositivo.</p>
         <div style="display:flex; justify-content:center; gap:6px; margin-bottom:1.5rem;" id="ob-dots">
             <span style="width:8px; height:8px; border-radius:50%; background:var(--purple);"></span>
             <span style="width:8px; height:8px; border-radius:50%; background:var(--border2);"></span>
@@ -626,8 +642,8 @@ body.mode-break #ring{stroke:#10b981;filter:drop-shadow(0 0 7px rgba(16,185,129,
     <h2>✍️ Nueva tarjeta</h2>
     <p class="car-sub">Escribí acá lo que querés recordar. Es independiente de las notas de tus temas.</p>
     <select id="fc-new-mat" class="fcm-in" aria-label="Materia"></select>
-    <input id="fc-new-q" class="fcm-in" placeholder="Pregunta o concepto (ej: ¿Qué es el dolo?)" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('fc-new-a').focus()}">
-    <textarea id="fc-new-a" class="fcm-in" rows="3" placeholder="Respuesta (ej: Engaño intencional para inducir a otro a un acto jurídico…)" onkeydown="if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){event.preventDefault();fcAdd()}"></textarea>
+    <input id="fc-new-q" class="fcm-in" placeholder="Pregunta o concepto (ej: ¿Qué es la inflación?)" onkeydown="if(event.key==='Enter'){event.preventDefault();document.getElementById('fc-new-a').focus()}">
+    <textarea id="fc-new-a" class="fcm-in" rows="3" placeholder="Respuesta (ej: Aumento sostenido y generalizado de los precios…)" onkeydown="if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)){event.preventDefault();fcAdd()}"></textarea>
     <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px">
       <button class="btn btn-blue" onclick="fcAdd()">➕ Agregar tarjeta</button>
       <span style="font-size:10px;color:var(--text3)">Atajo: Cmd/Ctrl + Enter</span>
@@ -642,34 +658,68 @@ body.mode-break #ring{stroke:#10b981;filter:drop-shadow(0 0 7px rgba(16,185,129,
 </div>
 
 <div class="panel" id="panel-carrera">
-  <div class="card">
-    <h2>🎓 Mi Carrera · Abogacía UNLZ</h2>
-    <p class="car-sub">Notas, avance y correlatividades de tus 42 materias.</p>
-    <div class="car-hero">
-      <div class="car-ring">
-        <svg viewBox="0 0 120 120"><defs><linearGradient id="carGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#10b981"/></linearGradient></defs>
-          <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke-width="11"/>
-          <circle class="fg" id="car-ring-fg" cx="60" cy="60" r="52" fill="none" stroke-width="11" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg>
-        <div class="car-ring-txt"><b id="car-pct">0%</b><span>de la carrera</span></div>
-      </div>
-      <div class="car-kpis" id="car-kpis"></div>
+  <div class="card" id="car-empty" style="display:none;text-align:center">
+    <h2>🎓 Armá tu plan de estudios</h2>
+    <p class="car-sub" style="max-width:420px;margin:6px auto 14px">Cargá las materias de tu carrera con sus correlativas y la app te dice qué podés cursar, cuánto avanzaste y qué promedio necesitás. Es solo para vos: queda guardado en este dispositivo.</p>
+    <div style="display:flex;flex-direction:column;gap:8px;max-width:320px;margin:0 auto">
+      <button class="btn btn-blue" onclick="carEditOpen(null)">➕ Agregar una materia</button>
+      <button class="btn btn-purple" onclick="carBulkOpen()">📋 Pegar una lista de materias</button>
+      <button class="btn" onclick="document.getElementById('car-plan-file').click()">📥 Importar un plan (.json)</button>
     </div>
   </div>
-  <div class="card"><h2>📈 Avance por año</h2><div id="car-years"></div></div>
-  <div class="card"><h2>📊 Distribución de notas</h2><div class="car-hist" id="car-hist"></div><div id="car-extremes" class="car-sub" style="margin-top:8px"></div></div>
-  <div class="card"><h2>🧮 ¿Qué promedio necesito?</h2>
-    <div class="car-calc">Quiero terminar con promedio <input type="number" id="car-target" min="4" max="10" step="0.1" value="7" oninput="carCalc()"><span id="car-calc-n"></span></div>
-    <div class="car-calc-out" id="car-calc-out"></div></div>
-  <div class="card"><h2>✅ Habilitadas para cursar o rendir</h2><p class="car-sub">Tenés aprobadas todas sus correlativas.</p><div id="car-hab"></div></div>
-  <div class="card"><h2>📚 Todas las materias</h2>
-    <input class="car-search" id="car-q" type="search" placeholder="🔍 Buscar materia o número…" oninput="renderCarList()">
-    <div class="car-chips" id="car-filters"></div>
-    <div id="car-list"></div>
-    <div class="car-tools"><button class="btn" onclick="carExport()">📤 Exportar notas</button><button class="btn" onclick="carReset()">↩︎ Restaurar datos iniciales</button></div>
+  <div id="car-dash">
+    <div class="card">
+      <h2 id="car-title">🎓 Mi Carrera</h2>
+      <p class="car-sub" id="car-sub"></p>
+      <div class="car-hero">
+        <div class="car-ring">
+          <svg viewBox="0 0 120 120"><defs><linearGradient id="carGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#10b981"/></linearGradient></defs>
+            <circle class="bg" cx="60" cy="60" r="52" fill="none" stroke-width="11"/>
+            <circle class="fg" id="car-ring-fg" cx="60" cy="60" r="52" fill="none" stroke-width="11" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="326.7"/></svg>
+          <div class="car-ring-txt"><b id="car-pct">0%</b><span>de la carrera</span></div>
+        </div>
+        <div class="car-kpis" id="car-kpis"></div>
+      </div>
+    </div>
+    <div class="card"><h2>📈 Avance por año</h2><div id="car-years"></div></div>
+    <div class="card"><h2>📊 Distribución de notas</h2><div class="car-hist" id="car-hist"></div><div id="car-extremes" class="car-sub" style="margin-top:8px"></div></div>
+    <div class="card"><h2>🧮 ¿Qué promedio necesito?</h2>
+      <div class="car-calc">Quiero terminar con promedio <input type="number" id="car-target" step="0.1" value="7" oninput="carCalc()"><span id="car-calc-n"></span></div>
+      <div class="car-calc-out" id="car-calc-out"></div></div>
+    <div class="card"><h2>✅ Habilitadas para cursar o rendir</h2><p class="car-sub">Tenés aprobadas todas sus correlativas.</p><div id="car-hab"></div></div>
+    <div class="card"><h2>📚 Todas las materias</h2>
+      <input class="car-search" id="car-q" type="search" placeholder="🔍 Buscar materia o número…" oninput="renderCarList()">
+      <div class="car-chips" id="car-filters"></div>
+      <div id="car-list"></div>
+      <button class="btn btn-blue" style="width:100%;margin-top:14px" onclick="carEditOpen(null)">➕ Agregar materia</button>
+    </div>
+  </div>
+  <div class="card" id="car-plan">
+    <h2>⚙️ Mi plan de estudios</h2>
+    <div class="car-fields" style="flex-direction:column;margin-top:4px">
+      <label>Nombre de tu carrera<input id="car-name" placeholder="Ej: Medicina, Ingeniería, Abogacía…" maxlength="80" oninput="carSetName(this.value)"></label>
+      <div style="display:flex;gap:10px"><label style="flex:1">Nota mínima para aprobar<input id="car-min" type="number" step="any" onchange="carSetScale()"></label><label style="flex:1">Nota máxima<input id="car-max" type="number" step="any" onchange="carSetScale()"></label></div>
+    </div>
+    <div class="car-tools">
+      <button class="btn" onclick="carEditOpen(null)">➕ Materia</button>
+      <button class="btn" onclick="carBulkOpen()">📋 Pegar lista</button>
+      <button class="btn" onclick="carExportPlan()">📤 Exportar plan</button>
+      <button class="btn" onclick="document.getElementById('car-plan-file').click()">📥 Importar plan</button>
+      <button class="btn" onclick="carExport()">🧾 Notas (CSV)</button>
+      <button class="btn btn-red" onclick="carReset()">🗑️ Borrar todo</button>
+    </div>
+    <input type="file" id="car-plan-file" accept=".json,application/json" style="display:none" onchange="carImportPlanFile(event)">
   </div>
 </div>
 
 <div class="panel" id="panel-more">
+  <div class="card" id="pwa-card">
+    <h2>📲 Instalar la app</h2>
+    <p id="pwa-msg"></p>
+    <button class="btn btn-blue" id="pwa-btn" style="display:none;width:100%" onclick="pwaInstall()">Instalar Estudio Tracker</button>
+    <p>🔒 <b>Tus datos son tuyos:</b> materias, notas y tarjetas se guardan solo en este dispositivo. No hay cuentas ni servidores. Para pasarlos a otro dispositivo o resguardarlos, usá <b>Exportar Backup</b>.</p>
+    <p id="app-version" style="font-size:10px;color:var(--text3)"></p>
+  </div>
   <div class="card">
     <h2>📈 Historial & Rendimiento</h2>
     <button class="btn btn-blue" style="margin-bottom:12px; width:100%;" onclick="generateWeeklySummaryCard()">📋 Copiar resumen semanal</button>
@@ -711,6 +761,7 @@ body.mode-break #ring{stroke:#10b981;filter:drop-shadow(0 0 7px rgba(16,185,129,
         <button class="btn" onclick="document.getElementById('file-import').click()">📥 Importar Backup</button>
         <input type="file" id="file-import" style="display:none" onchange="importBackupJSON(event)">
     </div>
+    <div id="backup-info" style="font-size:11px;color:var(--text2);margin-top:10px;line-height:1.5"></div>
   </div>
 </div>
 
@@ -782,22 +833,6 @@ body.mode-break #ring{stroke:#10b981;filter:drop-shadow(0 0 7px rgba(16,185,129,
 <div class="notif" id="notif"><div class="n-title" id="n-title"></div><div class="n-sub" id="n-sub"></div></div>
 
 <script>
-// --- REGISTRO DE SERVICE WORKER PARA PWA OFFLINE ---
-if ('serviceWorker' in navigator) {
-    const swCode = `
-        const CACHE_NAME = 'estudio-tracker-v1';
-        self.addEventListener('install', e => { e.waitUntil(self.skipWaiting()); });
-        self.addEventListener('activate', e => { e.waitUntil(self.clients.claim()); });
-        self.addEventListener('fetch', e => {
-            e.respondWith(
-                caches.match(e.request).then(res => res || fetch(e.request).catch(() => caches.match('./')))
-            );
-        });
-    `;
-    const swBlob = new Blob([swCode], { type: 'application/javascript' });
-    navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(()=>{});
-}
-
 function triggerHaptic() {
     if(localStorage.getItem('haptics') !== 'false' && navigator.vibrate) {
         navigator.vibrate(40);
@@ -814,14 +849,15 @@ function nextOnboarding() {
     obStep++;
     if(obStep === 2) {
         document.getElementById('ob-title').textContent = "⏱ Pomodoro & Repaso Inteligente";
-        document.getElementById('ob-desc').textContent = "Administrá tus tiempos de estudio y memoriza doctrina jurídica mediante algoritmos de repetición espaciada (SM-2).";
+        document.getElementById('ob-desc').textContent = "Administrá tus tiempos de estudio y memorizá lo que necesites con tarjetas de repetición espaciada (SM-2).";
     } else if(obStep === 3) {
         document.getElementById('ob-title').textContent = "🎓 Tu carrera, a la vista";
-        document.getElementById('ob-desc').textContent = "Cargá tus notas, mirá tu promedio y descubrí qué correlativas necesitás para cada materia.";
+        document.getElementById('ob-desc').textContent = "Armá tu plan de estudios, cargá tus notas, mirá tu promedio y descubrí qué correlativas necesitás para cada materia.";
     } else {
         localStorage.setItem('ob_done', 'true');
         document.getElementById('onboarding-overlay').style.display = 'none';
-        notify('¡Listo!', 'Empecemos a estudiar.');
+        notify('¡Listo!', MATS.length ? 'Empecemos a estudiar.' : 'Empezá cargando tus materias.');
+        if(!MATS.length) showPanel('tracker');
     }
 }
 
@@ -894,7 +930,7 @@ function handleMateriaFileUpload(event, matId) {
                 name: file.name,
                 type: file.type || 'application/octet-stream',
                 size: (file.size / 1024).toFixed(1) + ' KB',
-                date: new Intl.DateTimeFormat('es-AR', {timeZone: 'America/Argentina/Buenos_Aires', dateStyle: 'short'}).format(new Date()),
+                date: new Intl.DateTimeFormat('es-AR', {dateStyle: 'short'}).format(new Date()),
                 content: e.target.result
             };
             saveFileToIDB(fileData);
@@ -995,7 +1031,7 @@ window.addEventListener('keydown', (e) => {
 });
 
 // --- ESTADOS Y PREFERENCIAS ---
-function nowAR(){ return new Date(new Date().toLocaleString("en-US", {timeZone: "America/Argentina/Buenos_Aires"})); }
+function nowAR(){ return new Date(); } // hora local del dispositivo
 function todayAR(){
     const d = nowAR();
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -1018,7 +1054,7 @@ function lss(k,v){try{localStorage.setItem(k,v);}catch(e){alert("Almacenamiento 
 
 function loadMats(){
   const s=ls('pom_mats');
-  if(!s) return [{id:1, name:'Derecho Procesal', color:COLORS[0], open:true, notebookUrl:'', promoted:false, needsFinal:false, units:[], cards:[]}];
+  if(!s) return [];
   const m=JSON.parse(s);
   m.forEach(mat=>{
     if(!mat.notebookUrl) mat.notebookUrl = '';
@@ -1334,7 +1370,7 @@ function showPanel(id){
   if(tabBtn) tabBtn.classList.add('active');
   
   if(id==='tracker') render();
-  if(id==='more') { renderCharts(); }
+  if(id==='more') { renderCharts(); renderBackupInfo(); pwaRender(); }
   if(id==='carrera') renderCarrera();
   if(id==='flashcard') renderFCIdle();
   if(id==='hoy') updatePriorityBox();
@@ -1396,7 +1432,7 @@ function onFinish(){
     if(goal) {
         const safeGoal = document.createElement('div');
         safeGoal.textContent = goal;
-        const timeStr = new Intl.DateTimeFormat('es-AR', {timeZone: 'America/Argentina/Buenos_Aires', timeStyle: 'short'}).format(nowAR());
+        const timeStr = new Intl.DateTimeFormat('es-AR', {timeStyle: 'short'}).format(nowAR());
         document.getElementById('session-log').innerHTML = `<div style="padding:4px 0;">✅ ${timeStr} - ${safeGoal.innerHTML}</div>` + document.getElementById('session-log').innerHTML;
     }
     notify('¡Pomodoro completado!', 'Momento de descansar.'); openRecallDump(goal, matId, distractions); distractions = 0;
@@ -1484,9 +1520,10 @@ function exportICS(matId) {
     const m = MATS.find(x => x.id === matId);
     if(!m || !m.exam) return;
     const [y, mo, d] = m.exam.split('-');
-    const uid = 'exam-' + matId + '-' + y + mo + d + '@estudiotracker.unlz';
+    const uid = 'exam-' + matId + '-' + y + mo + d + '@estudiotracker';
     const dtstamp = new Date().toISOString().replace(/[-:]/g,'').split('.')[0] + 'Z';
-    const icsData = `BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//EstudioTracker UNLZ//ES\nBEGIN:VTIMEZONE\nTZID:America/Argentina/Buenos_Aires\nBEGIN:STANDARD\nDTSTART:20001004T000000\nTZOFFSETFROM:-0300\nTZOFFSETTO:-0300\nTZNAME:ART\nEND:STANDARD\nEND:VTIMEZONE\nBEGIN:VEVENT\nUID:${uid}\nDTSTAMP:${dtstamp}\nDTSTART;TZID=America/Argentina/Buenos_Aires:${y}${mo}${d}T090000\nDTEND;TZID=America/Argentina/Buenos_Aires:${y}${mo}${d}T110000\nSUMMARY:Examen Final UNLZ: ${m.name}\nDESCRIPTION:Instancia de examen final o parcial para ${m.name}.\nBEGIN:VALARM\nTRIGGER:-P7D\nACTION:DISPLAY\nDESCRIPTION:Recordatorio examen en 7 días\nEND:VALARM\nBEGIN:VALARM\nTRIGGER:-P1D\nACTION:DISPLAY\nDESCRIPTION:Recordatorio examen mañana\nEND:VALARM\nEND:VEVENT\nEND:VCALENDAR`;
+    const nx = new Date(+y, +mo - 1, +d + 1), p2 = n => String(n).padStart(2, '0'), nd = '' + nx.getFullYear() + p2(nx.getMonth() + 1) + p2(nx.getDate());
+    const icsData = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//EstudioTracker//ES','BEGIN:VEVENT','UID:' + uid,'DTSTAMP:' + dtstamp,'DTSTART;VALUE=DATE:' + y + mo + d,'DTEND;VALUE=DATE:' + nd,'SUMMARY:Examen: ' + m.name,'DESCRIPTION:Examen de ' + m.name + '.','BEGIN:VALARM','TRIGGER:-P7D','ACTION:DISPLAY','DESCRIPTION:Examen de ' + m.name + ' en 7 días','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
     const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
     const link = document.createElement('a'); link.href = URL.createObjectURL(blob);
     link.download = `Examen_${m.name.replace(/\s+/g, '_')}.ics`; link.click();
@@ -1629,7 +1666,7 @@ function renderCardsContent(allFiles) {
             </div>
 
             <div style="display:flex; justify-content:space-between; align-items:center; margin:10px 0; background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:8px; border:1px solid var(--border);">
-                <span style="font-size:11px; color:var(--text2)">Régimen (UNLZ):</span>
+                <span style="font-size:11px; color:var(--text2)">Régimen:</span>
                 <div style="display:flex; gap:6px; align-items:center;">
                     <button class="btn ${m.promoted ? 'btn-green' : ''}" style="font-size:10px; padding:4px 8px;" onclick="togglePromoted(${m.id})">${m.promoted ? '⭐ Promocionada' : 'Promocionar'}</button>
                     <button class="btn ${m.needsFinal ? 'btn-amber' : ''}" style="font-size:10px; padding:4px 8px;" onclick="toggleFinal(${m.id})">${m.needsFinal ? '⚠️ Integrador' : 'Ir a Integrador'}</button>
@@ -1769,6 +1806,7 @@ function updateDueCount() {
     MATS.forEach(m => fcItems(m).forEach(it => { if(!it.o.srNext || it.o.srNext <= today) count++; }));
     document.getElementById('fc-count-badge').textContent = count + ' pendientes';
     document.getElementById('s-due').textContent = count;
+    try { if(navigator.setAppBadge) { count > 0 ? navigator.setAppBadge(count) : navigator.clearAppBadge(); } } catch(e) {}
 }
 
 function renderFCIdle() {
@@ -1839,7 +1877,7 @@ function exportBackupJSON() {
             history: loadHistory(), 
             filesHub: e.target.result, 
             theme: ls('theme'),
-            carrera: ls('carrera_v1'),
+            carrera2: ls('carrera_v2'),
             fontSize: ls('font_size'),
             studyMin: studyMinCustom,
             breakMin: breakMinCustom,
@@ -1847,7 +1885,7 @@ function exportBackupJSON() {
         };
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-        a.download = `EstudioTracker_Backup_${todayAR()}.json`; a.click();
+        a.download = `EstudioTracker_Backup_${todayAR()}.json`; a.click(); lss('last_backup', todayAR()); renderBackupInfo();
     };
 }
 
@@ -1861,7 +1899,7 @@ function importBackupJSON(event) {
             if(!confirm('Esto reemplaza tus materias e historial actuales por los del archivo. ¿Continuar?')) return; if(data.mats) lss('pom_mats', JSON.stringify(data.mats));
             if(data.history) lss('pom_history', JSON.stringify(data.history));
             if(data.theme) lss('theme', data.theme);
-            if(data.carrera) lss('carrera_v1', data.carrera);
+            if(data.carrera2) lss('carrera_v2', data.carrera2); else if(data.carrera) { lss('carrera_v1', data.carrera); localStorage.removeItem('carrera_v2'); }
             if(data.fontSize) lss('font_size', data.fontSize);
             if(data.studyMin) lss('pom_custom_study', data.studyMin);
             if(data.breakMin) lss('pom_custom_break', data.breakMin);
@@ -2110,8 +2148,9 @@ function getChartGrid(){ return document.documentElement.getAttribute('data-them
     changeTheme(ls('theme', 'dark'), false);
 })();
 
-// === v7: CARRERA — notas, avance y correlatividades (UNLZ Abogacía, 42 materias) ===
-const CAR_MATS = [
+// === v10: CARRERA — plan de estudios propio de cada usuario (materias, correlativas y notas) ===
+// Datos de versiones anteriores (solo se usan para migrar a quien ya tenía cargado ese plan; un usuario nuevo arranca vacío).
+const CAR_LEGACY = [
  [1,'Introducción al Derecho',1,[]],[2,'Derecho Romano',1,[]],[3,'Derecho Político',1,[]],[4,'Teoría Constitucional',1,[]],
  [5,'Realidad Social Latinoamericana y Derecho',1,[]],[6,'Teoría General del Proceso',1,[]],
  [7,'Derecho Constitucional Argentino',2,[1,3,4,6]],[8,'Derecho Privado Parte General',2,[1,2,6]],[9,'Derecho Penal Parte General',2,[1,2,4,6]],
@@ -2129,133 +2168,245 @@ const CAR_MATS = [
  [39,'Derecho Ambiental y de los Recursos Naturales',6,[28]],[40,'Derecho Internacional Privado',6,[36,37]],
  [41,'Seminario de Problemáticas Jurídicas Contemporáneas',6,[14,17,27]],[42,'Práctica Profesional III',6,[29,34]]
 ].map(a => ({id:a[0], name:a[1], year:a[2], req:a[3]}));
-const CAR_BY = {}; CAR_MATS.forEach(m => CAR_BY[m.id] = m);
-const CAR_SEED = {1:6,2:6,3:6,4:6,5:6,6:6,7:6,9:6,13:4,8:4,10:7,14:5,11:4,12:4,15:6,16:6,17:4,18:8,20:6,21:7,22:7,23:7,24:8};
-const CAR_YEARS = ['1° año','2° año','3° año','4° año','5° año','6° año'];
-const CAR_LABEL = {apr:'Aprobada', reg:'Regular', curs:'Cursando', hab:'Habilitada', blo:'Bloqueada', pend:'Pendiente'};
-let CAR = {}, carFilter = 'all', carOpenId = null;
 
-function carSeed() { const o = {}; Object.keys(CAR_SEED).forEach(id => { o[id] = {s:'apr', n:CAR_SEED[id]}; }); return o; }
-function carLoad() {
-  try { const raw = ls('carrera_v1'); CAR = raw ? JSON.parse(raw) : carSeed(); if(!CAR || typeof CAR !== 'object') CAR = carSeed(); } catch(e) { CAR = carSeed(); }
-  if(!ls('carrera_v1')) carSave();
+const CAR_LABEL = {apr:'Aprobada', reg:'Regular', curs:'Cursando', hab:'Habilitada', blo:'Bloqueada', pend:'Pendiente'};
+let CARP = {name:'', min:4, max:10, subjects:[]}, CAR = {}, CAR_BY = {};
+let carFilter = 'all', carOpenId = null, carView = 'detail', carEditId = null;
+const carEl = id => document.getElementById(id);
+function carYearLabel(y) { return y + '° año'; }
+function carSubs() { return CARP.subjects; }
+function carReindex() { CAR_BY = {}; CARP.subjects.forEach(m => CAR_BY[m.id] = m); }
+function carCleanPlan(p) {
+  const out = {name: String((p && p.name) || '').slice(0, 80), min: Number(p && p.min), max: Number(p && p.max), subjects: []};
+  if(!(out.min >= 0) || !(out.max > out.min) || out.max > 1000) { out.min = 4; out.max = 10; }
+  const seen = new Set();
+  ((p && p.subjects) || []).forEach(s => {
+    const id = parseInt(s && s.id), name = String((s && s.name) || '').trim().slice(0, 120), year = parseInt(s && s.year);
+    if(!id || id < 1 || seen.has(id) || !name) return; seen.add(id);
+    out.subjects.push({id, name, year: Math.min(12, Math.max(1, year || 1)), req: Array.isArray(s.req) ? s.req.map(x => parseInt(x)).filter(x => x > 0) : []});
+  });
+  out.subjects.forEach(s => { s.req = [...new Set(s.req)].filter(r => r !== s.id && seen.has(r)); });
+  return out;
 }
-function carSave() { try { lss('carrera_v1', JSON.stringify(CAR)); } catch(e) {} }
+function carLoad() {
+  let raw = null; try { raw = ls('carrera_v2'); } catch(e) {}
+  if(raw) { try { const o = JSON.parse(raw); if(o && o.plan && Array.isArray(o.plan.subjects)) { CARP = carCleanPlan(o.plan); CAR = (o.st && typeof o.st === 'object') ? o.st : {}; carReindex(); return; } } catch(e) {} }
+  let old = null; try { old = ls('carrera_v1'); } catch(e) {}
+  if(old) { try { const st = JSON.parse(old); if(st && typeof st === 'object') { CARP = carCleanPlan({name:'Abogacía UNLZ', min:4, max:10, subjects:CAR_LEGACY}); CAR = st; carReindex(); carSave(); return; } } catch(e) {} }
+  carReindex();
+}
+function carSave() { try { lss('carrera_v2', JSON.stringify({plan: CARP, st: CAR})); } catch(e) {} }
 function carRec(id) { return CAR[id] || {s:'pend'}; }
 function carApr(id) { return carRec(id).s === 'apr'; }
-function carReqOk(id) { return CAR_BY[id].req.every(carApr); }
+function carReqOk(id) { const m = CAR_BY[id]; return !m || m.req.every(carApr); }
 function carState(id) { const s = carRec(id).s; if(s === 'apr' || s === 'reg' || s === 'curs') return s; return carReqOk(id) ? 'hab' : 'blo'; }
 function carMissingChain(id) {
   const seen = new Set(), out = [];
-  (function walk(x) { CAR_BY[x].req.forEach(r => { if(!carApr(r) && !seen.has(r)) { seen.add(r); walk(r); out.push(r); } }); })(id);
-  return out; // orden: primero lo que hay que aprobar antes
+  (function walk(x) { (CAR_BY[x] ? CAR_BY[x].req : []).forEach(r => { if(!carApr(r) && !seen.has(r) && CAR_BY[r]) { seen.add(r); walk(r); out.push(r); } }); })(id);
+  return out;
 }
-function carUnlocks(id) { return CAR_MATS.filter(m => m.req.includes(id)); }
+function carUnlocks(id) { return CARP.subjects.filter(m => m.req.includes(id)); }
+function carReaches(graph, from, target, seen) { if(from === target) return true; seen = seen || new Set(); if(seen.has(from)) return false; seen.add(from); return (graph[from] || []).some(n => carReaches(graph, n, target, seen)); }
+function carBuckets() {
+  const lo = Math.ceil(CARP.min), hi = Math.floor(CARP.max), span = hi - lo + 1;
+  if(span <= 12) return Array.from({length: span}, (_, i) => ({label: String(lo + i), lo: lo + i, hi: lo + i + 0.9999, n: 0}));
+  const w = span / 10;
+  return Array.from({length: 10}, (_, i) => ({label: Math.round(lo + i * w) + '–' + (Math.round(lo + (i + 1) * w) - 1), lo: lo + i * w, hi: lo + (i + 1) * w - 0.0001, n: 0}));
+}
 function carStats() {
-  const apr = CAR_MATS.filter(m => carApr(m.id)), graded = apr.filter(m => typeof carRec(m.id).n === 'number');
-  const sum = graded.reduce((s, m) => s + carRec(m.id).n, 0);
-  const avg = graded.length ? sum / graded.length : null;
-  const years = CAR_YEARS.map((_, i) => { const ms = CAR_MATS.filter(m => m.year === i + 1), a = ms.filter(m => carApr(m.id)), g = a.filter(m => typeof carRec(m.id).n === 'number');
-    return {total: ms.length, apr: a.length, avg: g.length ? g.reduce((s, m) => s + carRec(m.id).n, 0) / g.length : null}; });
-  const dist = {}; for(let i = 4; i <= 10; i++) dist[i] = 0; graded.forEach(m => { const n = Math.round(carRec(m.id).n); if(dist[n] !== undefined) dist[n]++; });
-  return {apr: apr.length, total: CAR_MATS.length, graded: graded.length, sum, avg, years, dist, rest: CAR_MATS.length - apr.length,
-          hab: CAR_MATS.filter(m => carState(m.id) === 'hab'), best: graded.slice().sort((a, b) => carRec(b.id).n - carRec(a.id).n), };
+  const subs = carSubs(), apr = subs.filter(m => carApr(m.id)), graded = apr.filter(m => typeof carRec(m.id).n === 'number');
+  const sum = graded.reduce((s, m) => s + carRec(m.id).n, 0), avg = graded.length ? sum / graded.length : null;
+  const years = [], maxY = Math.max(0, ...subs.map(m => m.year));
+  for(let y = 1; y <= maxY; y++) { const ms = subs.filter(m => m.year === y); if(!ms.length) continue; const a = ms.filter(m => carApr(m.id)), g = a.filter(m => typeof carRec(m.id).n === 'number');
+    years.push({y, total: ms.length, apr: a.length, avg: g.length ? g.reduce((s, m) => s + carRec(m.id).n, 0) / g.length : null}); }
+  const dist = carBuckets(); graded.forEach(m => { const n = carRec(m.id).n; const b = dist.find(x => n >= x.lo && n <= x.hi); if(b) b.n++; });
+  return {apr: apr.length, total: subs.length, graded: graded.length, sum, avg, years, dist, rest: subs.length - apr.length,
+          hab: subs.filter(m => carState(m.id) === 'hab'), best: graded.slice().sort((a, b) => carRec(b.id).n - carRec(a.id).n)};
 }
 function carFmt(n) { return n == null ? '–' : (Math.round(n * 100) / 100).toFixed(2).replace(/\.?0+$/, '').replace('.', ','); }
 
 function renderCarrera() {
+  const fg = carEl('car-ring-fg'); if(!fg) return;
+  const subs = carSubs(), has = subs.length > 0;
+  carEl('car-empty').style.display = has ? 'none' : 'block'; carEl('car-dash').style.display = has ? 'block' : 'none';
+  const nm = carEl('car-name'); if(nm && document.activeElement !== nm) nm.value = CARP.name;
+  const mn = carEl('car-min'), mx = carEl('car-max'); if(mn && document.activeElement !== mn) mn.value = CARP.min; if(mx && document.activeElement !== mx) mx.value = CARP.max;
+  carEl('car-title').textContent = '🎓 Mi Carrera' + (CARP.name ? ' · ' + CARP.name : '');
+  if(!has) return;
   const st = carStats(), pct = Math.round(st.apr / st.total * 100);
-  const fg = document.getElementById('car-ring-fg'); if(!fg) return;
-  fg.style.strokeDashoffset = String(326.7 * (1 - st.apr / st.total));
-  document.getElementById('car-pct').textContent = pct + '%';
-  document.getElementById('car-kpis').innerHTML =
+  carEl('car-sub').textContent = `Notas, avance y correlatividades de tus ${st.total} materias.`;
+  fg.style.strokeDashoffset = String(326.7 * (1 - st.apr / st.total)); carEl('car-pct').textContent = pct + '%';
+  carEl('car-kpis').innerHTML =
     `<div class="car-kpi"><b>${st.apr}<span style="font-size:13px;color:var(--text3)"> / ${st.total}</span></b><small>Aprobadas</small></div>` +
     `<div class="car-kpi"><b>${carFmt(st.avg)}</b><small>Promedio</small></div>` +
     `<div class="car-kpi"><b>${st.rest}</b><small>Te faltan</small></div>` +
     `<div class="car-kpi"><b>${st.hab.length}</b><small>Habilitadas</small></div>`;
-  document.getElementById('car-years').innerHTML = st.years.map((y, i) =>
-    `<div class="car-year-row"><span>${CAR_YEARS[i]}</span><div class="car-bar"><i style="width:${Math.round(y.apr / y.total * 100)}%"></i></div><em>${y.apr}/${y.total}${y.avg != null ? ' · ' + carFmt(y.avg) : ''}</em></div>`).join('');
-  const max = Math.max(1, ...Object.values(st.dist));
-  document.getElementById('car-hist').innerHTML = Object.keys(st.dist).map(n => `<div><b>${st.dist[n] || ''}</b><i style="height:${Math.round(st.dist[n] / max * 78)}px;${st.dist[n] ? '' : 'opacity:.25'}"></i><span>${n}</span></div>`).join('');
+  carEl('car-years').innerHTML = st.years.map(y => `<div class="car-year-row"><span>${carYearLabel(y.y)}</span><div class="car-bar"><i style="width:${Math.round(y.apr / y.total * 100)}%"></i></div><em>${y.apr}/${y.total}${y.avg != null ? ' · ' + carFmt(y.avg) : ''}</em></div>`).join('');
+  const max = Math.max(1, ...st.dist.map(b => b.n));
+  carEl('car-hist').innerHTML = st.dist.map(b => `<div><b>${b.n || ''}</b><i style="height:${Math.round(b.n / max * 78)}px;${b.n ? '' : 'opacity:.25'}"></i><span>${b.label}</span></div>`).join('');
   const hi = st.best[0], lo = st.best[st.best.length - 1];
-  document.getElementById('car-extremes').innerHTML = hi ? `🏆 Mejor nota: <b>${carRec(hi.id).n}</b> en ${esc(hi.name)}${lo && lo !== hi ? ` · 🌱 Más baja: <b>${carRec(lo.id).n}</b> en ${esc(lo.name)}` : ''}` : 'Cargá tus notas para ver estadísticas.';
-  document.getElementById('car-hab').innerHTML = st.hab.length ? st.hab.map(m => carRowHTML(m)).join('') : '<div class="car-empty">Por ahora no hay materias nuevas habilitadas.</div>';
+  carEl('car-extremes').innerHTML = hi ? `🏆 Mejor nota: <b>${carRec(hi.id).n}</b> en ${esc(hi.name)}${lo && lo !== hi ? ` · 🌱 Más baja: <b>${carRec(lo.id).n}</b> en ${esc(lo.name)}` : ''}` : 'Cargá tus notas para ver estadísticas.';
+  carEl('car-hab').innerHTML = st.hab.length ? st.hab.map(carRowHTML).join('') : '<div class="car-empty">Por ahora no hay materias nuevas habilitadas.</div>';
   carCalc();
   const filters = [['all','Todas'],['apr','Aprobadas'],['hab','Habilitadas'],['curs','Cursando'],['reg','Regulares'],['blo','Bloqueadas']];
-  document.getElementById('car-filters').innerHTML = filters.map(f => `<button class="car-chip ${carFilter === f[0] ? 'on' : ''}" onclick="carSetFilter('${f[0]}')">${f[1]}</button>`).join('');
+  carEl('car-filters').innerHTML = filters.map(f => `<button class="car-chip ${carFilter === f[0] ? 'on' : ''}" onclick="carSetFilter('${f[0]}')">${f[1]}</button>`).join('');
   renderCarList();
 }
 function carSetFilter(f) { carFilter = f; renderCarrera(); }
 function carRowHTML(m) {
   const s = carState(m.id), r = carRec(m.id);
   const lab = s === 'apr' ? (typeof r.n === 'number' ? 'Nota ' + r.n : 'Aprobada') : CAR_LABEL[s];
-  const sub = s === 'blo' ? 'Falta: ' + CAR_BY[m.id].req.filter(x => !carApr(x)).map(x => '#' + x).join(', ') : (m.req.length ? 'Correlativas: ' + m.req.map(x => '#' + x).join(' · ') : 'Sin correlativas');
+  const sub = s === 'blo' ? 'Falta: ' + m.req.filter(x => !carApr(x)).map(x => '#' + x).join(', ') : (m.req.length ? 'Correlativas: ' + m.req.map(x => '#' + x).join(' · ') : 'Sin correlativas');
   return `<button class="car-row ${s}" onclick="carOpen(${m.id})"><span class="cod">${m.id}</span><span class="nm">${esc(m.name)}<small>${sub}</small></span><span class="car-st ${s}">${lab}</span></button>`;
 }
 function renderCarList() {
-  const q = (document.getElementById('car-q') || {value:''}).value.trim().toLowerCase();
-  const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-  let html = '';
-  CAR_YEARS.forEach((label, i) => {
-    const ms = CAR_MATS.filter(m => m.year === i + 1 && (carFilter === 'all' || carState(m.id) === carFilter) && (!q || norm(m.name).includes(norm(q)) || String(m.id) === q));
-    if(!ms.length) return;
-    html += `<div class="car-year-h"><span>${label}</span><span>${ms.filter(m => carApr(m.id)).length}/${CAR_MATS.filter(m => m.year === i + 1).length}</span></div>` + ms.map(carRowHTML).join('');
-  });
-  document.getElementById('car-list').innerHTML = html || '<div class="car-empty">No hay materias con ese filtro.</div>';
+  const q = (carEl('car-q') || {value: ''}).value.trim().toLowerCase();
+  const norm = s => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); let html = '';
+  const maxY = Math.max(0, ...carSubs().map(m => m.year));
+  for(let y = 1; y <= maxY; y++) {
+    const all = carSubs().filter(m => m.year === y); if(!all.length) continue;
+    const ms = all.filter(m => (carFilter === 'all' || carState(m.id) === carFilter) && (!q || norm(m.name).includes(norm(q)) || String(m.id) === q)); if(!ms.length) continue;
+    html += `<div class="car-year-h"><span>${carYearLabel(y)}</span><span>${all.filter(m => carApr(m.id)).length}/${all.length}</span></div>` + ms.map(carRowHTML).join('');
+  }
+  carEl('car-list').innerHTML = html || '<div class="car-empty">No hay materias con ese filtro.</div>';
 }
 function carCalc() {
-  const out = document.getElementById('car-calc-out'); if(!out) return;
-  const st = carStats(), t = parseFloat(document.getElementById('car-target').value);
-  document.getElementById('car-calc-n').textContent = `(te quedan ${st.rest} materias)`;
-  if(!t || t < 4 || t > 10) { out.textContent = 'Ingresá un promedio objetivo entre 4 y 10.'; return; }
+  const out = carEl('car-calc-out'); if(!out) return;
+  const st = carStats(), t = parseFloat(carEl('car-target').value), mn = CARP.min, mx = CARP.max;
+  carEl('car-calc-n').textContent = `(te quedan ${st.rest} materias)`;
+  if(!t || t < mn || t > mx) { out.textContent = `Ingresá un promedio objetivo entre ${mn} y ${mx}.`; return; }
   if(!st.rest) { out.textContent = `Ya terminaste: tu promedio final es ${carFmt(st.avg)}.`; return; }
   const need = (t * (st.graded + st.rest) - st.sum) / st.rest;
-  if(need > 10) out.innerHTML = `Con ${st.rest} materias restantes <b>no alcanza ni sacando 10</b> en todas. Lo máximo posible es <b>${carFmt((st.sum + 10 * st.rest) / (st.graded + st.rest))}</b>.`;
-  else if(need <= 4) out.innerHTML = `Aprobando todas con <b>4</b> ya llegás a ${carFmt(t)} o más. 🎯`;
-  else out.innerHTML = `Necesitás sacar <b>${carFmt(need)} de promedio</b> en las ${st.rest} materias que te faltan para cerrar en ${carFmt(t)}. Es decir, algo así como un ${Math.min(10, Math.ceil(need))} en cada final que te queda.`;
+  if(need > mx) out.innerHTML = `Con ${st.rest} materias restantes <b>no alcanza ni sacando ${mx}</b> en todas. Lo máximo posible es <b>${carFmt((st.sum + mx * st.rest) / (st.graded + st.rest))}</b>.`;
+  else if(need <= mn) out.innerHTML = `Aprobando todas con <b>${mn}</b> ya llegás a ${carFmt(t)} o más. 🎯`;
+  else out.innerHTML = `Necesitás sacar <b>${carFmt(need)} de promedio</b> en las ${st.rest} materias que te faltan para cerrar en ${carFmt(t)}. Es decir, algo así como un ${Math.min(mx, Math.ceil(need))} en cada final que te queda.`;
 }
 
-function carOpen(id) { carOpenId = id; carRenderModal(); document.getElementById('modal-carrera').classList.add('active'); }
-function carClose() { document.getElementById('modal-carrera').classList.remove('active'); carOpenId = null; renderCarrera(); }
-function carRenderModal() {
-  const id = carOpenId, m = CAR_BY[id], r = carRec(id), s = carState(id), box = document.getElementById('car-modal-body');
+// ---- ventana (detalle / edición / pegar lista) ----
+function carShow() { carEl('modal-carrera').classList.add('active'); }
+function carOpen(id) { if(!CAR_BY[id]) return; carOpenId = id; carView = 'detail'; carRenderModal(); carShow(); }
+function carClose() { carEl('modal-carrera').classList.remove('active'); carOpenId = null; carEditId = null; carView = 'detail'; renderCarrera(); }
+function carRenderModal() { if(carView === 'edit') carRenderEdit(); else if(carView === 'bulk') carRenderBulk(); else carRenderDetail(); }
+function carRenderDetail() {
+  const id = carOpenId, m = CAR_BY[id], box = carEl('car-modal-body'); if(!m) { carClose(); return; }
+  const r = carRec(id), s = carState(id), mn = CARP.min, mx = CARP.max;
   const reqs = m.req.map(x => `<button class="car-req" onclick="carOpen(${x})"><span class="${carApr(x) ? 'ok' : 'no'}">${carApr(x) ? '✓' : '✗'}</span><span>${x}. ${esc(CAR_BY[x].name)}</span></button>`).join('') || '<div class="car-empty">Esta materia no tiene correlativas. Podés cursarla desde el inicio.</div>';
   const chain = carMissingChain(id), unl = carUnlocks(id);
   const stBtn = [['pend','Pendiente'],['curs','Cursando'],['reg','Regular'],['apr','Aprobada']].map(b => `<button class="${(r.s || 'pend') === b[0] ? 'on' : ''}" onclick="carSetState(${id},'${b[0]}')">${b[1]}</button>`).join('');
-  box.innerHTML = `<div class="car-modal-h"><div><div style="font-size:11px;color:var(--text3)">#${id} · ${CAR_YEARS[m.year - 1]}</div><h3>${esc(m.name)}</h3></div><button class="car-x" onclick="carClose()" aria-label="Cerrar">×</button></div>
+  box.innerHTML = `<div class="car-modal-h"><div><div style="font-size:11px;color:var(--text3)">#${id} · ${carYearLabel(m.year)}</div><h3>${esc(m.name)}</h3></div><button class="car-x" onclick="carClose()" aria-label="Cerrar">×</button></div>
     <span class="car-st ${s}">${s === 'apr' && typeof r.n === 'number' ? 'Aprobada · ' + r.n : CAR_LABEL[s]}</span>
     <div class="car-sec">Estado</div><div class="car-states">${stBtn}</div>
-    <div class="car-fields"><label>Nota del final (4–10)<input type="number" min="4" max="10" step="1" value="${typeof r.n === 'number' ? r.n : ''}" onchange="carSetNote(${id},this.value)" placeholder="–"></label>
+    <div class="car-fields"><label>Nota del final (${mn}–${mx})<input type="number" min="${mn}" max="${mx}" step="any" value="${typeof r.n === 'number' ? r.n : ''}" onchange="carSetNote(${id},this.value)" placeholder="–"></label>
       <label>Fecha de aprobación<input type="date" value="${r.d || ''}" onchange="carSetDate(${id},this.value)"></label></div>
     ${r.s === 'apr' && !carReqOk(id) ? '<div class="car-warn">⚠️ La tenés aprobada pero aún faltan correlativas cargadas. Revisá la lista de abajo.</div>' : ''}
     <div class="car-sec">Correlativas (tenés que tener aprobadas)</div>${reqs}
     ${(!carApr(id) && chain.length) ? `<div class="car-sec">Camino que te falta recorrer</div><div class="car-warn">${chain.map(x => `<b>${x}</b>. ${esc(CAR_BY[x].name)}`).join('<br>↓<br>')}<br>↓<br>🎯 <b>${id}</b>. ${esc(m.name)}</div>` : ''}
     ${(!carApr(id) && !chain.length && carReqOk(id)) ? '<div class="car-warn" style="background:var(--green-dim)">✅ Tenés todas las correlativas: ya podés cursarla y rendirla.</div>' : ''}
-    <div class="car-sec">Al aprobarla se habilita</div>${unl.map(u => `<button class="car-req" onclick="carOpen(${u.id})"><span>🔓</span><span>${u.id}. ${esc(u.name)}</span></button>`).join('') || '<div class="car-empty">No es correlativa de ninguna otra materia.</div>'}`;
+    <div class="car-sec">Al aprobarla se habilita</div>${unl.map(u => `<button class="car-req" onclick="carOpen(${u.id})"><span>🔓</span><span>${u.id}. ${esc(u.name)}</span></button>`).join('') || '<div class="car-empty">No es correlativa de ninguna otra materia.</div>'}
+    <button class="btn" style="width:100%;margin-top:16px" onclick="carEditOpen(${id})">✏️ Editar o borrar esta materia</button>`;
 }
 function carSetState(id, s) {
   const r = Object.assign({}, CAR[id] || {}); r.s = s;
-  if(s === 'apr' && !r.d) r.d = todayAR();
-  if(s !== 'apr') { delete r.d; }
-  if(s === 'pend') { delete r.n; }
+  if(s === 'apr' && !r.d) r.d = todayAR(); if(s !== 'apr') delete r.d; if(s === 'pend') delete r.n;
   CAR[id] = r; carSave(); carRenderModal(); renderCarrera();
 }
 function carSetNote(id, v) {
   const n = parseFloat(v), r = Object.assign({}, CAR[id] || {});
-  if(v === '' || isNaN(n)) { delete r.n; }
-  else if(n < 4 || n > 10) { notify('Nota inválida', 'La nota de aprobación va de 4 a 10.'); carRenderModal(); return; }
-  else { r.n = Math.round(n * 2) / 2; r.s = 'apr'; if(!r.d) r.d = todayAR(); }
+  if(v === '' || isNaN(n)) delete r.n;
+  else if(n < CARP.min || n > CARP.max) { notify('Nota inválida', `La nota va de ${CARP.min} a ${CARP.max}.`); carRenderModal(); return; }
+  else { r.n = Math.round(n * 100) / 100; r.s = 'apr'; if(!r.d) r.d = todayAR(); }
   CAR[id] = r; carSave(); carRenderModal(); renderCarrera();
 }
 function carSetDate(id, v) { const r = Object.assign({}, CAR[id] || {}); if(v) r.d = v; else delete r.d; CAR[id] = r; carSave(); }
-function carReset() { if(!confirm('¿Volver a los datos iniciales cargados desde tu Excel? Se pierden los cambios que hiciste.')) return; CAR = carSeed(); carSave(); renderCarrera(); }
+
+// ---- editar / agregar materias ----
+function carEditOpen(id) { carEditId = id || null; carView = 'edit'; carOpenId = id || null; carRenderModal(); carShow(); }
+function carRenderEdit() {
+  const id = carEditId, m = id ? CAR_BY[id] : {name: '', year: 1, req: []}; if(id && !m) { carClose(); return; }
+  const others = carSubs().filter(s => s.id !== id).sort((a, b) => a.year - b.year || a.id - b.id);
+  const yearOpts = Array.from({length: 12}, (_, i) => `<option value="${i + 1}" ${m.year === i + 1 ? 'selected' : ''}>${carYearLabel(i + 1)}</option>`).join('');
+  carEl('car-modal-body').innerHTML = `<div class="car-modal-h"><h3>${id ? 'Editar materia' : 'Nueva materia'}</h3><button class="car-x" onclick="${id ? `carOpen(${id})` : 'carClose()'}" aria-label="Cerrar">×</button></div>
+    <div class="car-fields" style="flex-direction:column"><label>Nombre<input id="car-e-name" value="${esc(m.name)}" placeholder="Ej: Anatomía I" maxlength="120"></label>
+    <label>Año en que se cursa<select id="car-e-year" class="fcm-in" style="margin-top:0">${yearOpts}</select></label></div>
+    <div class="car-sec">Correlativas (materias que tenés que tener aprobadas antes)</div>
+    <div class="car-reqbox">${others.length ? others.map(o => `<label class="car-reqopt"><input type="checkbox" value="${o.id}" ${m.req.includes(o.id) ? 'checked' : ''}><span><b>${o.id}.</b> ${esc(o.name)} <small>· ${carYearLabel(o.year)}</small></span></label>`).join('') : '<div class="car-empty">Todavía no hay otras materias para elegir.</div>'}</div>
+    <div style="display:flex;gap:8px;margin-top:14px"><button class="btn btn-blue" style="flex:1" onclick="carEditSave()">💾 Guardar</button>${id ? '<button class="btn btn-red" onclick="carDelete(' + id + ')">🗑️ Borrar</button>' : ''}</div>`;
+  setTimeout(() => { const i = carEl('car-e-name'); if(i && !id) i.focus(); }, 50);
+}
+function carEditSave() {
+  const name = carEl('car-e-name').value.trim(), year = parseInt(carEl('car-e-year').value) || 1;
+  const req = [...document.querySelectorAll('#car-modal-body .car-reqopt input:checked')].map(i => parseInt(i.value));
+  if(!name) { notify('Falta el nombre', 'Escribí el nombre de la materia.'); carEl('car-e-name').focus(); return; }
+  const id = carEditId;
+  if(id) { const graph = {}; carSubs().forEach(s => graph[s.id] = s.id === id ? req : s.req); if(req.some(r => carReaches(graph, r, id))) { notify('Correlativas circulares', 'Esa combinación genera un ciclo: una materia terminaría requiriéndose a sí misma.'); return; } }
+  if(id) { const m = CAR_BY[id]; m.name = name; m.year = year; m.req = req; carSave(); carOpen(id); }
+  else { const nid = carSubs().reduce((a, s) => Math.max(a, s.id), 0) + 1; CARP.subjects.push({id: nid, name, year, req}); carReindex(); carSave(); carClose(); notify('Materia agregada', name); }
+  renderCarrera();
+}
+function carDelete(id) {
+  const m = CAR_BY[id]; if(!m || !confirm(`¿Borrar «${m.name}»? También se quita de las correlativas de otras materias y se borra su nota.`)) return;
+  CARP.subjects = CARP.subjects.filter(s => s.id !== id); CARP.subjects.forEach(s => { s.req = s.req.filter(r => r !== id); }); delete CAR[id]; carReindex(); carSave(); carClose();
+}
+
+// ---- pegar una lista ----
+function carBulkOpen() { carView = 'bulk'; carOpenId = null; carRenderModal(); carShow(); }
+function carRenderBulk() {
+  carEl('car-modal-body').innerHTML = `<div class="car-modal-h"><h3>📋 Pegar lista de materias</h3><button class="car-x" onclick="carClose()" aria-label="Cerrar">×</button></div>
+    <p class="car-sub">Una materia por línea, con este formato: <b>Nombre ; año ; correlativas</b>.<br>Las correlativas son los <b>números de línea</b> de tu lista (1 es la primera línea), separados por coma o guion. Podés copiarlas desde Excel o desde el plan de estudios de tu facultad.</p>
+    <textarea id="car-bulk" class="fcm-in" rows="9" style="font-family:'JetBrains Mono',monospace;font-size:12px" placeholder="Anatomía I ; 1\nHistología ; 1\nFisiología ; 2 ; 1, 2\nPatología ; 2 ; 3"></textarea>
+    <button class="btn btn-blue" style="width:100%;margin-top:12px" onclick="carBulkImport()">Importar materias</button>`;
+}
+function carBulkImport() {
+  const norm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+  const rows = []; carEl('car-bulk').value.split('\n').map(s => s.trim()).filter(Boolean).forEach((ln, i) => {
+    const p = ln.split(/\t|;|\|/).map(s => s.trim()); if(i === 0 && /^(materia|asignatura|nombre)$/i.test(p[0])) return; if(p[0]) rows.push(p); });
+  if(!rows.length) { notify('Lista vacía', 'Pegá al menos una materia.'); return; }
+  const base = carSubs().reduce((a, s) => Math.max(a, s.id), 0) + 1;
+  const fresh = rows.map((p, i) => ({id: base + i, name: p[0].slice(0, 120), year: Math.min(12, Math.max(1, parseInt((p[1] || '').match(/\d+/) ? (p[1].match(/\d+/)[0]) : 1) || 1)), req: [], txt: p[2] || ''}));
+  const all = carSubs().concat(fresh), graph = {}; all.forEach(s => graph[s.id] = s.req.slice()); let skipped = 0;
+  fresh.forEach(s => {
+    let refs = [];
+    if(/^[\d\s,\-–\/]+$/.test(s.txt)) refs = s.txt.split(/[\s,\-–\/]+/).filter(Boolean).map(n => fresh[parseInt(n) - 1]).filter(Boolean).map(x => x.id);
+    else if(s.txt) refs = s.txt.split(',').map(t => all.find(x => norm(x.name) === norm(t))).filter(Boolean).map(x => x.id);
+    [...new Set(refs)].forEach(r => { if(r === s.id || carReaches(graph, r, s.id)) { skipped++; return; } graph[s.id].push(r); });
+  });
+  fresh.forEach(s => { delete s.txt; s.req = graph[s.id]; }); CARP.subjects = CARP.subjects.concat(fresh); carReindex(); carSave(); carClose();
+  notify('Materias importadas', fresh.length + ' materias' + (skipped ? ` (${skipped} correlativas ignoradas por ser circulares)` : '') + '.');
+}
+
+// ---- ajustes del plan, importar / exportar ----
+function carSetName(v) { CARP.name = v.trim().slice(0, 80); carSave(); carEl('car-title').textContent = '🎓 Mi Carrera' + (CARP.name ? ' · ' + CARP.name : ''); }
+function carSetScale() {
+  const mn = parseFloat(carEl('car-min').value), mx = parseFloat(carEl('car-max').value);
+  if(!(mn >= 0) || !(mx > mn) || mx > 1000) { notify('Escala inválida', 'La nota máxima tiene que ser mayor que la mínima.'); carEl('car-min').value = CARP.min; carEl('car-max').value = CARP.max; return; }
+  CARP.min = mn; CARP.max = mx; carSave(); renderCarrera();
+}
+function carDownload(name, text, type) { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], {type})); a.download = name; a.click(); }
+function carExportPlan() {
+  if(!carSubs().length) { notify('Plan vacío', 'Todavía no hay materias para exportar.'); return; }
+  carDownload('Plan_' + (CARP.name || 'carrera').replace(/[^\w\-]+/g, '_') + '.json', JSON.stringify({app: 'estudio-tracker-plan', v: 1, name: CARP.name, min: CARP.min, max: CARP.max, subjects: CARP.subjects}, null, 2), 'application/json');
+}
+function carImportPlanFile(ev) {
+  const f = ev.target.files[0]; if(!f) return; const rd = new FileReader();
+  rd.onload = () => {
+    try {
+      const o = JSON.parse(rd.result), plan = carCleanPlan(o);
+      if(!plan.subjects.length) throw new Error('vacío');
+      if(carSubs().length && !confirm('Importar este plan reemplaza tu plan actual y borra las notas cargadas. ¿Continuar?')) return;
+      CARP = plan; CAR = (o.st && typeof o.st === 'object') ? o.st : {}; carReindex(); carSave(); carFilter = 'all'; renderCarrera();
+      notify('Plan importado', plan.subjects.length + ' materias cargadas.');
+    } catch(e) { alert('No pude leer ese archivo. Tiene que ser un plan exportado desde esta app (.json).'); }
+    ev.target.value = '';
+  };
+  rd.readAsText(f);
+}
+function carReset() { if(!confirm('¿Borrar todo tu plan de estudios y tus notas? No se puede deshacer (hacé un backup antes si querés).')) return; CARP = {name: '', min: 4, max: 10, subjects: []}; CAR = {}; carReindex(); carSave(); renderCarrera(); }
 function carExport() {
-  const rows = [['Cod','Materia','Año','Estado','Nota','Fecha','Correlativas']].concat(CAR_MATS.map(m => { const r = carRec(m.id); return [m.id, m.name, CAR_YEARS[m.year - 1], CAR_LABEL[carState(m.id)], r.n != null ? r.n : '', r.d || '', m.req.join('-')]; }));
-  const csv = '﻿' + rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(';')).join('\n');
-  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv;charset=utf-8'})); a.download = 'Mi_Carrera_' + todayAR() + '.csv'; a.click();
+  const rows = [['Nº','Materia','Año','Estado','Nota','Fecha','Correlativas']].concat(carSubs().map(m => { const r = carRec(m.id); return [m.id, m.name, carYearLabel(m.year), CAR_LABEL[carState(m.id)], r.n != null ? r.n : '', r.d || '', m.req.join('-')]; }));
+  carDownload('Mi_Carrera_' + todayAR() + '.csv', '﻿' + rows.map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(';')).join('\n'), 'text/csv;charset=utf-8');
 }
 carLoad();
-document.addEventListener('keydown', e => { if(e.key === 'Escape' && carOpenId) carClose(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && carEl('modal-carrera').classList.contains('active')) carClose(); });
 
 // === v8: tarjetas propias (separadas de las notas de los temas) ===
 function fcMat(id) { return MATS.find(x => String(x.id) === String(id)); }
@@ -2312,7 +2463,7 @@ function handleGlobalSearch(query) {
     m.units.forEach(u => { if(has(u.n) || has(u.note)) gsItems.push({ic: '📝', t: u.n || '(tema sin nombre)', s: m.name + ' · ' + gsSnip(has(u.n) ? u.note || 'Tema' : u.note, q), go: () => gsGoMat(m.id, u.id)}); });
     (m.cards || []).forEach(c => { if(has(c.q) || has(c.a)) gsItems.push({ic: '🃏', t: c.q, s: 'Tarjeta · ' + m.name + ' · ' + gsSnip(has(c.q) ? c.a : c.a, q), go: () => gsGoCard(m.id)}); });
   });
-  if(typeof CAR_MATS !== 'undefined') CAR_MATS.forEach(c => { if(has(c.name) || String(c.id) === q) gsItems.push({ic: '🎓', t: c.name, s: 'Carrera · ' + CAR_YEARS[c.year - 1] + ' · ' + CAR_LABEL[carState(c.id)], go: () => gsGoCar(c.id)}); });
+  carSubs().forEach(c => { if(has(c.name) || String(c.id) === q) gsItems.push({ic: '🎓', t: c.name, s: 'Carrera · ' + carYearLabel(c.year) + ' · ' + CAR_LABEL[carState(c.id)], go: () => gsGoCar(c.id)}); });
   const shown = gsItems.slice(0, 30);
   box.innerHTML = shown.length ? shown.map((r, i) => `<button class="gs-item" data-i="${i}" onclick="gsPick(${i})"><span class="gs-ic">${r.ic}</span><span class="gs-tx"><b>${esc(r.t)}</b><small>${esc(r.s)}</small></span></button>`).join('') + (gsItems.length > 30 ? `<div class="gs-more">Mostrando 30 de ${gsItems.length}. Escribí más para afinar.</div>` : '')
     : `<div class="gs-empty">No encontré nada para «${esc(query.trim())}».</div>`;
@@ -2337,6 +2488,40 @@ document.addEventListener('keydown', e => {
 });
 document.addEventListener('click', e => { if(!e.target.closest('.global-search-bar')) gsClose(false); });
 document.getElementById('global-search-input').addEventListener('focus', function() { if(this.value.trim().length >= 2) handleGlobalSearch(this.value); });
+
+// === v10: PWA (instalación, service worker, avisos de datos) ===
+const APP_VERSION = '1.0.0';
+let pwaPrompt = null;
+function pwaStandalone() { return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
+function pwaIsIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
+function pwaRender() {
+  const msg = document.getElementById('pwa-msg'), btn = document.getElementById('pwa-btn'); if(!msg || !btn) return;
+  btn.style.display = 'none';
+  const v = document.getElementById('app-version'); if(v) v.textContent = 'Estudio Tracker v' + APP_VERSION;
+  if(pwaStandalone()) { msg.innerHTML = '✅ Ya estás usando la app instalada.'; return; }
+  if(pwaPrompt) { msg.innerHTML = 'Instalala para abrirla como cualquier app, con su propio ícono y sin conexión.'; btn.style.display = 'block'; return; }
+  if(pwaIsIOS()) { msg.innerHTML = 'En iPhone o iPad: abrí esta página en <b>Safari</b>, tocá <b>Compartir ⬆️</b> y elegí <b>«Agregar a pantalla de inicio»</b>.<br><b>Ojo:</b> la app instalada guarda sus datos aparte de Safari. Si ya venías usándola, exportá un backup antes y después importalo en la app instalada.'; return; }
+  msg.innerHTML = 'En Chrome o Edge: menú <b>⋮</b> → <b>Instalar app</b> (o el ícono de instalar en la barra de direcciones). En Safari de Mac: <b>Archivo → Agregar al Dock</b>.';
+}
+async function pwaInstall() { if(!pwaPrompt) return; pwaPrompt.prompt(); try { await pwaPrompt.userChoice; } catch(e) {} pwaPrompt = null; pwaRender(); }
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); pwaPrompt = e; pwaRender(); });
+window.addEventListener('appinstalled', () => { pwaPrompt = null; pwaRender(); notify('¡App instalada!', 'Ya la tenés en tu pantalla de inicio.'); });
+function renderBackupInfo() {
+  const el = document.getElementById('backup-info'); if(!el) return;
+  const last = ls('last_backup');
+  if(!last) { el.innerHTML = '⚠️ Todavía no hiciste ningún backup. Tus datos viven solo en este dispositivo.'; return; }
+  const days = Math.round((new Date(todayAR() + 'T00:00:00') - new Date(last + 'T00:00:00')) / 86400000);
+  el.innerHTML = (days > 14 ? '⚠️ ' : '✅ ') + 'Último backup: ' + last.split('-').reverse().join('/') + (days > 0 ? ` (hace ${days} días)` : ' (hoy)') + (days > 14 ? '. Conviene hacer uno nuevo.' : '.');
+}
+if('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').then(reg => {
+      reg.addEventListener('updatefound', () => { const nw = reg.installing; if(nw) nw.addEventListener('statechange', () => { if(nw.state === 'installed' && navigator.serviceWorker.controller) notify('Nueva versión lista', 'Cerrá y volvé a abrir la app para usarla.'); }); });
+    }).catch(() => {});
+  });
+}
+try { if(navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(e) {}
+pwaRender();
 </script>
 </body>
 </html>
