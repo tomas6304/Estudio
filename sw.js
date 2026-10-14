@@ -1,10 +1,11 @@
 /* Estudio Tracker · service worker (funciona sin internet) */
-const VERSION = 'et-1.0.0';
+const VERSION = 'et-1.0.2';
 const FONTS = VERSION + '-fonts';
-const CORE = ['./', 'index.html', 'manifest.webmanifest', 'vendor/chart.umd.js', 'icons/icon.svg', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'];
+const CORE = ['./', 'index.html', 'manifest.webmanifest', 'chart.umd.js', 'icon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(VERSION).then(c => c.addAll(CORE)).then(() => self.skipWaiting()));
+  // Se guarda cada archivo por separado: si alguno falta, la app igual se instala.
+  e.waitUntil(caches.open(VERSION).then(c => Promise.all(CORE.map(f => c.add(f).catch(() => null)))).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== VERSION && k !== FONTS).map(k => caches.delete(k)))).then(() => self.clients.claim()));
