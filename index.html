@@ -495,43 +495,6 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
 .hero-orbit{opacity:1!important}
 @media(max-width:700px){.hero-orbit{right:-118px!important;top:92px!important;width:330px!important;height:330px!important;transform:none!important;opacity:.92!important}}
 .hero-copy,.hero-bottomline{position:relative;z-index:2}
-/* v15: botones "liquid glass" (vidrio esmerilado + brillo + elevación al pasar el mouse) */
-:root{--gl:255,255,255;--gl-a:.14;--gl-b:.04;--gl-edge:rgba(255,255,255,.26);--gl-hi:rgba(255,255,255,.5)}
-:root[data-theme="light"]{--gl:255,255,255;--gl-a:.78;--gl-b:.38;--gl-edge:rgba(255,255,255,.9);--gl-hi:rgba(255,255,255,1)}
-:root .btn,:root .btn-icon,:root .focus-toggle,:root .amb-btn,:root .time-preset,:root .hero-secondary,:root .hero-primary,:root .btn-play,:root .mode-tab.active{
-position:relative;isolation:isolate;
-background:linear-gradient(180deg,rgba(var(--gl),var(--gl-a)),rgba(var(--gl),var(--gl-b))),rgba(var(--tint,120,100,200),.12);
--webkit-backdrop-filter:blur(16px) saturate(180%);backdrop-filter:blur(16px) saturate(180%);
-border:1px solid var(--gl-edge);
-box-shadow:inset 0 1.5px 0 var(--gl-hi),inset 0 -1px 0 rgba(255,255,255,.07),inset 0 0 14px rgba(var(--tint,160,130,255),.10),0 6px 18px rgba(0,0,0,.28),0 0 16px rgba(var(--tint,160,130,255),.14);
-transition:transform .28s cubic-bezier(.2,.9,.3,1.2),box-shadow .28s ease,background .28s ease,border-color .28s ease;
-will-change:transform}
-/* reflejo superior tipo vidrio */
-:root .btn::before,:root .btn-play::before,:root .hero-primary::before,:root .hero-secondary::before,:root .focus-toggle::before{content:"";position:absolute;left:8%;right:8%;top:1px;height:46%;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,0));opacity:.55;pointer-events:none;z-index:-1}
-:root .btn-purple{--tint:168,110,255;color:#e6d4ff}
-:root .btn-blue{--tint:70,140,255;color:#b9d4ff}
-:root .btn-green,:root .btn-play.brk{--tint:50,200,150;color:#a6f0d2}
-:root .btn-red,:root .btn-play{--tint:255,90,110;color:#ffc2cb}
-:root .btn-amber{--tint:255,170,40;color:#ffd699}
-:root .hero-primary{--tint:190,140,255;color:#fff;background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.08)),linear-gradient(105deg,rgba(240,168,212,.55),rgba(195,155,255,.55) 60%,rgba(141,152,255,.55))}
-:root .btn-play{color:#fff;background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,.06)),linear-gradient(105deg,rgba(240,168,212,.5),rgba(195,155,255,.5) 60%,rgba(141,152,255,.5))}
-:root .btn-play.brk{background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(255,255,255,.06)),linear-gradient(105deg,rgba(157,232,204,.5),rgba(105,201,178,.5))}
-:root .mode-tab.active{--tint:190,140,255}
-/* hover estilo Mac: se levanta y crece un poco */
-@media (hover:hover){
-:root .btn:hover,:root .btn-icon:hover,:root .focus-toggle:hover,:root .amb-btn:hover,:root .time-preset:hover,:root .hero-secondary:hover,:root .hero-primary:hover,:root .btn-play:hover{
-transform:translateY(-3px) scale(1.045);border-color:rgba(255,255,255,.42);
-box-shadow:inset 0 1.5px 0 var(--gl-hi),inset 0 -1px 0 rgba(255,255,255,.1),inset 0 0 18px rgba(var(--tint,160,130,255),.18),0 14px 30px rgba(0,0,0,.38),0 0 26px rgba(var(--tint,160,130,255),.32)}}
-:root .btn:active,:root .btn-icon:active,:root .focus-toggle:active,:root .amb-btn:active,:root .time-preset:active,:root .hero-secondary:active,:root .hero-primary:active,:root .btn-play:active{transform:translateY(0) scale(.97);transition-duration:.08s}
-:root .btn:focus-visible,:root .btn-play:focus-visible,:root .hero-primary:focus-visible{outline:2px solid rgba(200,170,255,.9);outline-offset:3px}
-/* tema claro */
-:root[data-theme="light"] .btn,:root[data-theme="light"] .btn-icon,:root[data-theme="light"] .focus-toggle,:root[data-theme="light"] .amb-btn,:root[data-theme="light"] .time-preset,:root[data-theme="light"] .hero-secondary{border-color:rgba(90,70,160,.28);box-shadow:inset 0 1.5px 0 #fff,0 4px 14px rgba(70,50,140,.14),0 0 0 rgba(0,0,0,0)}
-:root[data-theme="light"] .btn-purple{color:#5b21b6}:root[data-theme="light"] .btn-blue{color:#1d4ed8}:root[data-theme="light"] .btn-green{color:#047857}:root[data-theme="light"] .btn-red{color:#b91c1c}:root[data-theme="light"] .btn-amber{color:#92400e}
-:root[data-theme="light"] .btn-play,:root[data-theme="light"] .hero-primary{color:#1b1530}
-:root[data-theme="light"] .btn::before,:root[data-theme="light"] .hero-secondary::before{opacity:.9}
-@media (hover:hover){:root[data-theme="light"] .btn:hover,:root[data-theme="light"] .hero-secondary:hover,:root[data-theme="light"] .hero-primary:hover,:root[data-theme="light"] .btn-play:hover{box-shadow:inset 0 1.5px 0 #fff,0 14px 28px rgba(70,50,140,.24)}}
-:root[data-theme="amoled"] .btn,:root[data-theme="amoled"] .hero-secondary{--gl-a:.12}
-@media (prefers-reduced-motion:reduce){:root .btn:hover,:root .btn-play:hover,:root .hero-primary:hover,:root .hero-secondary:hover{transform:none}}
 /* v15 pantalla de inicio estilo espacio + globo de puntos */
 #vx{position:fixed;inset:0;z-index:6000;height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden;overflow:clip;isolation:isolate;background:#05030d;color:#fff;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;transition:opacity .6s ease,visibility .6s}
 #vx[hidden]{display:none}#vx.out{opacity:0;visibility:hidden;pointer-events:none}#vx *,#vx *::before,#vx *::after{box-sizing:border-box}
@@ -583,6 +546,24 @@ box-shadow:inset 0 1.5px 0 var(--gl-hi),inset 0 -1px 0 rgba(255,255,255,.1),inse
 @media (max-width:760px){#vx .vx__top{flex-direction:column;align-items:stretch}#vx .vx__logo{justify-content:center}#vx .vx__nav ul{justify-content:center}#vx .vx__pill{padding:7px 12px;font-size:12.5px}#vx .vx__timer{right:50%;margin-right:calc(min(360px,100vw - 32px)/-2)}#vx .vx__hero{padding-bottom:22vh}}
 @media (max-height:640px){#vx .vx__tin{padding:12px 16px 14px;gap:8px}#vx .vx__time{font-size:46px}#vx .vx__hint{display:none}#vx .vx__tag{display:none}}
 @media (prefers-reduced-motion:reduce){#vx *,#vx *::before,#vx *::after{transition:none!important;animation:none!important}}
+/* v15.1 Dock estilo macOS (escritorio con mouse): íconos que se agrandan suave y empujan a los vecinos */
+@media (hover:hover) and (pointer:fine) and (min-width:700px){
+  .nav-bottom{display:flex;align-items:flex-end;justify-content:center;gap:8px;height:68px;padding:9px 12px;bottom:12px;border-radius:24px;border:1px solid rgba(255,255,255,.2);background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,.05)),rgba(28,24,44,.55);-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),inset 0 -1px 0 rgba(255,255,255,.05),0 18px 44px rgba(0,0,0,.5);overflow:visible}
+  .nav-bottom .nav-tab{--sz:50px;position:relative;flex:0 0 auto;width:var(--sz);height:var(--sz);padding:0;gap:0;display:flex;align-items:center;justify-content:center;border-radius:calc(var(--sz)*.24);border:1px solid rgba(255,255,255,.16);background:linear-gradient(160deg,rgba(255,255,255,.2),rgba(255,255,255,.05));box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 6px 14px rgba(0,0,0,.35);transform:none;transition:background .2s,color .2s;will-change:width,height;font-size:0;color:var(--text2)}
+  .nav-bottom .nav-tab svg{width:calc(var(--sz)*.5);height:calc(var(--sz)*.5);stroke:#e9e2ff;filter:none;transition:none}
+  .nav-bottom .nav-tab.active{background:linear-gradient(160deg,rgba(190,150,255,.55),rgba(110,80,230,.3));border-color:rgba(210,185,255,.5)}
+  .nav-bottom .nav-tab.active svg{stroke:#fff;fill:rgba(255,255,255,.14)}
+  .nav-bottom .nav-tab.active::after{content:"";position:absolute;left:50%;bottom:-8px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:#e6d9ff;box-shadow:0 0 6px rgba(200,170,255,.9)}
+  .nav-bottom .nav-tab .lbl{position:absolute;left:50%;bottom:calc(100% + 12px);transform:translate(-50%,4px);padding:5px 11px;border-radius:9px;font:500 12px Inter,sans-serif;letter-spacing:0;white-space:nowrap;color:#fff;background:rgba(32,28,48,.88);border:1px solid rgba(255,255,255,.18);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 8px 20px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .15s,transform .15s}
+  .nav-bottom .nav-tab:hover .lbl,.nav-bottom .nav-tab:focus-visible .lbl{opacity:1;transform:translate(-50%,0)}
+  .nav-bottom .nav-tab:hover{z-index:3}
+  html[data-theme="light"] .nav-bottom{background:linear-gradient(180deg,rgba(255,255,255,.85),rgba(255,255,255,.6));border-color:rgba(60,40,120,.18);box-shadow:inset 0 1px 0 #fff,0 18px 40px rgba(60,40,120,.2)}
+  html[data-theme="light"] .nav-bottom .nav-tab{background:linear-gradient(160deg,#fff,rgba(240,235,252,.8));border-color:rgba(60,40,120,.16);color:#4a4262}
+  html[data-theme="light"] .nav-bottom .nav-tab svg{stroke:#4a3f7a}
+  html[data-theme="light"] .nav-bottom .nav-tab.active{background:linear-gradient(160deg,rgba(150,110,255,.5),rgba(124,58,237,.3))}
+  html[data-theme="light"] .nav-bottom .nav-tab.active svg{stroke:#2e1065}
+  html[data-theme="amoled"] .nav-bottom{background:rgba(10,8,18,.85);-webkit-backdrop-filter:blur(26px);backdrop-filter:blur(26px)}
+}
 </style>
 </head>
 <body class="mode-study">
@@ -2371,12 +2352,24 @@ renderVisualDashboard(); setInterval(renderVisualDashboard, 3000);
   const nav=document.querySelector('.nav-bottom'); if(!nav) return;
   const tabs=[...nav.querySelectorAll('.nav-tab')];
   const mm=q=>!!(window.matchMedia&&window.matchMedia(q).matches); const reduce=mm('(prefers-reduced-motion: reduce)');
+  tabs.forEach(t=>{ const l=t.getAttribute('aria-label')||''; const sp=document.createElement('span'); sp.className='lbl'; sp.textContent=l; [...t.childNodes].forEach(n=>{ if(n.nodeType===3) n.remove(); }); t.appendChild(sp); });
   tabs.forEach(t=>t.addEventListener('click',()=>{ if(reduce) return; t.classList.remove('bounce'); void t.offsetWidth; t.classList.add('bounce'); setTimeout(()=>t.classList.remove('bounce'),600); }));
   if(reduce || !mm('(hover: hover) and (pointer: fine)')) return;
-  const R=150;
-  nav.addEventListener('pointerenter',()=>nav.classList.add('dock-on'));
-  nav.addEventListener('pointermove',e=>{ tabs.forEach(t=>{ const r=t.getBoundingClientRect(), c=r.left+r.width/2, d=Math.abs(e.clientX-c); const k=d>=R?0:Math.cos(d/R*Math.PI/2); const s=1+0.7*k*k; t.style.setProperty('--s',s.toFixed(3)); t.style.setProperty('--lift',((s-1)*20).toFixed(1)); t.style.setProperty('--z',Math.round(k*10)); }); });
-  nav.addEventListener('pointerleave',()=>{ tabs.forEach(t=>{ t.style.setProperty('--s',1); t.style.setProperty('--lift',0); t.style.setProperty('--z',0); }); setTimeout(()=>nav.classList.remove('dock-on'),180); });
+  const BASE=50, GAP=8, MAXS=1.75, SIG=62; let mx=null, cur=tabs.map(()=>1), raf=0;
+  const desktop=()=>mm('(min-width: 700px)');
+  function targets(){
+    if(mx===null||!desktop()) return tabs.map(()=>1);
+    const vc=nav.getBoundingClientRect(); const cx=vc.left+vc.width/2, total=tabs.length*BASE+(tabs.length-1)*GAP, left=cx-total/2;
+    return tabs.map((_,i)=>{ const c=left+i*(BASE+GAP)+BASE/2, d=mx-c; return 1+(MAXS-1)*Math.exp(-(d*d)/(2*SIG*SIG)); });
+  }
+  function frame(){
+    const tg=targets(); let moving=false;
+    tabs.forEach((t,i)=>{ cur[i]+=(tg[i]-cur[i])*0.22; if(Math.abs(tg[i]-cur[i])<0.002) cur[i]=tg[i]; else moving=true; t.style.setProperty('--sz',(BASE*cur[i]).toFixed(2)+'px'); });
+    raf=moving||mx!==null?requestAnimationFrame(frame):0;
+  }
+  const kick=()=>{ if(!raf) raf=requestAnimationFrame(frame); };
+  nav.addEventListener('pointermove',e=>{ mx=e.clientX; kick(); });
+  nav.addEventListener('pointerleave',()=>{ mx=null; kick(); });
 })();
 
 // ===== Temas: gráficos, color de la barra del navegador y selector =====
@@ -3556,7 +3549,7 @@ if(running && endTime) alrWorker(endTime);
 })();
 
 // === v10: PWA (instalación, service worker, avisos de datos) ===
-const APP_VERSION = '1.5.0';
+const APP_VERSION = '1.5.1';
 let pwaPrompt = null;
 function pwaStandalone() { return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
 function pwaIsIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
