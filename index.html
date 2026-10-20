@@ -564,6 +564,41 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
   html[data-theme="light"] .nav-bottom .nav-tab.active svg{stroke:#2e1065}
   html[data-theme="amoled"] .nav-bottom{background:rgba(10,8,18,.85);-webkit-backdrop-filter:blur(26px);backdrop-filter:blur(26px)}
 }
+/* === Mapa de calor de estudio + agenda de fechas límite === */
+.hm-scroll{overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+.hm-grid{display:grid;grid-template-rows:repeat(7,11px);grid-auto-flow:column;grid-auto-columns:11px;gap:3px;width:max-content}
+.hm-cell{width:11px;height:11px;border-radius:3px;border:0;padding:0;cursor:pointer;background:rgba(255,255,255,.06)}
+.hm-cell.hm-future{background:transparent;pointer-events:none}
+.hm-l1{background:rgba(182,140,255,.28)!important}
+.hm-l2{background:rgba(182,140,255,.5)!important}
+.hm-l3{background:rgba(182,140,255,.75)!important}
+.hm-l4{background:#b68cff!important;box-shadow:0 0 8px rgba(182,140,255,.45)}
+.hm-cell:focus-visible{outline:2px solid #c6a5ff;outline-offset:1px}
+.hm-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px}
+.hm-foot p{font-size:12px;color:var(--text2);line-height:1.5;margin:0}
+.hm-legend{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text3)}
+.hm-legend i{display:inline-block;width:11px;height:11px;border-radius:3px;background:rgba(255,255,255,.06)}
+.ag-form{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.ag-form #ag-title{grid-column:1/-1}
+.ag-form select,.ag-form input{font:400 13px Inter,sans-serif;padding:9px 11px;border-radius:12px;border:1px solid var(--border2);background:rgba(255,255,255,.05);color:var(--text);min-width:0}
+.ag-form .btn{grid-column:1/-1;background:rgba(182,140,255,.18);border-color:rgba(182,140,255,.4)}
+.ag-month{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:#c6a5ff;margin:12px 0 6px;font-weight:600}
+.ag-row{display:flex;align-items:center;gap:12px;padding:10px 12px;margin-bottom:6px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid var(--border)}
+.ag-date{font-variant-numeric:tabular-nums;font-size:13px;font-weight:600;color:var(--text);min-width:46px}
+.ag-main{flex:1;min-width:0}
+.ag-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:var(--text)}
+.ag-main small{display:block;font-size:11px;color:var(--text3);margin-top:2px}
+.ag-type{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:600}
+.ag-t-parcial{background:rgba(239,68,68,.2);color:#f87171}
+.ag-t-entrega{background:rgba(245,158,11,.2);color:#fbbf24}
+.ag-t-examen{background:rgba(182,140,255,.22);color:#c6a5ff}
+.ag-t-otro{background:rgba(59,130,246,.2);color:#93c5fd}
+.ag-del{background:none;border:0;color:var(--text3);font-size:18px;cursor:pointer;padding:0 4px;line-height:1}
+.ag-fixed{font-size:9px;color:var(--text3);white-space:nowrap}
+.ag-empty{font-size:12px;color:var(--text3);margin:8px 0}
+.ag-past{margin-top:10px;font-size:12px;color:var(--text3)}
+.ag-past summary{cursor:pointer;padding:6px 0}
+@media(min-width:560px){.ag-form{grid-template-columns:1fr 1fr 1fr}.ag-form #ag-title{grid-column:auto}.ag-form .btn{grid-column:auto}}
 </style>
 </head>
 <body class="mode-study">
@@ -663,7 +698,7 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
   </header>
   <main class="vx__hero">
     <span class="vx__eyebrow"><i></i> Tu espacio de estudio</span>
-    <h1>Estudiá con <em>intención</em>, recordá por más tiempo</h1>
+    <h1>Estudiá con <em>foco</em>, recordá lo que importa</h1>
     <p class="vx__tag">Planificá tus materias, enfocate con el temporizador y repasá tus apuntes, todo en un solo lugar.</p>
     <div class="vx__cta"><a class="vx__btn solid" href="#hoy" onclick="vxClose('hoy');return false">Entrar a la app <span aria-hidden="true">→</span></a><button type="button" class="vx__btn glass" onclick="vxTimer(true)">Abrir temporizador <span aria-hidden="true">→</span></button></div>
   </main>
@@ -695,6 +730,27 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
       <h2 style="font-size:12px; color:var(--purple); text-transform:uppercase; letter-spacing:1px;">🎯 Prioridad de Estudio Hoy</h2>
     </div>
     <div id="priority-content" style="font-size:12px; color:var(--text); line-height:1.5;">Calculando prioridades...</div>
+  </div>
+
+  <div class="card" id="heatmap-card">
+    <div class="section-hd"><div><span class="section-kicker">ACTIVIDAD</span><h2>Tu año de estudio</h2></div></div>
+    <div class="hm-scroll"><div class="hm-grid" id="hm-grid" role="grid" aria-label="Mapa de calor de estudio del último año"></div></div>
+    <div class="hm-foot">
+      <p id="hm-detail">Tocá un día para ver el detalle.</p>
+      <div class="hm-legend"><span>Menos</span><i class="hm-l0"></i><i class="hm-l1"></i><i class="hm-l2"></i><i class="hm-l3"></i><i class="hm-l4"></i><span>Más</span></div>
+    </div>
+  </div>
+
+  <div class="card" id="agenda-card">
+    <div class="section-hd"><div><span class="section-kicker">AGENDA</span><h2>Fechas límite</h2></div></div>
+    <div class="ag-form">
+      <select id="ag-mat" aria-label="Materia"></select>
+      <select id="ag-type" aria-label="Tipo"><option value="parcial">Parcial</option><option value="entrega">Entrega</option><option value="otro">Otro</option></select>
+      <input type="date" id="ag-date" aria-label="Fecha">
+      <input type="text" id="ag-title" placeholder="Detalle (opcional, ej. TP 2)" maxlength="80">
+      <button type="button" class="btn" onclick="addDeadline()">+ Agregar fecha</button>
+    </div>
+    <div id="ag-list"></div>
   </div>
 
   <div class="card">
@@ -1267,6 +1323,8 @@ let poms=0, breaks=0, studMin=0;
 
 const COLORS=['#ef4444','#10b981','#f59e0b','#3b82f6','#a855f7','#14b8a6'];
 const DAYS=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+const HM_WEEKS = 53; // semanas del mapa de calor (se usa al arrancar, por eso va antes)
+const AG_LABEL = { parcial:'Parcial', entrega:'Entrega', examen:'Examen', otro:'Otro' };
 
 function ls(k,d=''){try{return localStorage.getItem(k)??d;}catch(e){return d;}}
 function lss(k,v){try{localStorage.setItem(k,v);}catch(e){alert("Almacenamiento lleno.");}}
@@ -1281,6 +1339,7 @@ function loadMats(){
     if(mat.needsFinal === undefined) mat.needsFinal = false;
     if(!mat.color) mat.color = COLORS[0];
     if(!Array.isArray(mat.cards)) mat.cards = [];
+    if(!Array.isArray(mat.deadlines)) mat.deadlines = [];
     mat.units.forEach(u=>{
       if(!u.srEase) u.srEase = 2.5;
       if(!u.srInt) u.srInt = 0;
@@ -1292,9 +1351,10 @@ function loadMats(){
 }
 function saveMats(){
     lss('pom_mats',JSON.stringify(MATS)); 
-    fillSelectors(); 
-    updateDueCount(); 
+    fillSelectors();
+    updateDueCount();
     updatePriorityBox();
+    renderAgenda();
     saveDailyBackup();
 }
 const MATS=loadMats();
@@ -1334,7 +1394,7 @@ function restoreTimerState() {
             const expiredMode = ls('pom_mode');
             const expiredTotal = parseInt(ls('pom_total') || '3000');
             if(expiredMode === 'study') {
-                recordPomodoroSession(expiredTotal, 0);
+                recordPomodoroSession(expiredTotal, ls('pom_mat', '0'), end);
             }
             localStorage.removeItem('pom_end_time'); 
         }
@@ -1352,30 +1412,35 @@ function addMinutesToDateKey(dateStr, minsToAdd, matId) {
     lss('pom_history', JSON.stringify(hist));
 }
 
-function recordPomodoroSession(totalSeconds, matId) {
-    const now = nowAR();
-    const todayStr = todayAR();
+// endAt: momento en que terminó la sesión (por defecto, ahora). Si la app se despertó tarde,
+// se pasa el fin programado para que los minutos caigan en el día correcto.
+function recordPomodoroSession(totalSeconds, matId, endAt) {
+    const end = endAt ? new Date(endAt) : nowAR();
+    const endDay = ymdOf(end);
     const totalMins = Math.round(totalSeconds / 60);
     if(totalMins <= 0) return;
-    
-    const startDate = new Date(now.getTime() - totalSeconds * 1000);
-    const startDayStr = `${startDate.getFullYear()}-${String(startDate.getMonth()+1).padStart(2,'0')}-${String(startDate.getDate()).padStart(2,'0')}`;
-    
-    if(startDayStr !== todayStr) {
-        const midnight = new Date(todayStr + 'T00:00:00');
+
+    const startDate = new Date(end.getTime() - totalSeconds * 1000);
+    const startDayStr = ymdOf(startDate);
+
+    if(startDayStr !== endDay) {
+        const midnight = new Date(endDay + 'T00:00:00');
         const minsBeforeMidnight = Math.round((midnight - startDate) / 60000);
         const minsAfterMidnight = totalMins - minsBeforeMidnight;
         if(minsBeforeMidnight > 0) addMinutesToDateKey(startDayStr, minsBeforeMidnight, matId);
-        if(minsAfterMidnight > 0) addMinutesToDateKey(todayStr, minsAfterMidnight, matId);
+        if(minsAfterMidnight > 0) addMinutesToDateKey(endDay, minsAfterMidnight, matId);
     } else {
-        addMinutesToDateKey(todayStr, totalMins, matId);
+        addMinutesToDateKey(endDay, totalMins, matId);
     }
-    
-    poms++;
-    { const hh=loadHistory(); if(!hh[todayStr]) hh[todayStr]={mins:0,poms:0,mats:{}}; hh[todayStr].poms=(hh[todayStr].poms||0)+1; lss('pom_history', JSON.stringify(hh)); }
-    lss('pom_day_poms', String(poms));
-    studMin += totalSeconds;
-    lss('pom_day_mins', String(Math.round(studMin/60)));
+
+    { const hh=loadHistory(); if(!hh[endDay]) hh[endDay]={mins:0,poms:0,mats:{}}; hh[endDay].poms=(hh[endDay].poms||0)+1; lss('pom_history', JSON.stringify(hh)); }
+    // Los contadores del día solo suben si la sesión terminó hoy
+    if(endDay === todayAR()) {
+        poms++;
+        lss('pom_day_poms', String(poms));
+        studMin += totalSeconds;
+        lss('pom_day_mins', String(Math.round(studMin/60)));
+    }
     calculateStreakAndXP();
     triggerHaptic();
 }
@@ -1392,6 +1457,7 @@ function recordPomodoroSession(totalSeconds, matId) {
   calculateStreakAndXP();
   updateDueCount();
   updatePriorityBox();
+  renderAgenda();
   restoreTimerState();
   checkOnboarding();
   
@@ -1648,7 +1714,7 @@ function onFinish(){
   
   if(mode==='study'){
     const matId = document.getElementById('timer-mat-sel').value;
-    recordPomodoroSession(total, matId);
+    recordPomodoroSession(total, matId, endTime || undefined);
     let goal = document.getElementById('session-goal').value.trim();
     if(goal) {
         const safeGoal = document.createElement('div');
@@ -1683,6 +1749,7 @@ function togglePlay(){
   } else {
     running=true; endTime=Date.now()+rem*1000;
     lss('pom_end_time', String(endTime)); lss('pom_mode', mode); lss('pom_total', String(total));
+    lss('pom_mat', document.getElementById('timer-mat-sel').value);
     startTimerLoop();
     document.getElementById('btn-play').textContent='⏸ PAUSAR';
     document.getElementById('di-toggle-btn').textContent='Pausar';
@@ -1724,6 +1791,109 @@ function fillSelectors() {
 
 function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
 function upct(u){return Math.round(([u.l,u.r,u.a].filter(Boolean).length/3)*100);}
+
+// === Mapa de calor de estudio (usa pom_history: minutos y pomodoros por día) ===
+function ymdOf(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function hmLevel(mins){ return mins<=0 ? 0 : mins<20 ? 1 : mins<45 ? 2 : mins<90 ? 3 : 4; }
+function renderHeatmap() {
+    const grid = document.getElementById('hm-grid'); if(!grid) return;
+    const hist = loadHistory();
+    const today = new Date(todayAR() + 'T00:00:00');
+    // Empieza el domingo de hace 52 semanas, así la última columna termina en esta semana
+    const start = new Date(today); start.setDate(today.getDate() - today.getDay() - (HM_WEEKS - 1) * 7);
+    let html = '', activeDays = 0;
+    for(let w = 0; w < HM_WEEKS; w++) for(let d = 0; d < 7; d++) {
+        const cur = new Date(start); cur.setDate(start.getDate() + w * 7 + d);
+        if(cur > today) { html += '<span class="hm-cell hm-future"></span>'; continue; }
+        const k = ymdOf(cur), h = hist[k] || {}, mins = h.mins || 0, poms = h.poms || 0;
+        if(mins > 0) activeDays++;
+        html += `<button type="button" class="hm-cell hm-l${hmLevel(mins)}" data-date="${k}" aria-label="${k}: ${mins} minutos"></button>`;
+    }
+    grid.innerHTML = html;
+    const scroller = grid.parentElement; scroller.scrollLeft = scroller.scrollWidth; // muestra la última semana
+    const det = document.getElementById('hm-detail');
+    if(det && !det.dataset.picked) det.textContent = `${activeDays} días con estudio en el último año.`;
+}
+document.getElementById('hm-grid')?.addEventListener('click', e => {
+    const cell = e.target.closest('.hm-cell[data-date]'); if(!cell) return;
+    const h = loadHistory()[cell.dataset.date] || {};
+    const fecha = new Date(cell.dataset.date + 'T00:00:00').toLocaleDateString('es-AR', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+    const det = document.getElementById('hm-detail');
+    det.dataset.picked = '1';
+    det.textContent = (h.mins > 0)
+        ? `${fecha}: ${h.mins} min de estudio · ${h.poms || 0} pomodoros`
+        : `${fecha}: sin estudio registrado`;
+});
+
+// === Agenda de fechas límite (parciales, entregas y otros; el examen sale de Materias) ===
+function getAgendaItems() {
+    const items = [];
+    MATS.forEach(m => {
+        (m.deadlines || []).forEach(d => items.push({ matId:m.id, mat:m.name, color:m.color, id:d.id, type:d.type, title:d.title, date:d.date, fixed:false }));
+        if(m.exam) items.push({ matId:m.id, mat:m.name, color:m.color, id:null, type:'examen', title:'', date:m.exam, fixed:true });
+    });
+    return items.sort((a, b) => a.date.localeCompare(b.date));
+}
+function agDaysText(date) {
+    const diff = Math.round((new Date(date + 'T00:00:00') - new Date(todayAR() + 'T00:00:00')) / 864e5);
+    if(diff < 0) return `hace ${-diff} ${-diff === 1 ? 'día' : 'días'}`;
+    if(diff === 0) return 'hoy';
+    if(diff === 1) return 'mañana';
+    return `en ${diff} días`;
+}
+function agRow(i) {
+    const d = new Date(i.date + 'T00:00:00');
+    const dd = String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0');
+    const action = i.fixed
+        ? `<span class="ag-fixed" title="Editalo en Materias">Desde Materias</span>`
+        : `<button type="button" class="ag-del" onclick="delDeadline(${i.matId},${i.id})" aria-label="Borrar fecha">×</button>`;
+    return `<div class="ag-row" style="border-left:3px solid ${i.color}">
+        <div class="ag-date">${dd}</div>
+        <div class="ag-main"><div class="ag-top"><span class="ag-type ag-t-${i.type}">${AG_LABEL[i.type] || 'Otro'}</span><strong>${esc(i.mat)}</strong></div>
+        <small>${i.title ? esc(i.title) + ' · ' : ''}${agDaysText(i.date)}</small></div>
+        ${action}
+    </div>`;
+}
+function renderAgenda() {
+    const list = document.getElementById('ag-list'); if(!list) return;
+    const sel = document.getElementById('ag-mat');
+    if(sel) {
+        const act = sel.value;
+        sel.innerHTML = MATS.map(m => `<option value="${m.id}">${esc(m.name)}</option>`).join('');
+        if(MATS.find(m => m.id == act)) sel.value = act;
+    }
+    const items = getAgendaItems();
+    if(!items.length) { list.innerHTML = '<p class="ag-empty">Todavía no hay fechas. Agregá parciales o entregas para verlas acá.</p>'; return; }
+    const t = todayAR();
+    const upcoming = items.filter(i => i.date >= t), past = items.filter(i => i.date < t).reverse();
+    let html = '', lastMonth = '';
+    upcoming.forEach(i => {
+        const mes = new Date(i.date + 'T00:00:00').toLocaleDateString('es-AR', { month:'long', year:'numeric' });
+        if(mes !== lastMonth) { html += `<div class="ag-month">${mes}</div>`; lastMonth = mes; }
+        html += agRow(i);
+    });
+    if(!upcoming.length) html += '<p class="ag-empty">No hay fechas próximas.</p>';
+    if(past.length) html += `<details class="ag-past"><summary>Pasadas (${past.length})</summary>${past.map(agRow).join('')}</details>`;
+    list.innerHTML = html;
+}
+function addDeadline() {
+    const matId = parseInt(document.getElementById('ag-mat').value);
+    const type = document.getElementById('ag-type').value;
+    const date = document.getElementById('ag-date').value;
+    const title = document.getElementById('ag-title').value.trim().slice(0, 80);
+    const m = MATS.find(x => x.id === matId);
+    if(!m) return alert('Primero creá una materia.');
+    if(!date) return alert('Elegí una fecha.');
+    (m.deadlines = m.deadlines || []).push({ id: generateUniqueId(), type, title, date });
+    document.getElementById('ag-title').value = '';
+    saveMats();
+}
+function delDeadline(matId, id) {
+    const m = MATS.find(x => x.id === matId); if(!m) return;
+    if(!confirm('¿Borrar esta fecha?')) return;
+    m.deadlines = (m.deadlines || []).filter(d => d.id !== id);
+    saveMats();
+}
 
 function getDeadlineBadge(examDate) {
     if(!examDate) return '';
@@ -2246,6 +2416,7 @@ function calculateStreakAndXP() {
     document.getElementById('xp-display').textContent = xp + ' XP';
     document.getElementById('xp-label-sub').textContent = `Nivel ${level}`;
     document.getElementById('streak-display').textContent = streak + ' d';
+    renderHeatmap();
 }
 
 fillSelectors(); updateDisp();
@@ -3389,6 +3560,16 @@ async function alrTest() {
   notify('Prueba enviada', ok ? 'Mandá la app a segundo plano y probá de nuevo para ver la notificación.' : 'No hay permiso de notificaciones, pero escuchaste el sonido y viste el confeti.');
 }
 if(running && endTime) alrWorker(endTime);
+
+// Al volver a la app (desde otra pestaña, o después de bloquear el celu) el tiempo se recalcula
+// desde la hora de fin guardada: si ya venció, termina en el acto y no espera al timer del navegador.
+document.addEventListener('visibilitychange', () => {
+  if(document.hidden || !running || !endTime) return;
+  if(Date.now() >= endTime) { rem = 0; updateDisp(); onFinish(); return; }
+  rem = Math.max(0, Math.round((endTime - Date.now()) / 1000));
+  updateDisp();
+  if(!wakeLock || wakeLock.released) requestWakeLock(); // el navegador suelta el wake lock al ocultar la página
+});
 
 // === v13: globo de puntos con órbitas + estrellas de fondo ===
 (function() { try {
