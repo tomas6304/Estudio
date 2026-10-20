@@ -598,7 +598,32 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
 .ag-empty{font-size:12px;color:var(--text3);margin:8px 0}
 .ag-past{margin-top:10px;font-size:12px;color:var(--text3)}
 .ag-past summary{cursor:pointer;padding:6px 0}
+.chart-container{position:relative}
+.chart-note{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;margin:0;padding:16px;font-size:12px;line-height:1.5;color:var(--text3)}
 @media(min-width:560px){.ag-form{grid-template-columns:1fr 1fr 1fr}.ag-form #ag-title{grid-column:auto}.ag-form .btn{grid-column:auto}}
+.qa-title{font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:#c6a5ff;font-weight:600;margin-bottom:8px}
+.qa-text{font-size:13px;line-height:1.5;color:var(--text);margin:0 0 10px}
+.qa-due{color:var(--text2);font-size:12px;margin-top:4px}
+.qa-actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.qa-actions .btn{font-size:12px}
+.u-state{font-size:10px;color:var(--text3);margin-top:2px;white-space:nowrap}
+.hard-list{width:100%;max-width:520px;margin-top:14px;text-align:left}
+.hard-row{display:flex;flex-direction:column;gap:2px;padding:8px 10px;margin-bottom:6px;border-radius:12px;background:rgba(255,255,255,.035);border:1px solid var(--border);font-size:12px;color:var(--text)}
+.hard-row small{color:var(--text3);font-size:10px}
+.pg-section-title{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:#c6a5ff;font-weight:600;margin:14px 0 6px}
+.pg-goal{height:8px;border-radius:8px;background:rgba(255,255,255,.07);overflow:hidden}
+.pg-fill{height:100%;background:linear-gradient(90deg,#c39bff,#8d98ff);border-radius:8px;transition:width .4s}
+.pg-meta{font-size:12px;color:var(--text2);margin-top:6px}
+.pg-set{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--text2)}
+.pg-set input{width:90px;padding:6px 8px;border-radius:10px;border:1px solid var(--border2);background:rgba(255,255,255,.05);color:var(--text)}
+.pg-bars{display:flex;align-items:flex-end;gap:10px;height:90px}
+.pg-col{flex:1;display:flex;flex-direction:column;align-items:center;height:100%;justify-content:flex-end;gap:4px}
+.pg-bar{width:100%;max-width:44px;background:linear-gradient(180deg,#c39bff,#6f79ff);border-radius:8px 8px 3px 3px}
+.pg-col small{font-size:10px;color:var(--text3)}
+.pg-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.pg-grid strong{display:block;font-size:18px;font-weight:600;color:var(--text)}
+.pg-grid small{font-size:10px;color:var(--text3);line-height:1.3;display:block}
+.pg-note{font-size:11px;color:var(--text3);line-height:1.5;margin:12px 0 0}
 </style>
 </head>
 <body class="mode-study">
@@ -727,9 +752,14 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
   </section>
   <div class="card" id="priority-recommendation-box" style="background: linear-gradient(135deg, rgba(168,85,247,0.1), rgba(59,130,246,0.1)); border-color: rgba(168,85,247,0.3);">
     <div class="section-hd" style="margin-bottom:6px;">
-      <h2 style="font-size:12px; color:var(--purple); text-transform:uppercase; letter-spacing:1px;">🎯 Prioridad de Estudio Hoy</h2>
+
     </div>
     <div id="priority-content" style="font-size:12px; color:var(--text); line-height:1.5;">Calculando prioridades...</div>
+  </div>
+
+  <div class="card" id="progress-card">
+    <div class="section-hd"><div><span class="section-kicker">PROGRESO</span><h2>Tu semana</h2></div></div>
+    <div id="progress-content"></div>
   </div>
 
   <div class="card" id="heatmap-card">
@@ -767,12 +797,12 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
       <button class="time-preset" onclick="setCustomMin(60)">60m</button>
       <div style="display:flex; align-items:center; gap:4px; font-size:12px; color:var(--text3);">
         <span>Min:</span>
-        <input type="number" id="custom-min-input" class="time-custom-input" min="1" max="180" value="50" onchange="applyCustomMin(this.value)">
+        <input type="number" id="custom-min-input" class="time-custom-input" aria-label="Duración de la sesión en minutos" min="1" max="180" value="50" onchange="applyCustomMin(this.value)">
       </div>
     </div>
     
     <div class="session-goal-box">
-      <select id="timer-mat-sel"><option value="0">General (Sin materia)</option></select>
+      <select id="timer-mat-sel" aria-label="Materia del pomodoro"><option value="0">General (Sin materia)</option></select>
       <input type="text" id="session-goal" placeholder="Objetivo del pomodoro (ej. Leer U3)...">
       <div class="actions-grid" style="display:flex; gap:8px; margin-top:8px;">
           <button onclick="terminarAhora()" class="btn" style="flex:1; background:rgba(255,255,255,0.05);">💾 Guardar parcial</button>
@@ -794,13 +824,13 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
 
     <div class="timer-controls">
       <button class="btn-play" id="btn-play" onclick="togglePlay()">▶ INICIAR</button>
-      <button class="btn-icon" onclick="resetTimer()" title="Reiniciar">↺</button>
+      <button class="btn-icon" onclick="resetTimer()" title="Reiniciar" aria-label="Reiniciar temporizador">↺</button>
     </div>
 
     <div style="background:rgba(0,0,0,0.25); border:1px solid var(--border); border-radius:var(--radius); padding:10px; margin-top:1rem;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <span style="font-size:11px; text-transform:uppercase; color:var(--text3);" id="amb-status">🎧 Audio Ambiental: Apagado</span>
-        <input type="range" id="vol-slider" min="0" max="100" value="40" oninput="setAmbVol(this.value)" style="width:90px; accent-color:var(--purple); cursor:pointer;">
+        <input type="range" id="vol-slider" aria-label="Volumen del audio ambiental" min="0" max="100" value="40" oninput="setAmbVol(this.value)" style="width:90px; accent-color:var(--purple); cursor:pointer;">
       </div>
       <div class="amb-grid" style="margin-bottom:0;">
         <button class="amb-btn" onclick="toggleLoFi()" id="amb-lofi"><span class="amb-icon">📻</span>Lo-Fi</button>
@@ -934,7 +964,7 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
   </div>
   <div class="card">
     <div style="display:flex;justify-content:space-between;align-items:center"><h2>📚 Mi biblioteca</h2><span id="apu-count" style="font-size:11px;color:var(--text3)"></span></div>
-    <div class="apu-tools"><input id="apu-q" class="fcm-in" type="search" placeholder="Buscar en apuntes…" oninput="renderApuntes()" autocomplete="off"><select id="apu-flt" class="fcm-in" onchange="renderApuntes()" style="max-width:42%"></select></div>
+    <div class="apu-tools"><input id="apu-q" class="fcm-in" type="search" placeholder="Buscar en apuntes…" oninput="renderApuntes()" autocomplete="off"><select id="apu-flt" class="fcm-in" aria-label="Filtrar apuntes por materia" onchange="renderApuntes()" style="max-width:42%"></select></div>
     <div id="apu-list"></div>
   </div>
 </div>
@@ -978,7 +1008,7 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
     <div style="display:flex; flex-direction:column; gap:10px; margin-top:8px;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:12px;">Tema visual:</span>
-            <select id="theme-select" onchange="changeTheme(this.value)" style="padding:6px; background:rgba(0,0,0,0.3); border-radius:6px; border:1px solid var(--border); color:var(--text); font-size:12px;">
+            <select id="theme-select" aria-label="Tema de la app" onchange="changeTheme(this.value)" style="padding:6px; background:rgba(0,0,0,0.3); border-radius:6px; border:1px solid var(--border); color:var(--text); font-size:12px;">
                 <option value="dark">Oscuro (Default)</option>
                 <option value="amoled">AMOLED (Puro Negro)</option>
                 <option value="light">Claro</option>
@@ -986,7 +1016,7 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
         </div>
         <div style="display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:12px;">Tamaño de fuente:</span>
-            <select id="font-size-select" onchange="changeFontSize(this.value)" style="padding:6px; background:rgba(0,0,0,0.3); border-radius:6px; border:1px solid var(--border); color:var(--text); font-size:12px;">
+            <select id="font-size-select" aria-label="Tamaño de letra" onchange="changeFontSize(this.value)" style="padding:6px; background:rgba(0,0,0,0.3); border-radius:6px; border:1px solid var(--border); color:var(--text); font-size:12px;">
                 <option value="13px">Compacta (13px)</option>
                 <option value="14px" selected>Normal (14px)</option>
                 <option value="16px">Grande (16px)</option>
@@ -994,7 +1024,7 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
         </div>
         <div style="display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:12px;">Vibración (Haptics):</span>
-            <input type="checkbox" id="haptics-toggle" checked onchange="toggleHaptics(this.checked)">
+            <input type="checkbox" id="haptics-toggle" aria-label="Vibración al tocar" checked onchange="toggleHaptics(this.checked)">
         </div>
     </div>
   </div>
@@ -1103,7 +1133,7 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
     </div>
 </div>
 
-<div class="notif" id="notif"><div class="n-title" id="n-title"></div><div class="n-sub" id="n-sub"></div></div>
+<div class="notif" id="notif" role="status" aria-live="polite"><div class="n-title" id="n-title"></div><div class="n-sub" id="n-sub"></div></div>
 
 <script>
 function triggerHaptic() {
@@ -1355,6 +1385,7 @@ function saveMats(){
     updateDueCount();
     updatePriorityBox();
     renderAgenda();
+    renderProgress();
     saveDailyBackup();
 }
 const MATS=loadMats();
@@ -1414,7 +1445,9 @@ function addMinutesToDateKey(dateStr, minsToAdd, matId) {
 
 // endAt: momento en que terminó la sesión (por defecto, ahora). Si la app se despertó tarde,
 // se pasa el fin programado para que los minutos caigan en el día correcto.
-function recordPomodoroSession(totalSeconds, matId, endAt) {
+// completed: true solo si se llegó al final del pomodoro. Una sesión parcial suma minutos,
+// pero no cuenta como pomodoro completo (ni para el descanso largo).
+function recordPomodoroSession(totalSeconds, matId, endAt, completed = true) {
     const end = endAt ? new Date(endAt) : nowAR();
     const endDay = ymdOf(end);
     const totalMins = Math.round(totalSeconds / 60);
@@ -1433,11 +1466,13 @@ function recordPomodoroSession(totalSeconds, matId, endAt) {
         addMinutesToDateKey(endDay, totalMins, matId);
     }
 
-    { const hh=loadHistory(); if(!hh[endDay]) hh[endDay]={mins:0,poms:0,mats:{}}; hh[endDay].poms=(hh[endDay].poms||0)+1; lss('pom_history', JSON.stringify(hh)); }
+    if(completed) {
+        const hh = loadHistory(); if(!hh[endDay]) hh[endDay] = {mins:0,poms:0,mats:{}};
+        hh[endDay].poms = (hh[endDay].poms || 0) + 1; lss('pom_history', JSON.stringify(hh));
+    }
     // Los contadores del día solo suben si la sesión terminó hoy
     if(endDay === todayAR()) {
-        poms++;
-        lss('pom_day_poms', String(poms));
+        if(completed) { poms++; lss('pom_day_poms', String(poms)); }
         studMin += totalSeconds;
         lss('pom_day_mins', String(Math.round(studMin/60)));
     }
@@ -1670,6 +1705,7 @@ function startTimerLoop() {
         if(!running || !endTime) return;
         rem = Math.max(0, Math.round((endTime - Date.now()) / 1000));
         updateDisp();
+        if(rem > 0 && rem <= FIVE_MIN) alarmFiveMinutes(); // respaldo si el worker se atrasó
         if(rem <= 0) onFinish();
     }, 250);
 }
@@ -1683,7 +1719,7 @@ function stopTimerLoop() {
 
 function setMode(m){
   mode=m; running=false; stopTimerLoop(); endTime=null;
-  localStorage.removeItem('pom_end_time');
+  localStorage.removeItem('pom_end_time'); lss('pom_five_warned', '0');
   total = m==='study'? STUDY : BREAK; rem=total;
   document.body.className = m==='study' ? 'mode-study' : 'mode-break';
   document.getElementById('tab-study').className='mode-tab'+(m==='study'?' active s-active':'');
@@ -1708,6 +1744,8 @@ function updateDisp(){
 }
 
 function onFinish(){
+  // Idempotente: worker, intervalo y visibilidad pueden disparar el fin a la vez; solo el primero cuenta
+  if(!running) return;
   running=false; stopTimerLoop(); localStorage.removeItem('pom_end_time'); playOrganicBell();
   document.getElementById('dynamic-island').classList.remove('visible');
   if(wakeLock) { wakeLock.release().catch(()=>{}); wakeLock = null; }
@@ -1747,6 +1785,7 @@ function togglePlay(){
     document.getElementById('dynamic-island').classList.remove('visible');
     if(wakeLock) { wakeLock.release().catch(()=>{}); wakeLock = null; }
   } else {
+    if(rem === total) lss('pom_five_warned', '0'); // sesión nueva: se puede volver a avisar
     running=true; endTime=Date.now()+rem*1000;
     lss('pom_end_time', String(endTime)); lss('pom_mode', mode); lss('pom_total', String(total));
     lss('pom_mat', document.getElementById('timer-mat-sel').value);
@@ -1763,7 +1802,7 @@ function terminarAhora() {
     const elapsedSeconds = total - rem;
     if(elapsedSeconds < 60) return alert("Sesión muy corta.");
     if(confirm(`¿Guardar los ${Math.round(elapsedSeconds/60)} minutos estudiados?`)) {
-        recordPomodoroSession(elapsedSeconds, document.getElementById('timer-mat-sel').value);
+        recordPomodoroSession(elapsedSeconds, document.getElementById('timer-mat-sel').value, undefined, false);
         notify('¡Sesión parcial guardada!', 'Excelente.'); resetTimer();
     }
 }
@@ -1921,35 +1960,57 @@ function exportICS(matId) {
 }
 
 // CORRECCIÓN 5: Prioridad corregida basada en el ritmo diario necesario (unidades pendientes ÷ días restantes)
+// "Qué hacer ahora": una recomendación con motivo y acciones reales (no solo texto).
+// Usa los mismos datos que Materias y Repaso: unidades no aprobadas, fecha de examen y tarjetas vencidas.
+function dueCardsCount() {
+    const t = todayAR(); let n = 0;
+    MATS.forEach(m => fcItems(m).forEach(it => { if(!it.o.srNext || it.o.srNext <= t) n++; }));
+    return n;
+}
+function startPomodoroFor(matId) {
+    const sel = document.getElementById('timer-mat-sel');
+    if(sel && MATS.find(m => m.id === matId)) sel.value = String(matId);
+    document.getElementById('time-num')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById('session-goal')?.focus({ preventScroll: true });
+}
 function updatePriorityBox() {
     const box = document.getElementById('priority-content');
     if(!box) return;
-    if(MATS.length === 0) { 
-        box.innerHTML = "Todavía no cargaste materias. Tocá en <strong>+ Materia</strong> para arrancar."; 
-        return; 
+    if(MATS.length === 0) {
+        box.innerHTML = 'Todavía no cargaste materias. Tocá en <strong>+ Materia</strong> para arrancar.';
+        return;
     }
-    let scores = []; const today = new Date(todayAR() + 'T00:00:00');
+    const today = new Date(todayAR() + 'T00:00:00');
+    const scores = [];
     MATS.forEach(m => {
         if(m.promoted) return;
-        const totalU = m.units.length; const approvedU = m.units.filter(u => u.a).length;
-        const remainingUnits = totalU - approvedU;
+        const remainingUnits = m.units.filter(u => !u.a).length;
         if(remainingUnits <= 0) return;
-        
-        let daysLeft = 30;
+        let daysLeft = 30, reason = 'Sin fecha de examen cargada';
         if(m.exam) {
-            const examD = new Date(m.exam + 'T00:00:00');
-            daysLeft = Math.max(1, Math.round((examD - today)/(1000*60*60*24)));
+            daysLeft = Math.max(1, Math.round((new Date(m.exam + 'T00:00:00') - today) / 864e5));
+            reason = `Examen en ${daysLeft} ${daysLeft === 1 ? 'día' : 'días'}`;
         }
-        // Ritmo diario necesario: unidades pendientes ÷ días hasta el examen. Cuanto mayor sea, más urgencia.
-        const requiredPace = remainingUnits / daysLeft;
-        scores.push({ m, daysLeft, remainingUnits, requiredPace });
+        // Ritmo diario necesario: unidades pendientes ÷ días hasta el examen
+        scores.push({ m, daysLeft, remainingUnits, requiredPace: remainingUnits / daysLeft, reason });
     });
     scores.sort((a, b) => b.requiredPace - a.requiredPace);
-    if(scores.length === 0) { box.innerHTML = "¡Felicitaciones! Tenés todo al día o aprobado."; return; }
-    const top = scores[0];
-    box.innerHTML = `
-      <div style="font-weight:600; font-size:13px; color:var(--text); margin-bottom:4px;">🎯 Foco recomendado: ${esc(top.m.name)}</div>
-      <div style="font-size:11px; color:var(--text2);">Te quedan ${top.remainingUnits} unidades.<br>📅 Faltan ${top.daysLeft} días. Ritmo diario necesario: <strong>${top.requiredPace.toFixed(1)} unidades/día</strong>.</div>`;
+
+    const due = dueCardsCount();
+    let html = '<div class="qa-title">Qué hacer ahora</div>';
+    if(scores.length === 0) {
+        html += '<p class="qa-text">Todas tus unidades están aprobadas o marcadas como promocionadas. ¡Buen trabajo!</p>';
+    } else {
+        const top = scores[0];
+        html += `<p class="qa-text"><strong>${esc(top.m.name)}</strong>: te quedan ${top.remainingUnits} ${top.remainingUnits === 1 ? 'unidad' : 'unidades'}. ${esc(top.reason)}. Ritmo necesario: ${top.requiredPace.toFixed(1)} unidades por día.</p>`;
+        html += `<div class="qa-actions"><button type="button" class="btn" onclick="startPomodoroFor(${top.m.id})">▶ Pomodoro de ${esc(top.m.name)}</button>`;
+        html += `<button type="button" class="btn" onclick="showPanel('tracker')">Ver unidades</button></div>`;
+    }
+    if(due > 0) {
+        html += `<p class="qa-text qa-due">📇 Tenés ${due} ${due === 1 ? 'tarjeta vencida' : 'tarjetas vencidas'} para repasar.</p>`;
+        html += `<div class="qa-actions"><button type="button" class="btn" onclick="showPanel('flashcard')">Repasar ahora</button></div>`;
+    }
+    box.innerHTML = html;
 }
 
 function render(){
@@ -2008,7 +2069,7 @@ function renderCardsContent(allFiles) {
               <div class="chk-wrap"><input type="checkbox" ${u.r?'checked':''} onchange="updChk(${m.id},${u.id},'r',this.checked)"><span>REP</span></div>
               <div class="chk-wrap"><input type="checkbox" ${u.a?'checked':''} onchange="updChk(${m.id},${u.id},'a',this.checked)"><span>APR</span></div>
             </div>
-            <div style="text-align:right;"><span style="font-size:11px; font-weight:bold; color:var(--green)">${upct(u)}%</span></div>
+            <div style="text-align:right;"><span style="font-size:11px; font-weight:bold; color:var(--green)">${upct(u)}%</span><div class="u-state">${unitStateLabel(u)}</div></div>
             <button class="btn" style="padding:2px 6px; border:none;" onclick="delUnit(${m.id},${u.id})">✕</button>
           </div>`;
 
@@ -2137,6 +2198,24 @@ function delUnit(mid,uid){
     }
 }
 function updUnit(mid,uid,f,v){const m=MATS.find(x=>x.id===mid); if(m){const u=m.units.find(x=>x.id===uid); if(u){u[f]=v; saveMats();}}}
+// Estado de una unidad según las casillas que marcó el usuario. No se marca nada solo por abrir o leer:
+// "Consolidada" requiere la casilla APR, que el usuario tilda después de recuperar el tema de memoria.
+function unitStateLabel(u) {
+    if(u.a) return 'Consolidada';
+    if(u.r) return 'En repaso';
+    if(u.l) return 'Pendiente de recuperación activa';
+    return 'Pendiente de estudiar';
+}
+// Tarjetas que cuestan: varios fallos o facilidad baja en SM-2 (la facilidad baja 0,2 por cada fallo, desde 2,5).
+function hardCards() {
+    const out = [];
+    MATS.forEach(m => (m.cards || []).forEach(c => {
+        if(!c.q || !c.a) return;
+        if((c.srFails || 0) >= 2 || (c.srEase !== undefined && c.srEase <= 1.7))
+            out.push({ matName: m.name, q: c.q, fails: c.srFails || 0, seen: c.srSeen || 0 });
+    }));
+    return out.sort((a, b) => b.fails - a.fails);
+}
 function updChk(mid,uid,f,v){const m=MATS.find(x=>x.id===mid); if(m){const u=m.units.find(x=>x.id===uid); if(u){u[f]=v; saveMats(); render();}}}
 
 let currentEditingMatId = null;
@@ -2202,7 +2281,13 @@ function updateDueCount() {
 
 function renderFCIdle() {
     updateDueCount(); renderFCManager();
-    document.getElementById('fc-area').innerHTML = `<div class="flashcard-scene"><div class="fc-card" style="color:var(--text3)">Seleccioná un modo para empezar.</div></div>`;
+    const hard = hardCards();
+    const list = hard.length
+        ? `<div class="hard-list"><div class="qa-title">Tarjetas difíciles (${hard.length})</div>` +
+          hard.slice(0, 5).map(h => `<div class="hard-row"><span>${esc(h.q).slice(0, 120)}</span><small>${esc(h.matName)} · ${h.fails} ${h.fails === 1 ? 'fallo' : 'fallos'} de ${h.seen}</small></div>`).join('') +
+          (hard.length > 5 ? `<small style="color:var(--text3)">y ${hard.length - 5} más</small>` : '') + `</div>`
+        : '';
+    document.getElementById('fc-area').innerHTML = `<div class="flashcard-scene"><div class="fc-card" style="color:var(--text3)">Seleccioná un modo para empezar.</div>${list}</div>`;
 }
 
 function startFC(mode){
@@ -2211,7 +2296,11 @@ function startFC(mode){
       if(mode==='all' || !it.o.srNext || it.o.srNext <= today) fcDeck.push({matId:m.id, uid:it.o.id, mat:m.name, color:m.color, q:it.q, a:it.a, srNext:it.o.srNext, src:it.o.src});
   }));
   fcDeck.sort((a,b) => (a.srNext||'') < (b.srNext||'') ? -1 : 1);
-  if(!fcDeck.length){ document.getElementById('fc-area').innerHTML=`<div class="flashcard-scene"><div class="fc-card" style="color:var(--green)">${MATS.some(m=>fcItems(m).length) ? '¡Al día! No hay tarjetas pendientes.' : 'Todavía no tenés tarjetas. Creá la primera en «Nueva tarjeta» más abajo.'}</div></div>`; return; }
+  if(!fcDeck.length){ document.getElementById('fc-area').innerHTML=`<div class="flashcard-scene"><div class="fc-card" style="color:var(--green)">${
+    MATS.some(m=>fcItems(m).length) ? '¡Al día! No hay tarjetas pendientes.'
+    : MATS.length ? 'Todavía no tenés tarjetas. Creá la primera en «Nueva tarjeta» más abajo.'
+    : 'Para repasar necesitás una materia con tarjetas. Creá tu primera materia y después agregá tarjetas.<br><button type="button" class="btn" style="margin-top:10px" onclick="showPanel(\'tracker\')">Ir a Materias</button>'
+  }</div></div>`; return; }
   fcIdx=0; showFC();
 }
 
@@ -2261,59 +2350,135 @@ function processImportData() {
     } catch(e) { alert("Formato de importación inválido."); }
 }
 
+// === Backup completo y restauración validada (formato v9) ===
+// Incluye todo lo que la app guarda: materias y unidades, historial, archivos adjuntos (IndexedDB),
+// apuntes (IndexedDB) y preferencias. La versión anterior (version 8) sigue siendo importable.
+const BACKUP_FORMAT = 'estudio-tracker-backup';
+const BACKUP_VERSION = 9;
+
+function inventoryOf(data) {
+    const mats = Array.isArray(data.mats) ? data.mats : [];
+    return {
+        materias: mats.length,
+        unidades: mats.reduce((a, m) => a + (Array.isArray(m.units) ? m.units.length : 0), 0),
+        tarjetas: mats.reduce((a, m) => a + (Array.isArray(m.cards) ? m.cards.length : 0), 0),
+        apuntes: Array.isArray(data.apuntes) ? data.apuntes.length : 0,
+        archivos: Array.isArray(data.filesHub) ? data.filesHub.length : 0,
+        dias: data.history && typeof data.history === 'object' ? Object.keys(data.history).length : 0
+    };
+}
+
 function exportBackupJSON() {
-    if(!db) return;
-    db.transaction('files', 'readonly').objectStore('files').getAll().onsuccess = function(e) {
-        const data = { 
-            mats: MATS, 
-            history: loadHistory(), 
-            filesHub: e.target.result, 
-            apuntes: APU.items,
-            
+    if(!db) return alert('No se puede crear el backup: la base de datos local no está disponible en este navegador.');
+    const tx = db.transaction('files', 'readonly');
+    tx.onerror = () => alert('No se pudieron leer los archivos adjuntos. El backup no se creó.');
+    tx.objectStore('files').getAll().onsuccess = function(e) {
+        const data = {
+            format: BACKUP_FORMAT,
+            formatVersion: BACKUP_VERSION,
+            version: BACKUP_VERSION,
+            createdAt: new Date().toISOString(),
+            mats: MATS,
+            history: loadHistory(),
+            filesHub: e.target.result || [],
+            apuntes: APU.items || [],
             theme: ls('theme'),
             carrera2: ls('carrera_v2'),
+            carrera1: ls('carrera_v1'),
             fontSize: ls('font_size'),
             studyMin: studyMinCustom,
-            breakMin: breakMinCustom,
-            version: 8 
+            breakMin: breakMinCustom
         };
+        data.inventory = inventoryOf(data);
         const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
         const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-        a.download = `EstudioTracker_Backup_${todayAR()}.json`; a.click(); lss('last_backup', todayAR()); renderBackupInfo();
+        a.download = `EstudioTracker_Backup_${todayAR()}.json`; a.click();
+        lss('last_backup', todayAR()); renderBackupInfo();
     };
+}
+
+// Devuelve la lista de problemas encontrados. Lista vacía = el backup es utilizable.
+function validateBackup(data) {
+    const errs = [];
+    if(!data || typeof data !== 'object' || Array.isArray(data)) return ['El archivo no contiene un backup.'];
+    if(data.format && data.format !== BACKUP_FORMAT) errs.push('El archivo no es un backup de Estudio Tracker.');
+    if(data.mats !== undefined) {
+        if(!Array.isArray(data.mats)) errs.push('«materias» no es una lista.');
+        else data.mats.forEach((m, i) => {
+            if(!m || typeof m !== 'object' || m.id === undefined || typeof m.name !== 'string') errs.push(`La materia #${i + 1} no tiene id o nombre.`);
+            else if(m.units !== undefined && !Array.isArray(m.units)) errs.push(`Las unidades de «${m.name}» están mal formadas.`);
+        });
+    }
+    if(data.history !== undefined) {
+        const h = data.history;
+        if(!h || typeof h !== 'object' || Array.isArray(h)) errs.push('El historial no es un objeto.');
+        else if(Object.values(h).some(v => !v || typeof v !== 'object' || (v.mins !== undefined && typeof v.mins !== 'number'))) errs.push('Hay días del historial con datos inválidos.');
+    }
+    if(data.filesHub !== undefined && (!Array.isArray(data.filesHub) || data.filesHub.some(f => !f || f.id === undefined || typeof f.content !== 'string')))
+        errs.push('Hay archivos adjuntos incompletos o dañados.');
+    if(data.apuntes !== undefined && (!Array.isArray(data.apuntes) || data.apuntes.some(a => !a || a.id === undefined)))
+        errs.push('Hay apuntes con formato inválido.');
+    if(!['mats', 'history', 'filesHub', 'apuntes'].some(k => data[k] !== undefined))
+        errs.push('El archivo no contiene materias, historial, archivos ni apuntes.');
+    return errs;
+}
+
+// Escribe filas en IndexedDB y resuelve solo cuando la transacción terminó bien.
+function writeBackupRows(storeName, rows) {
+    return new Promise((res, rej) => {
+        if(!rows || rows.length === 0) return res();
+        if(!db || !db.objectStoreNames.contains(storeName)) return rej(new Error(`la tabla ${storeName} no está disponible`));
+        const tx = db.transaction(storeName, 'readwrite');
+        rows.forEach(r => tx.objectStore(storeName).put(r));
+        tx.oncomplete = () => res();
+        tx.onerror = tx.onabort = () => rej(tx.error || new Error('error de escritura'));
+    });
 }
 
 function importBackupJSON(event) {
-    const file = event.target.files[0]; if(!file) return;
-    if(!confirm("¿Importar backup? Se sobrescribirán los datos actuales.")) return;
+    const file = event.target.files[0]; event.target.value = ''; if(!file) return;
     const reader = new FileReader();
-    reader.onload = function(e) {
-        try {
-            const data = JSON.parse(e.target.result);
-            if(!confirm('Esto reemplaza tus materias e historial actuales por los del archivo. ¿Continuar?')) return; if(data.mats) lss('pom_mats', JSON.stringify(data.mats));
-            if(data.history) lss('pom_history', JSON.stringify(data.history));
-            if(data.theme) lss('theme', data.theme);
-            if(data.carrera2) lss('carrera_v2', data.carrera2); else if(data.carrera) { lss('carrera_v1', data.carrera); localStorage.removeItem('carrera_v2'); }
-            if(data.fontSize) lss('font_size', data.fontSize);
-            if(data.studyMin) lss('pom_custom_study', data.studyMin);
-            if(data.breakMin) lss('pom_custom_break', data.breakMin);
+    reader.onerror = () => alert('No se pudo leer el archivo. No se cambió nada.');
+    reader.onload = async function(e) {
+        let data;
+        try { data = JSON.parse(e.target.result); }
+        catch(err) { return alert('El archivo no es un JSON válido. No se cambió nada.'); }
 
-            if(data.apuntes && db && db.objectStoreNames.contains('apuntes')) { const tx2 = db.transaction('apuntes', 'readwrite'); data.apuntes.forEach(a => tx2.objectStore('apuntes').put(a)); }
-            if(data.filesHub && db) {
-                const tx = db.transaction('files', 'readwrite');
-                data.filesHub.forEach(f => tx.objectStore('files').put(f));
-                tx.oncomplete = () => {
-                    alert("¡Backup importado con éxito!"); 
-                    location.reload();
-                };
-            } else {
-                alert("¡Backup importado con éxito!"); 
-                location.reload();
-            }
-        } catch(err) { alert("Archivo de backup inválido."); }
+        // 1) Validar antes de tocar nada
+        const errs = validateBackup(data);
+        if(errs.length) return alert('No se importó el backup porque tiene problemas:\n\n• ' + errs.join('\n• ') + '\n\nNo se cambió nada.');
+
+        // 2) Mostrar qué se va a importar y pedir confirmación explícita
+        const inv = data.inventory || inventoryOf(data);
+        const cuando = data.createdAt ? ` creado el ${new Date(data.createdAt).toLocaleString('es-AR')}` : '';
+        const resumen = `Materias: ${inv.materias}\nUnidades: ${inv.unidades}\nTarjetas: ${inv.tarjetas}\nApuntes: ${inv.apuntes}\nArchivos adjuntos: ${inv.archivos}\nDías de historial: ${inv.dias}`;
+        if(!confirm(`Backup${cuando}:\n\n${resumen}\n\nSe REEMPLAZAN las materias, el historial, las preferencias y la carrera actuales. Los apuntes y archivos del backup se agregan, y reemplazan a los que tengan el mismo id.\n\n¿Continuar?`)) return;
+
+        // 3) Escribir primero lo que vive en IndexedDB: si falla, lo demás no se toca
+        try {
+            await writeBackupRows('files', data.filesHub);
+            await writeBackupRows('apuntes', data.apuntes);
+        } catch(err) {
+            return alert('No se pudieron guardar los archivos del backup (' + err.message + '). Tus datos actuales no se modificaron.');
+        }
+
+        // 4) Después, las materias, el historial y las preferencias
+        if(data.mats) lss('pom_mats', JSON.stringify(data.mats));
+        if(data.history) lss('pom_history', JSON.stringify(data.history));
+        if(data.theme) lss('theme', data.theme);
+        if(data.carrera2) lss('carrera_v2', data.carrera2); else if(data.carrera) { lss('carrera_v1', data.carrera); localStorage.removeItem('carrera_v2'); }
+        if(data.carrera1 && !data.carrera2) lss('carrera_v1', data.carrera1);
+        if(data.fontSize) lss('font_size', data.fontSize);
+        if(data.studyMin) lss('pom_custom_study', data.studyMin);
+        if(data.breakMin) lss('pom_custom_break', data.breakMin);
+        if(data.mats && ls('pom_mats') !== JSON.stringify(data.mats)) return alert('No se pudieron guardar las materias (¿almacenamiento lleno?). Revisá el espacio y volvé a importar.');
+
+        alert('¡Backup importado con éxito!');
+        location.reload();
     };
     reader.readAsText(file);
 }
+
 
 function generateWeeklySummaryCard() {
     const hist = loadHistory(); let mins = 0; const per = {};
@@ -2345,8 +2510,22 @@ function openModal(id) { document.getElementById(id).classList.add('active'); }
 function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
 let cPie, cBar;
+// Muestra un mensaje en lugar del gráfico (sin actividad, error, dependencia ausente).
+// msg vacío = mostrar el canvas otra vez.
+function setChartState(canvasId, msg) {
+    const c = document.getElementById(canvasId); if(!c) return;
+    let note = c.parentElement.querySelector('.chart-note');
+    if(!note) { note = document.createElement('p'); note.className = 'chart-note'; note.setAttribute('role', 'status'); c.parentElement.appendChild(note); }
+    note.textContent = msg || '';
+    note.style.display = msg ? 'flex' : 'none';
+    c.style.visibility = msg ? 'hidden' : 'visible';
+}
 function renderCharts() {
-    if(typeof Chart === 'undefined') { return; }
+    if(typeof Chart === 'undefined') {
+        const msg = 'No se pudo cargar el gráfico: falta chart.umd.js. Revisá que el archivo esté en la carpeta de la app.';
+        setChartState('barChart', msg); setChartState('pieChart', msg);
+        return;
+    }
     const hist = loadHistory(); const pomsData = [], labelsData = []; const matsAccum = {};
     for(let i=6; i>=0; i--){
         const d = nowAR(); d.setDate(d.getDate()-i);
@@ -2361,7 +2540,11 @@ function renderCharts() {
 
     const ctxBar = document.getElementById('barChart');
     if(ctxBar) {
-        if(cBar) cBar.destroy();
+        if(cBar) { cBar.destroy(); cBar = null; }
+        if(pomsData.every(v => v === 0)) setChartState('barChart', 'Sin actividad en los últimos 7 días. Cuando termines un pomodoro, acá aparecen tus minutos.');
+        else setChartState('barChart', '');
+    }
+    if(ctxBar && pomsData.some(v => v > 0)) {
         cBar = new Chart(ctxBar.getContext('2d'), { 
             type: 'bar', 
             data: { labels: labelsData, datasets: [{ data: pomsData, backgroundColor: '#a855f7', borderRadius: 6 }] }, 
@@ -2380,10 +2563,11 @@ function renderCharts() {
 
     const ctxPie = document.getElementById('pieChart');
     if(ctxPie) {
-        if(cPie) cPie.destroy();
+        if(cPie) { cPie.destroy(); cPie = null; }
         const pieLabels = [], pieData = [], pieColors = [];
         Object.keys(matsAccum).forEach(matId => { const m = MATS.find(x => x.id == matId); if(m && matsAccum[matId] > 0) { pieLabels.push(m.name); pieData.push(matsAccum[matId]); pieColors.push(m.color); } });
-        if(pieData.length === 0) { pieLabels.push("Sin datos"); pieData.push(1); pieColors.push((document.documentElement.getAttribute('data-theme') === 'light') ? '#ddd6f0' : '#2a2638'); }
+        if(pieData.length === 0) { setChartState('pieChart', 'Sin minutos por materia en los últimos 7 días. Elegí una materia en el temporizador para verla acá.'); return; }
+        setChartState('pieChart', '');
         cPie = new Chart(ctxPie.getContext('2d'), { type: 'doughnut', data: { labels: pieLabels, datasets: [{ data: pieData, backgroundColor: pieColors, borderWidth:0 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '68%', plugins: { legend: { position: window.innerWidth < 600 ? 'bottom' : 'right', labels:{ boxWidth: 10, font:{size:11}, color: (document.documentElement.getAttribute('data-theme') === 'light') ? '#4a4262' : '#c2bfba' } } } } });
     }
 }
@@ -2417,6 +2601,7 @@ function calculateStreakAndXP() {
     document.getElementById('xp-label-sub').textContent = `Nivel ${level}`;
     document.getElementById('streak-display').textContent = streak + ' d';
     renderHeatmap();
+    renderProgress();
 }
 
 fillSelectors(); updateDisp();
@@ -2501,12 +2686,62 @@ document.addEventListener('selectionchange', () => {
 render(); renderWeakPanel();
 
 // === v4: diseño nuevo (resumen del día, modo concentración) + efecto Dock ===
+// === Progreso: tiempo invertido vs. aprendizaje (solo datos que la app ya guarda) ===
+function dayKeyOffset(n) { const d = new Date(todayAR() + 'T00:00:00'); d.setDate(d.getDate() - n); return ymdOf(d); }
+function progressStats() {
+    const hist = loadHistory();
+    const sumDays = (from, to) => { let mins = 0, poms = 0; for(let i = from; i < to; i++) { const h = hist[dayKeyOffset(i)]; if(h) { mins += h.mins || 0; poms += h.poms || 0; } } return { mins, poms }; };
+    const week = sumDays(0, 7), prevWeek = sumDays(7, 14);
+    const weeks = [0, 1, 2, 3].map(w => sumDays(w * 7, w * 7 + 7).mins).reverse(); // de la más antigua a la actual
+    let units = 0, consolidated = 0, seen = 0, fails = 0;
+    MATS.forEach(m => {
+        if(m.promoted) return;
+        units += m.units.length; consolidated += m.units.filter(u => u.a).length;
+        (m.cards || []).forEach(c => { seen += c.srSeen || 0; fails += c.srFails || 0; });
+    });
+    return { week, prevWeek, weeks, units, consolidated, seen, fails, due: dueCardsCount() };
+}
+function setWeeklyGoal(v) {
+    const n = parseInt(v, 10);
+    if(!n || n < 10 || n > 2000) return alert('Poné una meta entre 10 y 2000 minutos por semana.');
+    lss('pom_weekly_goal', String(n)); renderProgress();
+}
+function renderProgress() {
+    const box = document.getElementById('progress-content'); if(!box) return;
+    if(MATS.length === 0 && Object.keys(loadHistory()).length === 0) {
+        box.innerHTML = '<p class="qa-text">Todavía no hay datos. Cuando termines tu primer pomodoro, acá vas a ver cuánto estudiaste y cómo avanza tu progreso.</p>';
+        return;
+    }
+    const s = progressStats();
+    const goal = parseInt(ls('pom_weekly_goal', '300'), 10) || 300;
+    const pct = Math.min(100, Math.round(s.week.mins / goal * 100));
+    const delta = s.week.mins - s.prevWeek.mins;
+    const trend = s.prevWeek.mins === 0 && s.week.mins === 0 ? '' : delta > 0 ? `↑ ${delta} min más que la semana pasada` : delta < 0 ? `↓ ${-delta} min menos que la semana pasada` : 'Igual que la semana pasada';
+    const maxW = Math.max(1, ...s.weeks);
+    const bars = s.weeks.map((v, i) => `<div class="pg-col"><div class="pg-bar" style="height:${Math.max(4, Math.round(v / maxW * 100))}%" title="${v} min"></div><small>${i === 3 ? 'Esta' : 'Hace ' + (3 - i)}</small></div>`).join('');
+    const acc = s.seen ? Math.round((1 - s.fails / s.seen) * 100) + '%' : '–';
+    box.innerHTML = `
+      <div class="pg-section-title">Tiempo esta semana</div>
+      <div class="pg-goal"><div class="pg-fill" style="width:${pct}%"></div></div>
+      <div class="pg-meta">${s.week.mins} de ${goal} min (${pct}%) · ${s.week.poms} ${s.week.poms === 1 ? 'pomodoro completo' : 'pomodoros completos'}</div>
+      <div class="pg-meta">${trend}</div>
+      <div class="pg-set"><label for="pg-goal-input">Meta semanal (min)</label><input type="number" id="pg-goal-input" min="10" max="2000" value="${goal}" onchange="setWeeklyGoal(this.value)"></div>
+      <div class="pg-section-title">Últimas 4 semanas (minutos)</div>
+      <div class="pg-bars">${bars}</div>
+      <div class="pg-section-title">Aprendizaje</div>
+      <div class="pg-grid">
+        <div><strong>${s.consolidated}/${s.units}</strong><small>unidades consolidadas (APR)</small></div>
+        <div><strong>${s.due}</strong><small>tarjetas para repasar hoy</small></div>
+        <div><strong>${acc}</strong><small>aciertos en repaso (histórico)</small></div>
+      </div>
+      <p class="pg-note">El tiempo mide cuánto estudiaste. El aprendizaje lo marcás vos al consolidar unidades y lo medís con los aciertos de repaso; las horas no reemplazan eso.</p>`;
+}
 function renderVisualDashboard(){
   const dateEl=document.getElementById('hero-date');
   if(dateEl){try{dateEl.textContent=new Intl.DateTimeFormat('es-AR',{weekday:'long',day:'numeric',month:'long'}).format(new Date()).replace(/^./,c=>c.toUpperCase())+' · Un día a la vez, un tema a la vez.';}catch(e){}}
   const h=loadHistory()[todayAR()]||{}; const mins=Math.round(h.mins||0);
   const t=document.getElementById('hero-study-time'); if(t) t.textContent=mins>=60?`${Math.floor(mins/60)} h ${mins%60} min`:`${mins} min`;
-  const p=document.getElementById('hero-poms'); if(p) p.textContent=String(Math.max(h.poms||0, poms||0)); const sp=document.getElementById('s-pom'); if(sp) sp.textContent=poms;
+  const p=document.getElementById('hero-poms'); if(p) p.textContent=String(h.poms||0); // misma fuente que los gráficos const sp=document.getElementById('s-pom'); if(sp) sp.textContent=poms;
   const d=document.getElementById('hero-due'); if(d){ updateHeroDue(); }
   const mc=document.getElementById('hero-microcopy'); if(mc) mc.textContent=mins>=120?'Buen ritmo. Seguí cuidando tus pausas.':mins>0?'Ya empezaste: mantené el impulso.':'Tu próxima sesión puede ser el comienzo.';
 }
@@ -3479,14 +3714,35 @@ function alrUnlock() {
   } catch(e) {}
 }
 function alrStopKeep() { try { if(ALR.silent) ALR.silent.pause(); } catch(e) {} }
-function alrWorker(end) {
+// Un único worker programa dos avisos: el de "faltan 5 minutos" (warn) y el del fin (end).
+// Los timers del worker siguen corriendo aunque la página esté en segundo plano (con límites del navegador).
+function alrWorker(end, warn) {
   try {
     if(!ALR.worker) {
-      ALR.worker = new Worker(URL.createObjectURL(new Blob(['let id=null;onmessage=e=>{clearInterval(id);if(!e.data.end)return;const end=e.data.end;id=setInterval(()=>{if(Date.now()>=end){clearInterval(id);postMessage(1)}},400)}'])));
-      ALR.worker.onmessage = () => { if(running && endTime && Date.now() >= endTime - 500) { rem = 0; updateDisp(); onFinish(); } };
+      ALR.worker = new Worker(URL.createObjectURL(new Blob(['let id=null;onmessage=e=>{clearInterval(id);const end=e.data.end,warn=e.data.warn;if(!end)return;let w=!!warn;id=setInterval(()=>{const now=Date.now();if(w&&now>=warn){w=false;postMessage({t:"warn"})}if(now>=end){clearInterval(id);postMessage({t:"end"})}},400)}'])));
+      ALR.worker.onmessage = e => {
+        if(e.data && e.data.t === 'warn') { alarmFiveMinutes(); return; }
+        if(running && endTime && Date.now() >= endTime - 500) { rem = 0; updateDisp(); onFinish(); }
+      };
     }
-    ALR.worker.postMessage({end: end || 0});
+    ALR.worker.postMessage({end: end || 0, warn: warn || 0});
   } catch(e) {}
+}
+
+// Aviso de "faltan 5 minutos": una sola vez por sesión de estudio (se reinicia al empezar otra).
+const FIVE_MIN = 300;
+function fiveWarnAt(end) {
+  if(mode !== 'study' || total <= FIVE_MIN || ls('pom_five_warned') === '1') return 0;
+  const at = end - FIVE_MIN * 1000;
+  return at > Date.now() ? at : 0;
+}
+function alarmFiveMinutes() {
+  if(!running || mode !== 'study' || !endTime || ls('pom_five_warned') === '1') return;
+  if(endTime - Date.now() > FIVE_MIN * 1000 + 1000) return; // todavía falta más que 5 min
+  lss('pom_five_warned', '1');
+  notify('⏳ Faltan 5 minutos', 'Cerrá con una última idea o repasá lo que estás viendo.');
+  try { if(alrOn('vib') && navigator.vibrate) navigator.vibrate([150, 80, 150]); } catch(e) {}
+  if(document.hidden && alrOn('notif')) alrNotify('⏳ Faltan 5 minutos', 'Tu pomodoro termina en 5 minutos.');
 }
 playOrganicBell = function() {
   if(!alrOn('sound')) return;
@@ -3530,9 +3786,10 @@ function alrConfetti() {
 }
 (function() {
   const _tp = togglePlay;
-  togglePlay = function() { _tp(); if(running && endTime) { alrUnlock(); alrWorker(endTime); } else { alrWorker(0); alrStopKeep(); } };
+  togglePlay = function() { _tp(); if(running && endTime) { alrUnlock(); alrWorker(endTime, fiveWarnAt(endTime)); } else { alrWorker(0); alrStopKeep(); } };
   const _of = onFinish;
   onFinish = function() {
+    if(!running) return; // ya finalizada: evita avisos y sonidos duplicados
     const wasStudy = mode === 'study', away = document.hidden || !document.hasFocus();
     _of();
     alrWorker(0); setTimeout(alrStopKeep, 6000);
@@ -3559,7 +3816,7 @@ async function alrTest() {
   const ok = await alrNotify('🔔 Aviso de prueba', 'Así te va a llegar cuando termine tu pomodoro.');
   notify('Prueba enviada', ok ? 'Mandá la app a segundo plano y probá de nuevo para ver la notificación.' : 'No hay permiso de notificaciones, pero escuchaste el sonido y viste el confeti.');
 }
-if(running && endTime) alrWorker(endTime);
+if(running && endTime) alrWorker(endTime, fiveWarnAt(endTime));
 
 // Al volver a la app (desde otra pestaña, o después de bloquear el celu) el tiempo se recalcula
 // desde la hora de fin guardada: si ya venció, termina en el acto y no espera al timer del navegador.
@@ -3730,7 +3987,7 @@ document.addEventListener('visibilitychange', () => {
 })();
 
 // === v10: PWA (instalación, service worker, avisos de datos) ===
-const APP_VERSION = '1.5.1';
+const APP_VERSION = '1.6.0';
 let pwaPrompt = null;
 function pwaStandalone() { return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
 function pwaIsIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }

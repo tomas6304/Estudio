@@ -1,0 +1,16 @@
+Estudio Tracker v1.6.0 - reemplazar index.html y sw.js en el repo (y subir también los archivos de la carpeta: librerías, íconos y manifest).
+
+Novedades de esta versión:
+- Hoy: "Qué hacer ahora", "Tu semana" (meta semanal y progreso), mapa de calor y agenda de fechas límite.
+- Temporizador: aviso "Faltan 5 minutos", sesiones parciales que no cuentan como pomodoro, y recuperación al volver a la app.
+- Backup v9: incluye todo, se valida antes de importar y muestra qué se reemplaza.
+- Estados de unidad (pendiente, recuperación activa, en repaso, consolidada) y tarjetas difíciles.
+
+Verificar en Más: "Estudio Tracker v1.6.0". Abrir la app dos veces para que actualice.
+
+Uso sin conexión:
+- Después de abrir la app con internet una vez, se abre y funciona sin conexión. Las librerías de PDF, Word y OCR también quedan guardadas (aún no probé importar un PDF ni hacer OCR sin conexión).
+- La primera vez descarga unos 14 MB de archivos de la app.
+- Sin conexión no suena la radio Lo-Fi (es un stream), y las tipografías usan la letra del sistema si nunca se cargaron.
+
+Cada vez que cambie cualquier archivo de la app, subir también la versión en sw.js (VERSION) y en index.html (APP_VERSION).
