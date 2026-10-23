@@ -4049,11 +4049,11 @@ pwaRender();
 <!-- hub:start -->
 <script>
 /* ===== Puente con Mi semana (agregado para unir tus apps) =====
-   Tema común, barra para pasar de una app a otra, atajos Cmd+1 a 5 y acciones que manda Mi semana.
+   Tema común, barra para pasar de una app a otra, atajos Cmd+1 a 4 y acciones que manda Mi semana.
    No cambia cómo guarda sus datos esta app. */
 (function(){
   var APP='estudio';
-  var LIST=[['semana','Mi semana'],['estudio','Estudio'],['gastos','Gastos'],['ingles','Inglés'],['ajedrez','Ajedrez']];
+  var LIST=[['semana','Mi semana'],['estudio','Estudio'],['ingles','Inglés'],['ajedrez','Ajedrez']];
   var SK={papel:{bg:'#efe5cf',dk:'#1b1814',hero:'#1f5a45',a:['#f19ac2','#f5e36a','#b7a4dd','#6fb1e0']},
     menta:{bg:'#e2eee5',dk:'#111a16',hero:'#1f4d4a',a:['#9fd8bd','#dbe98a','#a9d6d3','#b9d7f0']},
     atardecer:{bg:'#f5e2d2',dk:'#1c1416',hero:'#5a2840',a:['#ffb08a','#ffd46e','#f3a6bb','#c8b5f0']},
@@ -4098,7 +4098,7 @@ pwaRender();
     document.body.insertBefore(b,document.body.firstChild);
   }
   if(document.body)bar();else addEventListener('DOMContentLoaded',bar);
-  addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&!e.altKey&&!e.shiftKey&&/^[1-5]$/.test(e.key)){e.preventDefault();go(LIST[+e.key-1][0]);}});
+  addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&!e.altKey&&!e.shiftKey&&/^[1-4]$/.test(e.key)){e.preventDefault();go(LIST[+e.key-1][0]);}});
   addEventListener('message',function(e){if(e.origin!==location.origin||!e.data||e.data.hub!=='do')return;try{if(window.__hubAct)window.__hubAct(e.data);}catch(err){}});
   if(inHub)addEventListener('load',function(){parent.postMessage({hub:'ready',app:APP},location.origin);});
 })();
