@@ -626,9 +626,9 @@ html[data-theme="light"] .apu-drop{background:rgba(124,58,237,.05)}html[data-the
 .pg-note{font-size:11px;color:var(--text3);line-height:1.5;margin:12px 0 0}
 </style>
 <style id="hub-style">
-/* ===== Tema de Mi semana (solo se activa si está prendido "Usar el mismo tema") ===== */
-#hub-bar{display:flex;justify-content:center;gap:2px;width:max-content;max-width:calc(100% - 24px);margin:6px auto 12px;padding:3px;border-radius:999px;border:2px solid var(--hb-ink,#1b2620);background:var(--hb-bg,transparent);position:relative;z-index:50}
-#hub-bar button{border:0;border-radius:999px;background:transparent;color:var(--hb-ink,inherit);font:700 13px/1 'DM Sans',system-ui,sans-serif;padding:8px 13px;cursor:pointer}
+/* hub:style */
+#hub-bar{display:flex;justify-content:center;flex-wrap:wrap;gap:2px;width:max-content;max-width:calc(100% - 24px);margin:8px auto 12px;padding:3px;border-radius:999px;border:2px solid var(--hb-ink,#1b2620);background:var(--hb-bg,transparent);position:relative;z-index:50}
+#hub-bar button{border:0;border-radius:999px;background:transparent;color:var(--hb-ink,inherit);font:700 13px/1 'DM Sans',system-ui,sans-serif;padding:8px 12px;cursor:pointer}
 #hub-bar button.on{background:var(--hb-ink,#1b2620);color:var(--hb-bg,#fff)}
 html.hub-skin:root{--bg:var(--hb-bg);--surface:var(--hb-surface);--surface2:var(--hb-surface2);--surface3:var(--hb-surface2);--border:var(--hb-line);--border2:var(--hb-line2);--text:var(--hb-ink);--text2:var(--hb-muted);--text3:var(--hb-muted);--purple:var(--hb-hero);--purple-dim:color-mix(in srgb,var(--hb-hero) 16%,transparent);--indigo:var(--hb-hero);--radius:16px;--radius-lg:24px;background:var(--hb-bg)!important;background-image:none!important;font-family:'DM Sans',system-ui,sans-serif}
 html.hub-skin body{background:var(--hb-bg)!important;background-image:none!important;font-family:'DM Sans',system-ui,sans-serif}
@@ -644,6 +644,11 @@ html.hub-skin .nav-bottom .nav-tab.active{background:var(--hb-a1)!important;colo
 html.hub-skin #dynamic-island{background:#1b2620!important;color:#f7f0dc!important}
 html.in-hub body{padding-top:14px!important}
 html.in-hub #vx{display:none!important}
+/* Iniciar centrado justo debajo del reloj (el de reiniciar queda al costado) y nunca tapado por la barra de abajo */
+.timer-controls{display:grid!important;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}
+.timer-controls .btn-play{grid-column:2}
+.timer-controls .btn-icon{grid-column:3;justify-self:start}
+.timer-controls,#time-num{scroll-margin-bottom:130px;scroll-margin-top:90px}
 </style>
 </head>
 <body class="mode-study">
@@ -4040,12 +4045,15 @@ if('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
 try { if(navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(e) {}
 pwaRender();
 </script>
+
+<!-- hub:start -->
 <script>
-/* ===== Puente con Mi semana (agregado para unir tus 3 apps) =====
-   Tema común, barra para pasar de una app a otra, atajos Cmd+1/2/3 y acciones que manda Mi semana.
+/* ===== Puente con Mi semana (agregado para unir tus apps) =====
+   Tema común, barra para pasar de una app a otra, atajos Cmd+1 a 5 y acciones que manda Mi semana.
    No cambia cómo guarda sus datos esta app. */
 (function(){
   var APP='estudio';
+  var LIST=[['semana','Mi semana'],['estudio','Estudio'],['gastos','Gastos'],['ingles','Inglés'],['ajedrez','Ajedrez']];
   var SK={papel:{bg:'#efe5cf',dk:'#1b1814',hero:'#1f5a45',a:['#f19ac2','#f5e36a','#b7a4dd','#6fb1e0']},
     menta:{bg:'#e2eee5',dk:'#111a16',hero:'#1f4d4a',a:['#9fd8bd','#dbe98a','#a9d6d3','#b9d7f0']},
     atardecer:{bg:'#f5e2d2',dk:'#1c1416',hero:'#5a2840',a:['#ffb08a','#ffd46e','#f3a6bb','#c8b5f0']},
@@ -4063,7 +4071,7 @@ pwaRender();
     var t=th(),on=t.unify!==false&&(inHub||!!hubUrl());
     if(!on){if(R.classList.contains('hub-skin')){R.classList.remove('hub-skin','hub-dark');location.reload();}return;}
     if(!fontsIn){fontsIn=true;var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap';document.head.appendChild(l);}
-    var s=SK[skinNow(t)],dark=t.mode==='dark'||(t.mode!=='light'&&mq.matches);
+    var s=SK[skinNow(t)],dark=APP==='ajedrez'||t.mode==='dark'||(t.mode!=='light'&&mq.matches);
     var v=dark?{bg:s.dk,surface:'#26221c',surface2:'#2e2a23',ink:'#f4ecda',muted:'#b9ae98',line:'rgba(244,236,218,.14)',line2:'rgba(244,236,218,.42)'}
              :{bg:s.bg,surface:'#fbf6ea',surface2:'#f3ecd9',ink:'#1b2620',muted:'#55645a',line:'rgba(27,38,32,.14)',line2:'#1b2620'};
     var st=R.style;for(var k in v)st.setProperty('--hb-'+k,v[k]);
@@ -4086,16 +4094,33 @@ pwaRender();
   function bar(){
     if(inHub||!hubUrl()||document.getElementById('hub-bar'))return;
     var b=document.createElement('nav');b.id='hub-bar';b.setAttribute('aria-label','Tus apps');
-    [['semana','Mi semana'],['estudio','Estudio'],['gastos','Gastos']].forEach(function(x){var a=document.createElement('button');a.type='button';a.textContent=x[1];if(x[0]===APP)a.className='on';a.onclick=function(){go(x[0]);};b.appendChild(a);});
+    LIST.forEach(function(x){var a=document.createElement('button');a.type='button';a.textContent=x[1];if(x[0]===APP)a.className='on';a.onclick=function(){go(x[0]);};b.appendChild(a);});
     document.body.insertBefore(b,document.body.firstChild);
   }
   if(document.body)bar();else addEventListener('DOMContentLoaded',bar);
-  addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&!e.altKey&&!e.shiftKey&&/^[123]$/.test(e.key)){e.preventDefault();go(['semana','estudio','gastos'][+e.key-1]);}});
+  addEventListener('keydown',function(e){if((e.metaKey||e.ctrlKey)&&!e.altKey&&!e.shiftKey&&/^[1-5]$/.test(e.key)){e.preventDefault();go(LIST[+e.key-1][0]);}});
   addEventListener('message',function(e){if(e.origin!==location.origin||!e.data||e.data.hub!=='do')return;try{if(window.__hubAct)window.__hubAct(e.data);}catch(err){}});
   if(inHub)addEventListener('load',function(){parent.postMessage({hub:'ready',app:APP},location.origin);});
 })();
 </script>
 <script>
+/* "Preparar sesión": lleva al reloj dejando el botón Iniciar a la vista (arriba de la barra de abajo) y recién después pone el cursor en el objetivo */
+window.prepSession=function(){
+  if(typeof showPanel==='function'){var ph=document.getElementById('panel-hoy');if(ph&&!ph.classList.contains('active'))showPanel('hoy');}
+  var c=document.querySelector('.timer-controls'),ring=document.querySelector('.ring-wrap')||document.getElementById('time-num');
+  if(!c)return;
+  var nav=document.querySelector('.nav-bottom'),nh=nav?nav.getBoundingClientRect().height+28:24,room=window.innerHeight-nh;
+  var cb=window.scrollY+c.getBoundingClientRect().bottom;
+  var y1=ring?window.scrollY+ring.getBoundingClientRect().top-90:cb-room;
+  var y=(cb-y1<=room)?y1:cb-room;
+  window.scrollTo({top:Math.max(0,y),behavior:'smooth'});
+  var g=document.getElementById('session-goal');if(g)setTimeout(function(){try{g.focus({preventScroll:true});}catch(e){}},450);
+};
+(function(){
+  var hp=document.querySelectorAll('.hero-primary');
+  for(var i=0;i<hp.length;i++){var b=hp[i];if(/Preparar sesi/.test(b.textContent)){b.removeAttribute('onclick');b.addEventListener('click',function(e){e.preventDefault();window.prepSession();});}}
+  if(typeof window.startPomodoroFor==='function'){var sp=window.startPomodoroFor;window.startPomodoroFor=function(id){sp(id);setTimeout(window.prepSession,40);};}
+})();
 /* Adentro de Mi semana no se muestra la presentación: se cierra como corresponde para que la página se pueda deslizar y tocar */
 (function(){
   function closeIntro(){
@@ -4117,9 +4142,12 @@ window.__hubAct=function(d){
     var sel=document.getElementById('timer-mat-sel');
     if(sel&&d.pom&&Array.prototype.some.call(sel.options,function(o){return o.value===String(d.pom);}))sel.value=String(d.pom);
     if(typeof running!=='undefined'&&!running&&typeof togglePlay==='function')togglePlay();
-    var t=document.getElementById('time-num');if(t)t.scrollIntoView({block:'center'});
+    setTimeout(window.prepSession,60);
   }
 };
 </script>
+
+<!-- hub:end -->
+
 </body>
 </html>
