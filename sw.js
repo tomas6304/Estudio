@@ -1,6 +1,6 @@
 /* Estudio Tracker · service worker (funciona sin internet) */
 // Subir VERSION cada vez que cambie algún archivo de la app: así ninguna copia vieja queda mezclada con la nueva.
-const VERSION = 'et-1.6.1';
+const VERSION = 'et-1.6.2';
 const FONTS = VERSION + '-fonts';
 // Todo lo que la app necesita para funcionar sin internet, incluidas las librerías de PDF, Word, ZIP y OCR
 // (son pesadas, pero si no están guardadas la importación de apuntes no funciona offline).

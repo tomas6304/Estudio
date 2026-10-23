@@ -4096,6 +4096,18 @@ pwaRender();
 })();
 </script>
 <script>
+/* Adentro de Mi semana no se muestra la presentación: se cierra como corresponde para que la página se pueda deslizar y tocar */
+(function(){
+  function closeIntro(){
+    if(!document.documentElement.classList.contains('in-hub'))return;
+    var v=document.getElementById('vx');
+    if(v&&!v.hidden){if(typeof window.vxClose==='function')window.vxClose();else v.hidden=true;}
+    document.documentElement.style.overflow='';
+    setTimeout(function(){document.documentElement.style.overflow='';},700);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',closeIntro);else closeIntro();
+  window.addEventListener('load',closeIntro);
+})();
 /* Acciones que pide Mi semana: abrir una sección o arrancar un pomodoro de una materia */
 window.__hubAct=function(d){
   if(d.go&&typeof showPanel==='function'&&document.getElementById('panel-'+d.go))showPanel(d.go);
