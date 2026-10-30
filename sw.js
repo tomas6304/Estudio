@@ -1,16 +1,7 @@
 /* Estudio Tracker · service worker (funciona sin internet) */
-// Subir VERSION cada vez que cambie algún archivo de la app: así ninguna copia vieja queda mezclada con la nueva.
 const VERSION = 'et-1.8.0';
 const FONTS = VERSION + '-fonts';
-// Todo lo que la app necesita para funcionar sin internet, incluidas las librerías de PDF, Word, ZIP y OCR
-// (son pesadas, pero si no están guardadas la importación de apuntes no funciona offline).
-const CORE = [
-  './', 'index.html', 'manifest.webmanifest', 'sw.js',
-  'icon.svg', 'icon-192.png', 'icon-512.png', 'maskable-512.png', 'apple-touch-icon.png', 'favicon-32.png',
-  'chart.umd.js',
-  'pdf.min.js', 'pdf.worker.min.js', 'mammoth.browser.min.js', 'jszip.min.js', 'heic2any.min.js',
-  'tesseract.min.js', 'tesseract-worker.min.js', 'tesseract-core-lstm.wasm.js', 'tesseract-core-simd-lstm.wasm.js', 'spa.traineddata.gz'
-];
+const CORE = ['./', 'index.html', 'manifest.webmanifest', 'chart.umd.js', 'icon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
   // Se guarda cada archivo por separado: si alguno falta, la app igual se instala.
