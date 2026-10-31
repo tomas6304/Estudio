@@ -1,2 +1,9 @@
-Estudio Tracker v1.9.0 - reemplazar index.html y sw.js.
-Verificar: Mas > "Estudio Tracker v1.9.0".
+Estudio Tracker v3.0.0 - rediseño estilo iOS
+
+1) En GitHub (repo Estudio) subí y reemplazá estos 2 archivos: index.html y sw.js
+2) Abrí la app, cerrala y volvela a abrir una vez para que tome la versión (Más > "Estudio Tracker v3.0.0").
+
+Qué cambia: título grande por pantalla, barra de pestañas translúcida (en Mac, barra lateral),
+tarjetas agrupadas, interruptores, hojas que suben desde abajo, tipografía del sistema (SF Pro).
+Ya no se descargan fuentes de Google: carga más rápido y funciona sin internet.
+Los temas Oscuro / Claro / AMOLED siguen en Más > Preferencias. Tus datos no se tocan.
