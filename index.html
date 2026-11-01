@@ -931,7 +931,7 @@ html:not(#_) #panel-hoy .overview-grid .overview-tile small,html:not(#_) #panel-
 @media (min-width:1024px){
   html:not(#_) .nav-bottom.nav-bottom{background:#0c0c10!important;border-right:1px solid rgba(255,255,255,.06)!important}
   html:not(#_) .nav-bottom .nav-tab.active{background:rgba(255,255,255,.08)!important;color:#fff!important}
-  html:not(#_) #panel-hoy{display:grid!important;grid-template-columns:minmax(0,1fr) 340px!important;gap:18px!important;max-width:1240px!important;align-items:start!important}
+  html:not(#_) #panel-hoy.active{display:grid!important;grid-template-columns:minmax(0,1fr) 340px!important;gap:18px!important;max-width:1240px!important;align-items:start!important}
   html:not(#_) #panel-hoy>.welcome-hero{grid-column:1!important;grid-row:1!important;background:none!important;border:0!important;box-shadow:none!important;padding:4px 0 0!important;min-height:0!important}
   html:not(#_) #panel-hoy>.welcome-hero::before,html:not(#_) #panel-hoy>.welcome-hero::after{display:none!important}
   html:not(#_) #hero-date{font-size:24px!important;font-weight:600!important;color:var(--text)!important}
@@ -949,6 +949,23 @@ html:not(#_) #panel-hoy .overview-grid .overview-tile small,html:not(#_) #panel-
 }
 /* === v4.4: tres tarjetas de resumen en una fila === */
 @media (min-width:1024px){ html:not(#_) #panel-hoy .overview-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important} }
+/* === v4.5: paneles siempre visibles (sin animación de entrada que pueda dejarlos en negro) === */
+.panel.active,.panel.active>*{animation:none!important}
+/* === v4.5: "Para hoy" ocupa el rectángulo debajo del calendario, hasta el final === */
+@media (min-width:1024px){
+  html:not(#_) #panel-hoy>#calendar-card{grid-column:2!important;grid-row:1!important;position:static!important}
+  html:not(#_) #panel-hoy>#today-card{grid-column:2!important;grid-row:2 / span 6!important;align-self:stretch!important;display:flex!important;flex-direction:column!important;overflow:auto!important;min-height:0!important}
+  html:not(#_) #panel-hoy>#today-card>*{flex:0 0 auto}
+}
+/* === v4.5: columna izquierda sin huecos === */
+@media (min-width:1024px){
+  html:not(#_) #panel-hoy>.welcome-hero,html:not(#_) #panel-hoy>#bk-nudge,html:not(#_) #panel-hoy>.home-actions,html:not(#_) #panel-hoy>.overview-grid,html:not(#_) #panel-hoy>#exam-card,html:not(#_) #panel-hoy>#priority-recommendation-box{grid-row:auto!important;grid-column:1!important}
+  html:not(#_) #panel-hoy>.welcome-hero,html:not(#_) #panel-hoy>#bk-nudge,html:not(#_) #panel-hoy>.home-actions,html:not(#_) #panel-hoy>.overview-grid{grid-column:1!important}
+}
+/* === v4.5: las animaciones de entrada no dejan contenido oculto === */
+.panel *{animation-fill-mode:none!important}
+/* === v4.5: el inicio solo ocupa lugar cuando está activo === */
+#panel-hoy:not(.active){display:none!important}
 </style>
 </head>
 <body class="mode-study">
