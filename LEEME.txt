@@ -1,14 +1,40 @@
-Estudio Tracker v4.0.0 - más color, vida y animación
+Estudio Tracker v4.1.0 - repaso espaciado, plan de parciales, tarjetas y sincronización
 
 SUBIR A GITHUB (repo Estudio), reemplazando los existentes:
   index.html, sw.js, manifest.webmanifest, icon.svg, icon-192.png, icon-512.png,
   apple-touch-icon.png, maskable-512.png, favicon-32.png
 
-Después abrí la app, cerrala y volvela a abrir una vez (Más > "Estudio Tracker v4.0.0").
+Después abrí la app, cerrala y volvela a abrir una vez (Más > "Estudio Tracker v4.1.0").
 El ícono de la pantalla de inicio del iPhone no se actualiza solo: borrá la app de la
 pantalla de inicio y volvé a agregarla desde Safari (Compartir > Agregar a inicio).
 
-Novedades:
+Novedades de la v4.1.0:
+- Hoy arranca con el temporizador; "Guardar parcial" aparece solo con una sesión empezada.
+- Para hoy: temas para leer, temas para repasar y tarjetas pendientes.
+- Repaso espaciado: al marcar "Leí" se agenda el repaso, y vuelve según cómo te fue.
+- Fecha por parcial y plan que reparte los temas hasta esa fecha.
+- Tarjetas de preguntas por tema (ícono en cada fila de Materias).
+- Plan de Abogacía UNLZ con un toque, desde Carrera vacía.
+- Sincronización opcional entre dispositivos con un gist secreto de GitHub (Más).
+- Aviso de backup, íconos y letra unificados, filas de temas más claras, pantallas vacías que guían.
+
+Novedades de la v4.0.2:
+- Aplazos por materia en Carrera, con opción de contarlos en el promedio.
+- El tamaño de fuente ahora agranda toda la app; fuente, vibración y volumen se recuerdan.
+- El resumen semanal se actualiza al terminar una sesión; los contadores se reinician a medianoche.
+- El descanso largo vale solo para ese descanso. Lo-Fi respeta el volumen elegido.
+- Los gráficos quedan guardados para usarlos sin conexión; las fechas andan en cualquier huso horario.
+
+Correcciones de la v4.0.1:
+- La app ya no se traba al reabrirla con el temporizador en marcha; recupera materia y objetivo.
+- La pausa sobrevive al cierre, y cambiar de pestaña pide confirmación antes de descartar tiempo.
+- Una sesión vencida con la app cerrada se anota en su día y su materia.
+- Un backup inválido se rechaza sin tocar tus datos. Copias automáticas restaurables desde Más.
+- La papelera no duplica y sobrevive al cierre. Guardar parcial anda en pausa y no cuenta como pomodoro.
+- Los volcados guardan el texto y se ven en Más. Los backups los incluyen, junto con la meta diaria.
+- Sin conexión ya no puede quedar guardada una página de error.
+
+Novedades de la v4.0.0:
 - Cada materia tiene su color: tarjeta teñida, inicial en un ícono, gráfico semanal por colores,
   y el anillo del temporizador y el fondo toman el color de la materia elegida.
 - Fondo con degradado suave que se mueve (se apaga con Modo ahorro).

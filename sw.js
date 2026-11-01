@@ -1,7 +1,8 @@
 /* Estudio Tracker · service worker (funciona sin internet) */
-const VERSION = 'et-4.0.0';
+const VERSION = 'et-4.1.0';
 const FONTS = VERSION + '-fonts';
-const CORE = ['./', 'index.html', 'manifest.webmanifest', 'chart.umd.js', 'icon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
+const CHART = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js';
+const CORE = ['./', 'index.html', 'manifest.webmanifest', CHART, 'icon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
   // Se guarda cada archivo por separado: si alguno falta, la app igual se instala.
@@ -16,7 +17,11 @@ self.addEventListener('fetch', e => {
   const url = new URL(req.url);
   // Páginas: primero la red (así llegan las actualizaciones) y, sin internet, la copia guardada.
   if(req.mode === 'navigate') {
-    e.respondWith(fetch(req).then(res => { const copy = res.clone(); caches.open(VERSION).then(c => c.put('index.html', copy)); return res; })
+    // Una página de error del servidor nunca reemplaza la copia guardada.
+    e.respondWith(fetch(req).then(res => {
+        if(!res.ok) return caches.match('index.html').then(r => r || res);
+        const copy = res.clone(); caches.open(VERSION).then(c => c.put('index.html', copy)); return res;
+      })
       .catch(() => caches.match('index.html').then(r => r || caches.match('./'))));
     return;
   }
@@ -26,6 +31,11 @@ self.addEventListener('fetch', e => {
       const net = fetch(req).then(res => { if(res.ok) { const copy = res.clone(); caches.open(VERSION).then(c => c.put(req, copy)); } return res; }).catch(() => hit);
       return hit || net;
     }));
+    return;
+  }
+  // Librería de gráficos: la versión está fija, así que alcanza con la copia guardada.
+  if(req.url === CHART) {
+    e.respondWith(caches.match(CHART).then(hit => hit || fetch(req)));
     return;
   }
   // Tipografías de Google: se guardan la primera vez para usarlas sin conexión.
