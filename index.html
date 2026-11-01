@@ -979,6 +979,75 @@ html:not(#_) #panel-hoy .overview-grid .overview-tile small,html:not(#_) #panel-
 }
 /* === v4.6: etiquetas de la barra lateral con el tamaño correcto === */
 @media (min-width:1024px){ html:not(#_) .nav-bottom.nav-bottom .nav-tab .lbl{font-size:14px!important;font-weight:500!important;color:inherit!important;line-height:1.2!important} }
+/* ===== v5.0: estilo unificado ===== */
+:root{--acc:#b68cff;--acc-soft:rgba(182,140,255,.16);--acc-line:rgba(182,140,255,.38);--ink-pastel:#1d1a2b;--ink-pastel-2:#57526a}
+html:not(#_){font-size:14px}
+/* Tipografía: escala fija */
+html:not(#_) h1,html:not(#_) .top h1{font-size:28px!important;font-weight:650!important;letter-spacing:-.02em!important}
+html:not(#_) .card h2,html:not(#_) .section-hd h2{font-size:17px!important;font-weight:600!important;letter-spacing:-.01em!important}
+html:not(#_) .section-kicker{font-size:10.5px!important;letter-spacing:1.4px!important;font-weight:600!important;color:var(--acc)!important;text-transform:uppercase}
+html:not(#_) .overview-tile strong{font-size:30px!important;font-weight:650!important;letter-spacing:-.02em}
+html:not(#_) .overview-label{font-size:12px!important;font-weight:500!important}
+html:not(#_) .overview-tile small{font-size:11.5px!important;line-height:1.35!important}
+/* Acento único: los botones azules pasan a violeta */
+html:not(#_) .btn-blue,html:not(#_) .btn.btn-blue{background:var(--acc-soft)!important;color:#d9c4ff!important;border-color:var(--acc-line)!important}
+html:not(#_) .btn{border-radius:12px;font-weight:500;transition:background .2s,border-color .2s,color .2s}
+html:not(#_) .btn:hover{border-color:var(--acc-line)}
+/* Papelera y accesos del encabezado en gris, sin azul */
+html:not(#_) .header-top .btn[aria-label="Papelera"]{color:var(--text2)!important;border-color:var(--border)!important;background:var(--surface2)!important}
+html:not(#_) .header-top .btn[aria-label="Papelera"] svg{stroke:var(--text2)}
+/* Tarjetas de Hoy: oscuras; el pastel queda como acento */
+html:not(#_) #panel-hoy>#today-card,html:not(#_) #panel-hoy>#priority-recommendation-box{background:var(--surface)!important;color:var(--text)!important;border-color:var(--border)!important}
+html:not(#_) #panel-hoy>#today-card{border-left:3px solid var(--acc)!important}
+html:not(#_) #panel-hoy>#priority-recommendation-box{border-left:3px solid #7fd3a1!important}
+html:not(#_) #panel-hoy>#exam-card{border-left:3px solid #f3a6c6!important}
+html:not(#_) .home-clock{background:var(--surface2);color:var(--text);border:1px solid var(--border);transition:background .2s}
+/* Calendario y listas */
+html:not(#_) .cal-d.has-ev::after{background:var(--ev,#f0acd8)!important;width:6px!important;height:6px!important}
+html:not(#_) .cal-d.is-sel{outline:2px solid var(--acc)!important}
+html:not(#_) .cal-ev{border-left-color:var(--acc)}
+/* Estados vacíos más cuidados */
+html:not(#_) .td-empty,html:not(#_) .car-empty,html:not(#_) .cal-empty{border:1px dashed var(--border2);border-radius:14px;padding:14px;color:var(--text3);text-align:center;font-size:12.5px;line-height:1.5}
+/* Barra lateral: etiquetas parejas, indicador activo sutil */
+@media (min-width:1024px){
+  html:not(#_) .nav-bottom .nav-tab{position:relative;color:var(--text2)!important;font-size:14px!important}
+  html:not(#_) .nav-bottom .nav-tab svg{stroke-width:1.8!important;width:18px!important;height:18px!important;stroke:currentColor!important}
+  html:not(#_) .nav-bottom .nav-tab .lbl{font-size:14px!important;font-weight:500!important}
+  html:not(#_) .nav-bottom .nav-tab.active{background:transparent!important;color:var(--text)!important;box-shadow:none!important;border:0!important}
+  html:not(#_) .nav-bottom .nav-tab.active svg{stroke:var(--acc)!important}
+  html:not(#_) .nav-bottom .nav-tab.active::before{content:'';position:absolute;left:-12px;top:10px;bottom:10px;width:3px;border-radius:3px;background:var(--acc)}
+  html:not(#_) .nav-bottom .nav-tab:hover{background:rgba(255,255,255,.04)!important;color:var(--text)!important}
+  html:not(#_) .nav-brand{font-size:19px;font-weight:650}
+  html:not(#_) #panel-hoy{gap:22px!important}
+  html:not(#_) .card{padding:20px!important}
+  html:not(#_) .overview-grid .overview-tile{padding:18px!important}
+}
+/* Transiciones suaves entre pestañas */
+html:not(#_) .panel{transition:opacity .25s ease,transform .25s ease}
+/* Modo claro */
+html[data-theme="light"] .home-clock{background:#fff;color:#1b1530;border-color:rgba(60,40,120,.12)}
+html[data-theme="light"] #panel-hoy>#today-card,html[data-theme="light"] #panel-hoy>#priority-recommendation-box{background:#fff!important;color:#1b1530!important}
+html[data-theme="light"] .nav-bottom .nav-tab.active{color:#4c1d95!important}
+html[data-theme="light"] .nav-bottom .nav-tab.active svg{stroke:#7c3aed!important}
+html[data-theme="light"] .btn-blue{color:#5b21b6!important;background:rgba(124,58,237,.1)!important;border-color:rgba(124,58,237,.3)!important}
+html[data-theme="light"] .section-kicker{color:#7c3aed!important}
+/* === v5.0: indicador activo de la barra lateral sin pastilla === */
+@media (min-width:1024px){ html:not(#_) .nav-bottom.nav-bottom .nav-tab.active{background:transparent!important;background-image:none!important;box-shadow:none!important;border:0!important;color:var(--text)!important} html:not(#_) .nav-bottom.nav-bottom .nav-tab.active::before{content:'';position:absolute;left:-12px;top:10px;bottom:10px;width:3px;border-radius:3px;background:var(--acc)!important} }
+/* === v5.1: texto de Para hoy legible en cualquier tema; resultado de parciales === */
+html:not(#_) #panel-hoy #today-card .td-row,html:not(#_) #panel-hoy #today-card .td-row>div{color:var(--text)!important}
+html:not(#_) #panel-hoy #today-card .td-row small{color:var(--text3)!important;display:block}
+html:not(#_) #panel-hoy #today-card .td-sec{color:var(--text2)!important}
+html:not(#_) #panel-hoy #today-card h2{color:var(--text)!important}
+html:not(#_) .sec-res{font:400 12px Inter,sans-serif;padding:4px 8px;border-radius:10px;border:1px solid var(--border2);background:var(--surface2);color:var(--text);margin-left:8px}
+/* === v5.1: colores fijos de Para hoy según el tema === */
+html:not(#_) #panel-hoy #today-card .td-row,html:not(#_) #panel-hoy #today-card .td-row>div{color:#f2efe8!important}
+html:not(#_) #panel-hoy #today-card .td-row small{color:#a8a2b8!important}
+html:not(#_) #panel-hoy #today-card .td-sec{color:#c9c3d8!important}
+html:not(#_) #panel-hoy #today-card h2{color:#f2efe8!important}
+html[data-theme="light"] #panel-hoy #today-card .td-row,html[data-theme="light"] #panel-hoy #today-card .td-row>div{color:#1b1530!important}
+html[data-theme="light"] #panel-hoy #today-card .td-row small{color:#5b5378!important}
+html[data-theme="light"] #panel-hoy #today-card .td-sec{color:#4a4560!important}
+html[data-theme="light"] #panel-hoy #today-card h2{color:#1b1530!important}
 </style>
 </head>
 <body class="mode-study">
@@ -1990,6 +2059,7 @@ function renderCalendar() {
         html += `<button type="button" class="${cls}" onclick="calSelect('${k}')" aria-label="${k}${evs[k] ? ', con examen' : ''}" aria-pressed="${k === calSel}">${d}</button>`;
     }
     grid.innerHTML = html;
+    items.forEach(i => { const b = grid.querySelector(`[onclick="calSelect('${i.date}')"]`); if(b) b.style.setProperty('--ev', i.color); });
     document.getElementById('cal-day-title').textContent = new Date(calSel + 'T00:00:00').toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' }).toUpperCase();
     const list = items.filter(i => i.date === calSel);
     document.getElementById('cal-day-list').innerHTML = list.length
@@ -2316,14 +2386,14 @@ function renderCardsContent() {
 
             <div class="divider-hd" style="display:flex; justify-content:space-between; align-items:center;">
                 <span>Primer parcial · ${progP1}%</span>
-                <input type="date" class="sec-date" aria-label="Fecha del primer parcial" value="${esc(m.p1Date||'')}" onchange="setSecDate(${m.id},'p1Date',this.value)">
+                <input type="date" class="sec-date" aria-label="Fecha del primer parcial" value="${esc(m.p1Date||'')}" onchange="setSecDate(${m.id},'p1Date',this.value)"><select class="sec-res" aria-label="Resultado del primer parcial" onchange="setSecRes(${m.id},'p1Ap',this.value)"><option value="">Sin resultado</option><option value="aprobado" ${m.p1Ap==='aprobado'?'selected':''}>Aprobado</option><option value="no" ${m.p1Ap==='no'?'selected':''}>No aprobado</option></select>
                 <button class="btn" style="padding:4px 8px; font-size:11px;" onclick="addUnit(${m.id}, 'p1')">+ Tema</button>
             </div>
             ${unitsP1.length ? unitsP1.map(renderUnitRow).join('') : '<div style="font-size:11px; color:var(--text3); padding:4px 0;">Sin unidades.</div>'}
 
             <div class="divider-hd" style="display:flex; justify-content:space-between; align-items:center; margin-top:12px;">
                 <span>Segundo parcial · ${progP2}%</span>
-                <input type="date" class="sec-date" aria-label="Fecha del segundo parcial" value="${esc(m.p2Date||'')}" onchange="setSecDate(${m.id},'p2Date',this.value)">
+                <input type="date" class="sec-date" aria-label="Fecha del segundo parcial" value="${esc(m.p2Date||'')}" onchange="setSecDate(${m.id},'p2Date',this.value)"><select class="sec-res" aria-label="Resultado del segundo parcial" onchange="setSecRes(${m.id},'p2Ap',this.value)"><option value="">Sin resultado</option><option value="aprobado" ${m.p2Ap==='aprobado'?'selected':''}>Aprobado</option><option value="no" ${m.p2Ap==='no'?'selected':''}>No aprobado</option></select>
                 <button class="btn" style="padding:4px 8px; font-size:11px;" onclick="addUnit(${m.id}, 'p2')">+ Tema</button>
             </div>
             ${unitsP2.length ? unitsP2.map(renderUnitRow).join('') : '<div style="font-size:11px; color:var(--text3); padding:4px 0;">Sin unidades.</div>'}
@@ -3551,12 +3621,29 @@ function matNextDate(m) { const t = todayAR(); return [m.p1Date, m.p2Date, m.exa
 function setSecDate(mid, f, v) { const m = MATS.find(x => x.id === mid); if(m) { if(v) m[f] = v; else delete m[f]; saveMats(); render(); renderExamWidget(); updatePriorityBox(); } }
 
 // ---- plan: reparte los temas sin leer hasta la fecha más cercana; la víspera queda libre para repasar ----
+// Resultado de cada parcial: 'aprobado' | 'no' | '' (sin resultado). Define qué entra en el integrador.
+function secResult(m, sec) { return sec === 'p1' ? m.p1Ap : sec === 'p2' ? m.p2Ap : undefined; }
+// Fecha hasta la que hay que estudiar un tema (null = no hace falta ahora):
+// - Tema de un parcial que todavía no tomaste: se estudia hasta esa fecha.
+// - Parcial aprobado: ese tema ya no entra en el integrador.
+// - Parcial tomado y no aprobado (o sin resultado): entra en el integrador.
+// - Tema del integrador/final: hasta la fecha del integrador.
+function unitDeadline(m, u, today) {
+  if(u.a) return null;
+  const sec = u.section || 'p1';
+  if(sec === 'final') return m.exam && m.exam >= today ? m.exam : null;
+  const D = sec === 'p1' ? m.p1Date : m.p2Date;
+  if(secResult(m, sec) === 'aprobado') return null;
+  if(D && D >= today) return D;
+  return m.exam && m.exam >= today ? m.exam : null;
+}
+function setSecRes(mid, f, v) { const m = MATS.find(x => x.id === mid); if(m) { if(v) m[f] = v; else delete m[f]; saveMats(); render(); renderTodayCard(); updatePriorityBox(); } }
 function matPlan(m) {
   const today = todayAR(), groups = {};
   m.units.forEach(u => {
     if(u.l || u.a) return;
-    const d = ({p1: m.p1Date, p2: m.p2Date, final: m.exam})[u.section] || m.exam;
-    if(d && d >= today) (groups[d] = groups[d] || []).push(u);
+    const d = unitDeadline(m, u, today);
+    if(d) (groups[d] = groups[d] || []).push(u);
   });
   const date = Object.keys(groups).sort()[0]; if(!date) return null;
   const list = groups[date], left = Math.round((new Date(date + 'T00:00:00') - new Date(today + 'T00:00:00')) / 86400000);
@@ -3576,7 +3663,7 @@ function srStep(o, q) {
 }
 function dueUnits() {
   const t = todayAR(), out = [];
-  MATS.forEach(m => { if(!m.promoted) m.units.forEach(u => { if(!u.a && (u.srNext ? u.srNext <= t : u.l)) out.push({m, u}); }); });
+  MATS.forEach(m => { if(!m.promoted) m.units.forEach(u => { if(!u.a && (u.srNext ? u.srNext <= t : u.l) && unitDeadline(m, u, t)) out.push({m, u}); }); });
   return out.sort((a, b) => String(matNextDate(a.m) || '9').localeCompare(String(matNextDate(b.m) || '9')) || String(a.u.srNext || '').localeCompare(String(b.u.srNext || '')));
 }
 function srGrade(mid, uid, q) {
