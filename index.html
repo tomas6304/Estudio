@@ -847,6 +847,108 @@ html[data-theme="light"] .sec-date{color-scheme:light}html:not([data-theme="ligh
 .fc-row{display:flex;align-items:flex-start;gap:8px;padding:8px 0;border-top:.5px solid var(--sep);font-size:13px;overflow-wrap:anywhere}
 .fc-row div{flex:1;min-width:0}.fc-row small{display:block;color:var(--text3);white-space:pre-wrap}
 .fc-in{width:100%;margin-top:6px;padding:9px;border-radius:10px;border:1px solid var(--border2);background:var(--fill);color:var(--text);font:inherit;font-size:14px}
+/* === Rediseño tipo panel: tarjetas pastel, calendario, barra lateral en escritorio === */
+.nav-brand{display:none}
+.overview-grid .overview-tile:nth-child(1){background:#f3e6a2;color:#2a2410;border-color:transparent}
+.overview-grid .overview-tile:nth-child(2){background:#f5c8dd;color:#2e1222;border-color:transparent}
+.overview-grid .overview-tile:nth-child(3){background:#c6dbf7;color:#101c33;border-color:transparent}
+.overview-grid .overview-tile strong{color:inherit}
+.overview-grid .overview-tile small,.overview-grid .overview-tile .overview-label{color:rgba(20,16,10,.62)}
+.overview-grid .overview-tile .overview-icon{background:rgba(255,255,255,.55);color:inherit;box-shadow:none}
+.org-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--text2);margin:0 0 10px}
+.org-bar a{color:var(--text);text-decoration:underline;text-underline-offset:3px}
+.org-frame{display:block;width:100%;height:calc(100vh - 170px);min-height:460px;border:1px solid var(--border);border-radius:18px;background:#fff}
+.cal-card{padding:16px}
+.cal-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.cal-head strong{font-size:14px;color:var(--text)}
+.cal-nav{background:none;border:1px solid var(--border2);color:var(--text);border-radius:10px;width:32px;height:32px;cursor:pointer;font-size:16px;line-height:1}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center}
+.cal-dow{font-size:10px;color:var(--text3);padding:4px 0}
+.cal-d{position:relative;min-height:32px;border:0;border-radius:10px;background:transparent;color:var(--text);font-size:13px;padding:0;cursor:pointer}
+.cal-d:hover{background:rgba(255,255,255,.06)}
+.cal-d.is-today{background:rgba(181,143,255,.26);font-weight:600}
+.cal-d.is-sel{outline:2px solid #c6a5ff;outline-offset:-2px}
+.cal-d.has-ev::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#f0acd8}
+.cal-day-title{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:#c6a5ff;margin:14px 0 6px;font-weight:600}
+.cal-ev{font-size:12.5px;color:var(--text);padding:8px 10px;border-radius:12px;background:rgba(255,255,255,.04);border-left:3px solid #c6a5ff;margin-bottom:6px}
+.cal-ev small{display:block;color:var(--text3);font-size:11px;margin-top:2px}
+.cal-empty{font-size:12px;color:var(--text3);margin:4px 0 10px}
+.cal-add{width:100%;margin-top:6px}
+@media (min-width:1024px){
+  body{padding-left:236px!important;padding-bottom:28px!important;padding-top:24px!important}
+  html:not(#_) .nav-bottom.nav-bottom{left:0!important;top:0!important;bottom:0!important;transform:none!important;width:220px!important;height:100vh!important;border-radius:0!important;border:0!important;border-right:1px solid var(--border)!important;background:var(--surface2)!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;gap:4px;padding:20px 12px!important;overflow-y:auto}
+  .nav-brand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:600;letter-spacing:-.2px;color:var(--text);padding:2px 10px 22px}
+  .nav-bottom .nav-tab,.nav-tab{flex-direction:row!important;justify-content:flex-start;gap:12px;width:100%!important;max-width:none!important;flex:none!important;padding:10px 12px!important;font-size:14px!important;border-radius:12px!important;color:var(--text2)}
+  .nav-bottom .nav-tab{height:auto!important;min-height:44px;background:transparent!important;border:0!important;box-shadow:none!important;border-radius:12px!important}
+  .nav-bottom .nav-tab .lbl{position:static!important;opacity:1!important;transform:none!important;pointer-events:auto!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;font:inherit!important;color:inherit!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;display:inline!important}
+  .nav-bottom .nav-tab::after{display:none!important}
+  html:not(#_) .nav-bottom .nav-tab svg{width:18px!important;height:18px!important;flex:none;stroke:var(--text3)}
+  html:not(#_) .nav-bottom .nav-tab.active{background:rgba(181,143,255,.16)!important;color:var(--text)}
+  html:not(#_) .nav-bottom .nav-tab.active svg{stroke:#c9a5ff}
+  .nav-bottom.dock-on .nav-tab{transform:none!important}
+  html:not(#_) .nav-bottom .nav-tab.bounce{animation:none}
+  #panel-hoy{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:16px;align-items:start;max-width:1180px}
+  #panel-hoy>.welcome-hero,#panel-hoy>.overview-grid{grid-column:1/-1}
+  #priority-recommendation-box,#heatmap-card,#agenda-card{grid-column:1}
+  #progress-card,#calendar-card,#panel-hoy>.card:last-child{grid-column:2}
+  #calendar-card{position:sticky;top:16px}
+  #panel-semana{max-width:1180px}
+  .org-frame{height:calc(100vh - 150px)}
+  .page,#panel-tracker,#panel-apuntes,#panel-flashcard,#panel-carrera,#panel-more{max-width:1040px}
+}
+/* === v4.3: sin zoom en botones ni pestañas === */
+html .nav-bottom .nav-tab,html .nav-bottom .nav-tab *,html .nav-bottom .nav-tab:hover,html .nav-bottom .nav-tab:active{transform:none!important;transition:background .2s,color .2s!important}
+html .nav-bottom.nav-bottom{transform:none!important}
+/* === v4.3: inicio como tablero: resumen, calendario y lista de hoy; el temporizador va en Enfoque === */
+#panel-hoy #today-card,#panel-hoy #priority-recommendation-box{grid-column:1}
+#panel-hoy #calendar-card{grid-column:2}
+#panel-enfoque{max-width:720px}
+.home-actions{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.home-actions .btn{font-size:13px}
+@media (max-width:1023px){ #panel-hoy #today-card,#panel-hoy #priority-recommendation-box,#panel-hoy #calendar-card{grid-column:auto} }
+/* === v4.3: el inicio muestra lo imprescindible === */
+#panel-hoy #bk-nudge,#panel-hoy .home-actions{grid-column:1/-1}
+#panel-hoy #exam-card{grid-column:2}
+#panel-hoy #today-card,#panel-hoy #priority-recommendation-box{grid-column:1}
+/* === v4.3: orden fijo del inicio en escritorio === */
+@media (min-width:1024px){
+  #panel-hoy>.welcome-hero{grid-column:1/-1;grid-row:1}
+  #panel-hoy>#bk-nudge{grid-column:1/-1;grid-row:2}
+  #panel-hoy>.home-actions{grid-column:1/-1;grid-row:3}
+  #panel-hoy>.overview-grid{grid-column:1/-1;grid-row:4}
+  #panel-hoy>#today-card{grid-column:1;grid-row:5}
+  #panel-hoy>#calendar-card{grid-column:2;grid-row:5 / span 2}
+  #panel-hoy>#priority-recommendation-box{grid-column:1;grid-row:6}
+  #panel-hoy>#exam-card{grid-column:2;grid-row:7}
+}
+/* === v4.3: tarjetas pastel del inicio (con prioridad sobre el tema oscuro) === */
+html:not(#_) #panel-hoy .overview-grid .overview-tile:nth-child(1){background:#f3e6a2!important;color:#2a2410!important;border-color:transparent!important}
+html:not(#_) #panel-hoy .overview-grid .overview-tile:nth-child(2){background:#f5c8dd!important;color:#2e1222!important;border-color:transparent!important}
+html:not(#_) #panel-hoy .overview-grid .overview-tile:nth-child(3){background:#c6dbf7!important;color:#101c33!important;border-color:transparent!important}
+html:not(#_) #panel-hoy .overview-grid .overview-tile strong{color:inherit!important}
+html:not(#_) #panel-hoy .overview-grid .overview-tile small,html:not(#_) #panel-hoy .overview-grid .overview-label{color:rgba(20,16,10,.62)!important}
+/* === v4.4: pantalla de inicio al estilo de la captura === */
+@media (min-width:1024px){
+  html:not(#_) .nav-bottom.nav-bottom{background:#0c0c10!important;border-right:1px solid rgba(255,255,255,.06)!important}
+  html:not(#_) .nav-bottom .nav-tab.active{background:rgba(255,255,255,.08)!important;color:#fff!important}
+  html:not(#_) #panel-hoy{display:grid!important;grid-template-columns:minmax(0,1fr) 340px!important;gap:18px!important;max-width:1240px!important;align-items:start!important}
+  html:not(#_) #panel-hoy>.welcome-hero{grid-column:1!important;grid-row:1!important;background:none!important;border:0!important;box-shadow:none!important;padding:4px 0 0!important;min-height:0!important}
+  html:not(#_) #panel-hoy>.welcome-hero::before,html:not(#_) #panel-hoy>.welcome-hero::after{display:none!important}
+  html:not(#_) #hero-date{font-size:24px!important;font-weight:600!important;color:var(--text)!important}
+  html:not(#_) #panel-hoy>#bk-nudge{grid-column:1!important;grid-row:2!important}
+  html:not(#_) #panel-hoy>.home-actions{grid-column:1!important;grid-row:3!important}
+  html:not(#_) #panel-hoy>.overview-grid{grid-column:1!important;grid-row:4!important}
+  html:not(#_) #panel-hoy>#today-card{grid-column:1!important;grid-row:5!important;background:#f6f2ea!important;border-color:transparent!important;--text:#1d1a2b;--text2:#57526a;--text3:#7a7488;color:#1d1a2b}
+  html:not(#_) #panel-hoy>#exam-card{grid-column:1!important;grid-row:6!important;background:#f3c9dc!important;border-color:transparent!important;--text:#2e1222;--text2:#5a3a4c;--text3:#7a5a6a;color:#2e1222}
+  html:not(#_) #panel-hoy>#priority-recommendation-box{grid-column:1!important;grid-row:7!important;background:#cfe6d2!important;border-color:transparent!important;--text:#15261a;--text2:#3e5a46;--text3:#587262;color:#15261a}
+  html:not(#_) #panel-hoy>#calendar-card{grid-column:2!important;grid-row:1 / span 7!important;position:sticky!important;top:16px!important}
+  html:not(#_) #today-card .section-hd h2,html:not(#_) #priority-recommendation-box .section-hd h2{color:var(--text)!important}
+  html:not(#_) .overview-grid{gap:14px!important}
+  html:not(#_) .overview-grid .overview-tile{border-radius:22px!important;min-height:118px}
+  html:not(#_) .home-actions .btn{border-radius:999px!important;padding:9px 18px!important}
+}
+/* === v4.4: tres tarjetas de resumen en una fila === */
+@media (min-width:1024px){ html:not(#_) #panel-hoy .overview-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important} }
 </style>
 </head>
 <body class="mode-study">
@@ -908,9 +1010,15 @@ html[data-theme="light"] .sec-date{color-scheme:light}html:not([data-theme="ligh
 </div>
 
 <nav class="nav-bottom" aria-label="Navegación principal">
+  <div class="nav-brand" aria-hidden="true"><svg viewBox="0 0 64 64" width="24" height="24"><circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M32 8 L36 32 L32 56 L28 32 Z M8 32 L32 28 L56 32 L32 36 Z" fill="currentColor"/></svg><span>estudio</span></div>
   <button class="nav-tab active" data-panel="hoy" onclick="showPanel('hoy')" aria-label="Hoy">
+
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
     Hoy
+  </button>
+  <button class="nav-tab" data-panel="enfoque" onclick="showPanel('enfoque')" aria-label="Enfoque">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2"></path><path d="M10 2h4"></path></svg>
+    Enfoque
   </button>
   <button class="nav-tab" data-panel="tracker" onclick="showPanel('tracker')" aria-label="Materias">
     <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
@@ -960,6 +1068,7 @@ html[data-theme="light"] .sec-date{color-scheme:light}html:not([data-theme="ligh
 </div>
 
 <div class="panel active" id="panel-hoy">
+
   <section class="welcome-hero" aria-label="Resumen de estudio">
     <div class="hero-copy">
       <p id="hero-date">Organizá tu día. Estudiá con intención.</p>
@@ -967,6 +1076,31 @@ html[data-theme="light"] .sec-date{color-scheme:light}html:not([data-theme="ligh
     </div>
   </section>
 
+<div class="home-actions"><button type="button" class="btn" onclick="showPanel('enfoque')">▶ Iniciar pomodoro</button><button type="button" class="btn" onclick="showPanel('tracker')">Mis materias</button></div>
+  <div class="card cal-card" id="calendar-card">
+    <div class="cal-head"><button type="button" class="cal-nav" onclick="calShift(-1)" aria-label="Mes anterior">‹</button><strong id="cal-title"></strong><button type="button" class="cal-nav" onclick="calShift(1)" aria-label="Mes siguiente">›</button></div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div class="cal-day-title" id="cal-day-title"></div>
+    <div id="cal-day-list"></div>
+  </div>
+
+  <div id="today-card" class="card"></div>
+
+  <section class="overview-grid" aria-label="Resumen de hoy">
+    <div class="overview-tile"><div><span class="overview-label">Tiempo de hoy</span><strong id="hero-study-time">0 min</strong><small>de estudio enfocado</small></div></div>
+    <div class="overview-tile"><div><span class="overview-label">Pomodoros</span><strong id="hero-poms">0</strong><small>completados hoy</small></div></div>
+    <div class="overview-tile"><div><span class="overview-label">Para repasar</span><strong id="hero-due">0</strong><small>pendientes</small></div></div>
+  </section>
+  <div class="card" id="priority-recommendation-box">
+    <div class="section-hd" style="margin-bottom:6px;">
+      <h2>Prioridad de hoy</h2>
+    </div>
+    <div id="priority-content" style="font-size:12px; color:var(--text); line-height:1.5;">Calculando prioridades...</div>
+  </div>
+</div>
+
+<div class="panel" id="panel-enfoque">
+  <div class="section-hd" style="margin:0 0 12px"><div><span class="section-kicker">ENFOQUE</span><h2>Tu pomodoro</h2></div></div>
   <div class="card">
     <div class="section-hd timer-section-head"><div><span class="section-kicker">MODO CONCENTRACIÓN</span><h2>Tu sesión de enfoque</h2></div><button class="focus-toggle" id="focus-mode-toggle" onclick="toggleFocusMode()" aria-pressed="false">Enfocarme</button></div>
     <div class="mode-tabs">
@@ -1031,17 +1165,6 @@ html[data-theme="light"] .sec-date{color-scheme:light}html:not([data-theme="ligh
     </div>
   </div>
 
-  <div id="today-card" class="card"></div>
-
-  <section class="overview-grid" aria-hidden="true" style="display:none">
-    <strong id="hero-study-time">0 min</strong><strong id="hero-poms">0</strong>
-  </section>
-  <div class="card" id="priority-recommendation-box">
-    <div class="section-hd" style="margin-bottom:6px;">
-      <h2>Prioridad de hoy</h2>
-    </div>
-    <div id="priority-content" style="font-size:12px; color:var(--text); line-height:1.5;">Calculando prioridades...</div>
-  </div>
 </div>
 
 <div class="panel" id="panel-tracker">
@@ -1791,6 +1914,52 @@ function setAmbVol(v){
 }
 document.getElementById('vol-slider').value = ls('amb_vol', '40');
 setAmbVol(document.getElementById('vol-slider').value);
+
+// === Calendario de Hoy: muestra las fechas de examen de cada materia ===
+let calShiftM = 0, calSel = null;
+function calShift(n) { calShiftM += n; renderCalendar(); }
+function calSelect(k) { calSel = k; renderCalendar(); }
+// Lo que no es del inicio (racha y resumen semanal) se muestra en Más, no en Hoy.
+function placeHomeCards() {
+    const more = document.getElementById('panel-more'); if(!more) return;
+    ['act-card', 'week-box'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el && el.parentNode !== more) more.appendChild(el);
+    });
+}
+function homeTiles() {
+    placeHomeCards();
+    const due = document.getElementById('hero-due'); if(!due || typeof dueUnits !== 'function') return;
+    due.textContent = String(dueUnits().length + dueCards().length);
+}
+function renderCalendar() {
+    homeTiles();
+    const grid = document.getElementById('cal-grid'); if(!grid || typeof MATS === 'undefined') return;
+    const today = todayAR(); if(!calSel) calSel = today;
+    const base = new Date(today + 'T00:00:00');
+    const first = new Date(base.getFullYear(), base.getMonth() + calShiftM, 1);
+    const y = first.getFullYear(), m = first.getMonth();
+    const monthName = first.toLocaleDateString('es-AR', { month: 'long', year: 'numeric' });
+    document.getElementById('cal-title').textContent = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+    const items = MATS.filter(x => x.exam).map(x => ({ date: x.exam, mat: x.name, color: x.color || '#b68cff' }));
+    const evs = {}; items.forEach(i => { evs[i.date] = (evs[i.date] || 0) + 1; });
+    const lead = (first.getDay() + 6) % 7, days = new Date(y, m + 1, 0).getDate();
+    let html = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do'].map(d => `<span class="cal-dow">${d}</span>`).join('');
+    for(let i = 0; i < lead; i++) html += '<span></span>';
+    for(let d = 1; d <= days; d++) {
+        const k = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+        const cls = ['cal-d', k === today ? 'is-today' : '', k === calSel ? 'is-sel' : '', evs[k] ? 'has-ev' : ''].join(' ');
+        html += `<button type="button" class="${cls}" onclick="calSelect('${k}')" aria-label="${k}${evs[k] ? ', con examen' : ''}" aria-pressed="${k === calSel}">${d}</button>`;
+    }
+    grid.innerHTML = html;
+    document.getElementById('cal-day-title').textContent = new Date(calSel + 'T00:00:00').toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' }).toUpperCase();
+    const list = items.filter(i => i.date === calSel);
+    document.getElementById('cal-day-list').innerHTML = list.length
+        ? list.map(i => `<div class="cal-ev" style="border-left-color:${i.color}"><strong>Examen · ${esc(i.mat)}</strong><small>Fecha cargada en Materias</small></div>`).join('')
+        : '<p class="cal-empty">Sin exámenes este día.</p>';
+}
+document.addEventListener('DOMContentLoaded', renderCalendar);
+const _spCal = showPanel; showPanel = function(id) { _spCal(id); renderCalendar(); };
 
 function showPanel(id){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
@@ -3235,11 +3404,11 @@ if(running && endTime) alrWorker(endTime);
     setTimeout(() => { root.hidden = true; clearInterval(tick); document.documentElement.style.overflow = ''; vxGlobe(false); }, 650);
     if(panel) showPanel(panel);
   };
-  window.vxRender = function() { const c = document.getElementById('vx-on'); if(c) c.checked = ls('vx_off') !== '1'; };
+  window.vxRender = function() { const c = document.getElementById('vx-on'); if(c) c.checked = ls('vx_off', '1') !== '1'; };
   document.addEventListener('keydown', e => { if(e.key === 'Escape' && !root.hidden && !root.classList.contains('out')) { if($('#vx-timer').classList.contains('open')) vxTimer(false); else vxClose(); } });
   const _sp = showPanel; showPanel = function(id) { _sp(id); if(id === 'more') vxRender(); };
   const seen = ls('vx_day', '') === todayAR();
-  if(ls('vx_off') === '1' || seen || (typeof running !== 'undefined' && running)) root.hidden = true; else vxShow();
+  if(ls('vx_off', '1') === '1' || seen || (typeof running !== 'undefined' && running)) root.hidden = true; else vxShow();
 })();
 // === Barra inferior con nombres ===
 (function(){
@@ -3252,7 +3421,7 @@ if(running && endTime) alrWorker(endTime);
   const nav=document.querySelector('.nav-bottom'); if(!nav||typeof window.matchMedia!=='function'||!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
   if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
   const tabs=[...nav.querySelectorAll('.nav-tab')];
-  function mag(e){ if(window.innerWidth<700) return; tabs.forEach(t=>{ const r=t.getBoundingClientRect(), d=Math.abs(e.clientX-(r.left+r.width/2)), k=Math.max(0,1-d/140), f=k*k*(3-2*k), s=1+0.5*f, y=22*f; t.style.setProperty('transform','translateY('+(-y).toFixed(1)+'px) scale('+s.toFixed(3)+')','important'); t.style.zIndex=String(1+Math.round(f*10)); }); }
+  function mag(e){ return; tabs.forEach(t=>{ const r=t.getBoundingClientRect(), d=Math.abs(e.clientX-(r.left+r.width/2)), k=Math.max(0,1-d/140), f=k*k*(3-2*k), s=1+0.5*f, y=22*f; t.style.setProperty('transform','translateY('+(-y).toFixed(1)+'px) scale('+s.toFixed(3)+')','important'); t.style.zIndex=String(1+Math.round(f*10)); }); }
   function rst(){ tabs.forEach(t=>{ t.style.removeProperty('transform'); t.style.zIndex=''; }); }
   nav.addEventListener('pointermove',mag); nav.addEventListener('pointerleave',rst);
   tabs.forEach(t=>t.addEventListener('click',()=>{ t.animate([{transform:'translateY(0)'},{transform:'translateY(-18px)'},{transform:'translateY(0)'},{transform:'translateY(-7px)'},{transform:'translateY(0)'}],{duration:520,easing:'cubic-bezier(.28,.84,.42,1)'}); }));
@@ -3553,7 +3722,7 @@ function syncDisconnect() {
 })();
 
 // === v10: PWA (instalación, service worker, avisos de datos) ===
-const APP_VERSION = '4.1.0';
+const APP_VERSION = '4.2.0';
 let pwaPrompt = null;
 function pwaStandalone() { return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
 function pwaIsIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
@@ -3585,6 +3754,8 @@ if('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
 }
 try { if(navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(e) {}
 pwaRender();
+// Al final del script: las tarjetas de racha y semana se mueven a Más cada vez que se muestra una pantalla.
+(function() { const _pl = showPanel; showPanel = function(id) { _pl(id); placeHomeCards(); }; placeHomeCards(); })();
 </script>
 </body>
 </html>
