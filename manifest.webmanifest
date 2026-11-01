@@ -1,14 +1,14 @@
 {
   "name": "Estudio Tracker",
   "short_name": "Estudio",
-  "description": "Pomodoro, materias, repaso espaciado y seguimiento de tu carrera. Todo guardado en tu dispositivo.",
+  "description": "Pomodoro, materias y seguimiento de tu carrera. Todo guardado en tu dispositivo.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#08070d",
-  "theme_color": "#08070d",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "lang": "es",
   "categories": ["education", "productivity"],
   "icons": [

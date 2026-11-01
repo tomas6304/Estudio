@@ -1,6 +1,21 @@
-Estudio Tracker v3.1.1
+Estudio Tracker v4.0.0 - más color, vida y animación
 
-1) En GitHub (repo Estudio) reemplazá index.html y sw.js
-2) Abrí la app, cerrala y volvela a abrir una vez (Más > "Estudio Tracker v3.1.1").
+SUBIR A GITHUB (repo Estudio), reemplazando los existentes:
+  index.html, sw.js, manifest.webmanifest, icon.svg, icon-192.png, icon-512.png,
+  apple-touch-icon.png, maskable-512.png, favicon-32.png
 
-Arreglo: el botón Pausar del mini temporizador de arriba ahora responde siempre.
+Después abrí la app, cerrala y volvela a abrir una vez (Más > "Estudio Tracker v4.0.0").
+El ícono de la pantalla de inicio del iPhone no se actualiza solo: borrá la app de la
+pantalla de inicio y volvé a agregarla desde Safari (Compartir > Agregar a inicio).
+
+Novedades:
+- Cada materia tiene su color: tarjeta teñida, inicial en un ícono, gráfico semanal por colores,
+  y el anillo del temporizador y el fondo toman el color de la materia elegida.
+- Fondo con degradado suave que se mueve (se apaga con Modo ahorro).
+- Temporizador más grande, anillo con degradado, brillo mientras corre.
+- Animaciones con resorte al cambiar de pestaña, barras que crecen, números que cuentan.
+- Racha estilo Actividad: llama, los últimos 7 días y anillo de meta diaria (tocá el anillo para cambiar la meta).
+- Próximo examen con cuenta regresiva en Hoy.
+- Mapa de tu carrera por años, con colores según el estado de cada materia.
+- Confeti y vibración al completar una unidad (Leí + Repasé + Aprobé).
+- Íconos de línea en lugar de emojis; ícono nuevo de la app.
