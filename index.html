@@ -966,6 +966,19 @@ html:not(#_) #panel-hoy .overview-grid .overview-tile small,html:not(#_) #panel-
 .panel *{animation-fill-mode:none!important}
 /* === v4.5: el inicio solo ocupa lugar cuando está activo === */
 #panel-hoy:not(.active){display:none!important}
+/* === v4.6: reloj del inicio, barra lateral alineada y sin línea superior === */
+.home-clock{display:flex;align-items:center;justify-content:center;flex:1;min-height:150px;margin-top:14px;border-radius:24px;background:#111116;border:1px solid rgba(255,255,255,.06);font-family:'Inter',sans-serif;font-weight:600;font-size:clamp(64px,9vw,112px);letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#f5f3ee}
+#panel-hoy>.welcome-hero{display:flex;flex-direction:column}
+@media (min-width:1024px){
+  #panel-hoy>.welcome-hero{align-self:stretch!important;min-height:330px}
+  html:not(#_) .nav-bottom.nav-bottom{border-top:0!important;border-left:0!important;border-bottom:0!important;border-right:1px solid rgba(255,255,255,.06)!important;box-shadow:none!important}
+  html:not(#_) .nav-bottom .nav-tab{display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;gap:12px!important;padding:10px 14px!important;text-align:left!important;margin:0!important}
+  html:not(#_) .nav-bottom .nav-tab svg{flex:0 0 18px!important;margin:0!important}
+  html:not(#_) .nav-bottom .nav-tab .lbl{display:block!important;text-align:left!important;line-height:1.2!important;margin:0!important}
+  html:not(#_) .nav-bottom .nav-brand,html:not(#_) .nav-brand{border:0!important;padding-left:14px!important}
+}
+/* === v4.6: etiquetas de la barra lateral con el tamaño correcto === */
+@media (min-width:1024px){ html:not(#_) .nav-bottom.nav-bottom .nav-tab .lbl{font-size:14px!important;font-weight:500!important;color:inherit!important;line-height:1.2!important} }
 </style>
 </head>
 <body class="mode-study">
@@ -1091,6 +1104,7 @@ html:not(#_) #panel-hoy .overview-grid .overview-tile small,html:not(#_) #panel-
       <p id="hero-date">Organizá tu día. Estudiá con intención.</p>
       <p id="hero-microcopy" class="hero-micro">Cada sesión cuenta</p>
     </div>
+    <div class="home-clock" aria-label="Hora actual"><span id="clock-hm">--:--</span></div>
   </section>
 
 <div class="home-actions"><button type="button" class="btn" onclick="showPanel('enfoque')">▶ Iniciar pomodoro</button><button type="button" class="btn" onclick="showPanel('tracker')">Mis materias</button></div>
@@ -1944,6 +1958,13 @@ function placeHomeCards() {
         if(el && el.parentNode !== more) more.appendChild(el);
     });
 }
+// Reloj en tiempo real del inicio: solo hora y minutos.
+function tickClock() {
+    const el = document.getElementById('clock-hm'); if(!el) return;
+    const d = new Date();
+    el.textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+}
+setInterval(tickClock, 1000); tickClock();
 function homeTiles() {
     placeHomeCards();
     const due = document.getElementById('hero-due'); if(!due || typeof dueUnits !== 'function') return;
