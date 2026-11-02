@@ -1,4 +1,4 @@
-Estudio Tracker v4.3.1
+Estudio Tracker v4.3.4
 
 SUBIR A GITHUB: todos los archivos de esta carpeta (13 en total), reemplazando los que ya existen en el repo.
 Después abrir la app dos veces para que se actualice. Si el ícono viejo sigue en el celular, borrar la app de la pantalla de inicio y volver a agregarla.
