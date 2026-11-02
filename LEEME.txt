@@ -1,4 +1,4 @@
-Estudio Tracker v4.2.0 - reemplazar index.html y sw.js en el repo (y subir también el resto de los archivos de esta carpeta).
+Estudio Tracker v4.2.1 - reemplazar index.html y sw.js en el repo (y subir también el resto de los archivos de esta carpeta).
 
 Cambios de esta versión:
 - Inicio al estilo tablero: barra lateral, saludo, tarjetas de resumen, lista de hoy, examen próximo y calendario.
@@ -6,4 +6,8 @@ Cambios de esta versión:
 - Racha y resumen semanal en Más.
 - Sin efecto de zoom en la barra de pestañas.
 
-Verificar en Más: "Estudio Tracker v4.2.0". Abrir la app dos veces para que actualice.
+Verificar en Más: "Estudio Tracker v4.2.1". Abrir la app dos veces para que actualice.
+
+v4.3.0: ícono nuevo (trébol con reloj, azul y crema), hora en azul sobre fondo crema con datos esenciales (racha, hoy, próximo examen, para repasar), trébol Lucky en la carátula, y se quitó el sistema de XP. Subir también lucky.jpg y los íconos.
+
+v4.3.1: ícono nuevo de estudio + abogacía (balanza de la justicia sobre un libro abierto).

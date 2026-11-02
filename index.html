@@ -1056,9 +1056,150 @@ html:not(#_) #panel-hoy #priority-recommendation-box svg{stroke:#b9e3c8!importan
 html[data-theme="light"] #panel-hoy #priority-recommendation-box,html[data-theme="light"] #panel-hoy #priority-recommendation-box *{color:#15261a!important}
 html[data-theme="light"] #panel-hoy #priority-recommendation-box h2,html[data-theme="light"] #panel-hoy #priority-recommendation-box .section-kicker{color:#1b1530!important}
 html[data-theme="light"] #panel-hoy #priority-recommendation-box strong{color:#0b1f12!important}
+/* === v5.3: reloj con color, Enfoque con color y barra lateral retráctil === */
+/* Reloj de Hoy: degradado suave, legible en ambos temas */
+html:not(#_) .home-clock{background:linear-gradient(135deg,#cdbcff 0%,#a7d8ff 55%,#b8f0dc 100%)!important;border:0!important;color:#1d1a2b!important;box-shadow:0 14px 40px rgba(140,120,255,.22)}
+html[data-theme="light"] .home-clock{background:linear-gradient(135deg,#e4dbff 0%,#d3ebff 55%,#d4f7ea 100%)!important;color:#1b1530!important}
+/* Enfoque: anillo degradado, pestañas y botones con color */
+html:not(#_) #panel-enfoque .card{background:linear-gradient(160deg,rgba(40,30,70,.55),rgba(18,17,29,.9))!important;border:1px solid rgba(190,160,255,.18)!important}
+html[data-theme="light"] #panel-enfoque .card{background:linear-gradient(160deg,#f5efff,#eef7ff)!important}
+html:not(#_) #panel-enfoque #ring{stroke:url(#timerGradient)!important}
+html:not(#_) #panel-enfoque .mode-tab.active,#panel-enfoque .mode-tab.s-active{background:linear-gradient(105deg,#cdb4ff,#9fd0ff)!important;color:#1d1a2b!important}
+html:not(#_) #panel-enfoque .mode-tab.b-active{background:linear-gradient(105deg,#b9f2d6,#9fe0c2)!important;color:#12361f!important}
+html:not(#_) #panel-enfoque .time-preset{border:1px solid rgba(190,160,255,.45)!important;background:rgba(190,160,255,.12)!important;color:#ddd0ff!important}
+html:not(#_) #panel-enfoque .time-preset:nth-child(2){border-color:rgba(150,200,255,.5)!important;background:rgba(150,200,255,.12)!important;color:#cfe6ff!important}
+html:not(#_) #panel-enfoque .time-preset:nth-child(3){border-color:rgba(160,235,200,.5)!important;background:rgba(160,235,200,.12)!important;color:#d2f7e6!important}
+html:not(#_) #panel-enfoque .time-preset:nth-child(4){border-color:rgba(255,200,170,.5)!important;background:rgba(255,200,170,.12)!important;color:#ffe2d2!important}
+html:not(#_) #panel-enfoque .time-num{background:linear-gradient(120deg,#e6d9ff,#bfe6ff 50%,#c9f7e3);-webkit-background-clip:text;background-clip:text;color:transparent!important}
+html:not(#_) #panel-enfoque .mode-label{color:#c9b8ff!important}
+html:not(#_) #panel-enfoque .stat-box{border-radius:18px!important;border:0!important}
+html:not(#_) #panel-enfoque .stat-box:nth-child(1){background:#f3e6a2!important}
+html:not(#_) #panel-enfoque .stat-box:nth-child(2){background:#bfe3ff!important}
+html:not(#_) #panel-enfoque .stat-box:nth-child(3){background:#c4f2dc!important}
+html:not(#_) #panel-enfoque .stat-box:nth-child(4){background:#f5c8dd!important}
+html:not(#_) #panel-enfoque .stat-box *{color:#1d1a2b!important}
+html:not(#_) #panel-enfoque .btn-play{background:linear-gradient(105deg,#f0acd8,#c39bff 55%,#9fd0ff)!important;color:#1d1a2b!important}
+/* Barra lateral retráctil (escritorio) */
+.side-toggle{display:none}
+.side-open{display:none}
+@media (min-width:1024px){
+  .side-toggle{display:flex;position:absolute;right:-12px;top:26px;width:24px;height:24px;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--border2);background:var(--surface2);color:var(--text2);cursor:pointer;font-size:16px;line-height:1;padding:0;z-index:2}
+  .side-toggle:hover{color:var(--text);border-color:var(--acc)}
+  html:not(#_) .nav-bottom.nav-bottom{transition:transform .28s ease}
+  html.side-hidden body{padding-left:28px!important}
+  html.side-hidden:not(#_) .nav-bottom.nav-bottom{transform:translateX(-105%)!important}
+  html.side-hidden .side-open{display:flex;position:fixed;left:10px;top:14px;z-index:1100;width:36px;height:36px;align-items:center;justify-content:center;border-radius:50%;border:1px solid var(--border2);background:var(--surface2);color:var(--text);cursor:pointer;font-size:18px;padding:0}
+}
+html:not(#_) #panel-enfoque .ring-wrap circle:first-of-type{stroke:rgba(190,160,255,.22)!important}
+/* === v5.4: temporizador en pastel menta === */
+html:not(#_) #panel-enfoque #ring{stroke:#a8e6cf!important}
+html:not(#_) #panel-enfoque .time-num{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:#bdf5dc!important;text-shadow:0 0 28px rgba(168,230,207,.25)}
+html:not(#_) #panel-enfoque .mode-label{color:#a8e6cf!important}
+html:not(#_) #panel-enfoque .ring-wrap circle:first-of-type{stroke:rgba(168,230,207,.16)!important}
+/* === v5.5: fondo pastel del temporizador === */
+html:not(#_) #panel-enfoque>.card{background:linear-gradient(160deg,#d6f6e7 0%,#bfeeda 100%)!important;border:0!important;color:#1d3a2f!important;--text:#1d3a2f;--text2:#3d5c4f;--text3:#5d7a6c;box-shadow:0 14px 40px rgba(120,200,170,.22)}
+html:not(#_) #panel-enfoque>.card .section-kicker{color:#2f8a66!important}
+html:not(#_) #panel-enfoque>.card h2{color:#1d3a2f!important}
+html:not(#_) #panel-enfoque .time-num{color:#1d3a2f!important;text-shadow:none!important}
+html:not(#_) #panel-enfoque .mode-label{color:#2f8a66!important}
+html:not(#_) #panel-enfoque #ring{stroke:#4fbf8f!important}
+html:not(#_) #panel-enfoque .ring-wrap circle:first-of-type{stroke:rgba(79,191,143,.22)!important}
+html:not(#_) #panel-enfoque .mode-tabs{background:rgba(255,255,255,.45)!important;border-color:rgba(79,191,143,.25)!important}
+html:not(#_) #panel-enfoque .mode-tab{color:#2d4f42!important}
+html:not(#_) #panel-enfoque .time-custom-bar,html:not(#_) #panel-enfoque .session-goal-box{color:#1d3a2f}
+html:not(#_) #panel-enfoque .session-goal-box input,html:not(#_) #panel-enfoque .session-goal-box select,html:not(#_) #panel-enfoque .vx__sel,html:not(#_) #panel-enfoque #session-goal{background:rgba(255,255,255,.7)!important;color:#1d3a2f!important;border-color:rgba(79,191,143,.35)!important}
+html:not(#_) #panel-enfoque .amb-grid,html:not(#_) #panel-enfoque .session-log{color:#1d3a2f}
+/* === v5.6: temporizador en celeste pastel, números en negro === */
+html:not(#_) #panel-enfoque>.card{background:linear-gradient(160deg,#d9efff 0%,#bfe2fb 100%)!important;color:#0d1b2a!important;--text:#0d1b2a;--text2:#2c4257;--text3:#4a6179;box-shadow:0 14px 40px rgba(120,170,220,.25)}
+html:not(#_) #panel-enfoque>.card .section-kicker{color:#1f6fb0!important}
+html:not(#_) #panel-enfoque>.card h2{color:#0d1b2a!important}
+html:not(#_) #panel-enfoque .time-num{color:#000000!important}
+html:not(#_) #panel-enfoque .mode-label{color:#1f6fb0!important}
+html:not(#_) #panel-enfoque #ring{stroke:#3d8fd6!important}
+html:not(#_) #panel-enfoque .ring-wrap circle:first-of-type{stroke:rgba(61,143,214,.22)!important}
+html:not(#_) #panel-enfoque .mode-tabs{background:rgba(255,255,255,.5)!important;border-color:rgba(61,143,214,.3)!important}
+html:not(#_) #panel-enfoque .mode-tab{color:#1d3a55!important}
+html:not(#_) #panel-enfoque .session-goal-box input,html:not(#_) #panel-enfoque #session-goal,html:not(#_) #panel-enfoque .session-goal-box select{background:rgba(255,255,255,.75)!important;color:#0d1b2a!important;border-color:rgba(61,143,214,.35)!important}
+/* === v5.7: temporizador en azul pastel más profundo, números en negro === */
+html:not(#_) #panel-enfoque>.card{background:linear-gradient(160deg,#c3dcf7 0%,#9cc6f0 100%)!important;color:#0d1b2a!important;--text:#0d1b2a;--text2:#213a55;--text3:#3d5874;box-shadow:0 14px 40px rgba(90,140,200,.28)}
+html:not(#_) #panel-enfoque>.card .section-kicker{color:#1a5e9c!important}
+html:not(#_) #panel-enfoque .mode-label{color:#1a5e9c!important}
+html:not(#_) #panel-enfoque #ring{stroke:#2a6fb8!important}
+html:not(#_) #panel-enfoque .ring-wrap circle:first-of-type{stroke:rgba(42,111,184,.2)!important}
+html:not(#_) #panel-enfoque .mode-tabs{background:rgba(255,255,255,.45)!important;border-color:rgba(42,111,184,.3)!important}
+/* === v5.8: temporizador en lila pastel, números en negro === */
+html:not(#_) #panel-enfoque>.card{background:linear-gradient(160deg,#eee6ff 0%,#d6c8fb 100%)!important;color:#140d2a!important;--text:#140d2a;--text2:#3a2d5c;--text3:#5e5080;box-shadow:0 14px 40px rgba(150,120,220,.25)}
+html:not(#_) #panel-enfoque>.card .section-kicker{color:#6a4fc0!important}
+html:not(#_) #panel-enfoque .mode-label{color:#6a4fc0!important}
+html:not(#_) #panel-enfoque #ring{stroke:#9b7fe6!important}
+html:not(#_) #panel-enfoque .ring-wrap circle:first-of-type{stroke:rgba(155,127,230,.2)!important}
+html:not(#_) #panel-enfoque .mode-tabs{background:rgba(255,255,255,.5)!important;border-color:rgba(155,127,230,.3)!important}
+/* === v5.9: temporizador en naranja mate (color sólido) === */
+html:not(#_) #panel-enfoque>.card{background:#f07f2c!important;background-image:none!important;color:#000000!important;--text:#000000;--text2:#1a1a1a;--text3:#2b2b2b;border:0!important;box-shadow:none!important}
+html:not(#_) #panel-enfoque>.card .section-kicker{color:#000000!important;opacity:.75}
+html:not(#_) #panel-enfoque>.card h2{color:#000000!important}
+html:not(#_) #panel-enfoque .time-num{color:#000000!important}
+html:not(#_) #panel-enfoque .mode-label{color:#000000!important;opacity:.7}
+html:not(#_) #panel-enfoque #ring{stroke:#000000!important}
+html:not(#_) #panel-enfoque .ring-wrap circle:first-of-type{stroke:rgba(0,0,0,.16)!important}
+html:not(#_) #panel-enfoque .mode-tabs{background:rgba(0,0,0,.14)!important;border-color:rgba(0,0,0,.12)!important}
+html:not(#_) #panel-enfoque .mode-tab{color:#000000!important}
+html:not(#_) #panel-enfoque .mode-tab.active,html:not(#_) #panel-enfoque .mode-tab.s-active{background:#000000!important;color:#ffffff!important}
+html:not(#_) #panel-enfoque .session-goal-box input,html:not(#_) #panel-enfoque #session-goal,html:not(#_) #panel-enfoque .session-goal-box select{background:rgba(0,0,0,.12)!important;color:#000000!important;border-color:rgba(0,0,0,.2)!important}
+/* === v6.0: legibilidad del temporizador naranja === */
+html:not(#_) #panel-enfoque .focus-toggle{background:#000000!important;color:#ffffff!important;border:0!important}
+html:not(#_) #panel-enfoque .time-custom-bar .time-preset{background:rgba(0,0,0,.14)!important;border:1px solid rgba(0,0,0,.28)!important;color:#000000!important}
+html:not(#_) #panel-enfoque .time-custom-bar span,html:not(#_) #panel-enfoque .time-custom-bar .time-custom-input{color:#000000!important}
+html:not(#_) #panel-enfoque .time-custom-bar .time-custom-input{background:rgba(0,0,0,.14)!important;border:1px solid rgba(0,0,0,.25)!important}
+html:not(#_) #panel-enfoque div[style*="rgba(0,0,0,0.25)"]{background:rgba(0,0,0,.14)!important;border-color:rgba(0,0,0,.25)!important}
+html:not(#_) #panel-enfoque #amb-status{color:#000000!important;opacity:1!important}
+html:not(#_) #panel-enfoque .amb-btn{background:rgba(0,0,0,.14)!important;color:#000000!important;border:1px solid rgba(0,0,0,.25)!important}
+html:not(#_) #panel-enfoque .amb-btn .amb-icon{filter:none}
+html:not(#_) #panel-enfoque select{background:rgba(0,0,0,.14)!important;color:#000000!important;border-color:rgba(0,0,0,.25)!important}
+html:not(#_) #panel-enfoque select option{background:#ffffff;color:#000000}
+html:not(#_) #panel-enfoque .session-goal-box input::placeholder,html:not(#_) #panel-enfoque #session-goal::placeholder{color:rgba(0,0,0,.6)!important}
+/* === v6.0b: bloque de audio ambiental legible === */
+html:not(#_) #panel-enfoque div[style*="rgba(0, 0, 0, 0.25)"]{background:rgba(0,0,0,.14)!important;border-color:rgba(0,0,0,.25)!important}
+html:not(#_) #panel-enfoque div[style*="rgba(0, 0, 0, 0.25)"] *{color:#000000}
+html:not(#_) #panel-enfoque div[style*="rgba(0, 0, 0, 0.25)"] .amb-btn{color:#000000!important}
+/* === v6.0c: bloque de audio (details) legible sobre el naranja === */
+html:not(#_) #panel-enfoque details.amb-det{background:rgba(0,0,0,.14)!important;border-color:rgba(0,0,0,.25)!important}
+html:not(#_) #panel-enfoque details.amb-det,html:not(#_) #panel-enfoque details.amb-det *{color:#000000!important}
+html:not(#_) #panel-enfoque details.amb-det .amb-btn{background:rgba(0,0,0,.14)!important;border:1px solid rgba(0,0,0,.25)!important}
+html:not(#_) #panel-enfoque details.amb-det summary{background:transparent!important}
+/* === v6.1: botones del temporizador legibles sobre el naranja === */
+html:not(#_) #panel-enfoque .btn-icon{background:#000000!important;color:#ffffff!important;border:0!important}
+html:not(#_) #panel-enfoque .btn-icon svg,html:not(#_) #panel-enfoque .btn-icon svg *{stroke:#ffffff!important;color:#ffffff!important}
+/* Reloj del inicio: crema con azul, datos esenciales y el trébol */
+html:not(#_) .home-clock,html[data-theme="light"]:not(#_) .home-clock{position:relative;flex-direction:column!important;align-items:stretch!important;justify-content:space-between!important;gap:10px;min-height:300px;padding:18px 18px 16px;overflow:hidden;background:#f5f1e1!important;color:#2037b9!important;border:0!important;border-radius:26px!important;box-shadow:0 16px 44px rgba(32,55,185,.30)!important;font-size:12px}
+html:not(#_) .home-clock #clock-hm{display:block;text-align:center;margin:auto 0;color:#2037b9!important;font-weight:800;font-size:clamp(64px,8vw,104px);line-height:1;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+html:not(#_) .home-clock .hc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;font-size:13px;font-weight:700;letter-spacing:.01em;color:#2037b9}
+html:not(#_) .home-clock .hc-lucky{flex:none;width:84px;height:auto;margin:-4px -2px -6px 0;mix-blend-mode:multiply;transform:rotate(7deg);pointer-events:none;user-select:none}
+html:not(#_) .home-clock .hc-chips{position:relative;z-index:2;display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px}
+html:not(#_) .home-clock .hc-chip{background:#ebe5cb;border-radius:15px;padding:9px 12px;min-width:0;display:flex;flex-direction:column;gap:1px}
+html:not(#_) .home-clock .hc-chip small{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:rgba(32,55,185,.68)}
+html:not(#_) .home-clock .hc-chip b{font-size:17px;font-weight:800;letter-spacing:-.01em;line-height:1.15;color:#2037b9}
+html:not(#_) .home-clock .hc-chip em{font-style:normal;font-size:11px;font-weight:500;color:rgba(32,55,185,.72);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:430px){html:not(#_) .home-clock .hc-lucky{width:70px}html:not(#_) .home-clock .hc-chips{grid-template-columns:1fr 1fr}}
+/* Aviso en pantalla: tarjeta con ícono, texto y barra de tiempo */
+html:not(#_) .notif{display:flex!important;align-items:center;gap:12px;padding:12px 16px 14px 12px!important;overflow:hidden;position:fixed;border-radius:20px!important;background:var(--bar)!important;box-shadow:0 14px 44px rgba(0,0,0,.34),inset 0 0 0 1px rgba(255,255,255,.08)!important;transform:translateY(-18px) scale(.96);transition:opacity .35s ease,transform .45s cubic-bezier(.2,1.3,.4,1)!important}
+html:not(#_) .notif{top:calc(env(safe-area-inset-top) + 58px)!important;z-index:3600!important}
+html:not(#_) .notif.show{transform:translateY(0) scale(1)}
+html:not(#_) .notif .n-ico{flex:none;width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-size:21px;background:linear-gradient(145deg,#ffb067,#f07f2c);box-shadow:0 4px 12px rgba(240,127,44,.4)}
+html:not(#_) .notif .n-txt{min-width:0}
+html:not(#_) .notif .n-title{font-size:14px;font-weight:700;color:var(--text);letter-spacing:-.01em;line-height:1.25}
+html:not(#_) .notif .n-sub{font-size:12.5px;color:var(--text2);margin-top:2px;line-height:1.35}
+html:not(#_) .notif .n-sub:empty{display:none}
+html:not(#_) .notif .n-bar{position:absolute;left:0;bottom:0;height:3px;width:100%;background:linear-gradient(90deg,#ffb067,#f07f2c);transform-origin:left;transform:scaleX(0)}
+html:not(#_) .notif.show .n-bar{animation:nbar var(--nms,4200ms) linear forwards}
+@keyframes nbar{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+html:not(#_) #panel-enfoque #btn-partial,html:not(#_) #panel-enfoque #btn-partial *{color:#ffffff}
+html:not(#_) #panel-enfoque #btn-partial .btn{background:#000000!important;color:#ffffff!important;border:0!important}
+html:not(#_) #panel-enfoque .actions-grid .btn{background:#000000!important;color:#ffffff!important;border:0!important}
 </style>
 </head>
 <body class="mode-study">
+<button type="button" class="side-open" onclick="toggleSide()" aria-label="Mostrar barra lateral" title="Mostrar barra lateral">›</button>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <linearGradient id="grad-acc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#64d2ff"/><stop offset="1" stop-color="#0a84ff"/></linearGradient>
 <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
@@ -1102,10 +1243,6 @@ html[data-theme="light"] #panel-hoy #priority-recommendation-box strong{color:#0
     <div class="stats-top-bar">
         <button class="btn" style="padding:4px 8px; font-size:11px;" onclick="openModal('modal-trash')" aria-label="Papelera"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-trash"/></svg></button>
         <div class="badge-box">
-            <div class="badge-val" id="xp-display">0 XP</div>
-            <div class="badge-lbl" id="xp-label-sub">Nivel 1</div>
-        </div>
-        <div class="badge-box">
             <div class="badge-val" id="streak-display">0 d</div>
             <div class="badge-lbl">Racha</div>
         </div>
@@ -1117,6 +1254,7 @@ html[data-theme="light"] #panel-hoy #priority-recommendation-box strong{color:#0
 </div>
 
 <nav class="nav-bottom" aria-label="Navegación principal">
+  <button type="button" class="side-toggle" onclick="toggleSide()" aria-label="Ocultar barra lateral" title="Ocultar barra lateral">‹</button>
   <div class="nav-brand" aria-hidden="true"><svg viewBox="0 0 64 64" width="24" height="24"><circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M32 8 L36 32 L32 56 L28 32 Z M8 32 L32 28 L56 32 L32 36 Z" fill="currentColor"/></svg><span>estudio</span></div>
   <button class="nav-tab active" data-panel="hoy" onclick="showPanel('hoy')" aria-label="Hoy">
 
@@ -1181,7 +1319,11 @@ html[data-theme="light"] #panel-hoy #priority-recommendation-box strong{color:#0
       <p id="hero-date">Organizá tu día. Estudiá con intención.</p>
       <p id="hero-microcopy" class="hero-micro">Cada sesión cuenta</p>
     </div>
-    <div class="home-clock" aria-label="Hora actual"><span id="clock-hm">--:--</span></div>
+    <div class="home-clock" aria-label="Hora actual">
+      <div class="hc-top"><span id="hc-date"></span><img class="hc-lucky" src="lucky.jpg" alt="" width="96" height="99" decoding="async"></div>
+      <span id="clock-hm">--:--</span>
+      <div class="hc-chips" id="hc-chips"></div>
+    </div>
   </section>
 
 <div class="home-actions"><button type="button" class="btn" onclick="showPanel('enfoque')">▶ Iniciar pomodoro</button><button type="button" class="btn" onclick="showPanel('tracker')">Mis materias</button></div>
@@ -1493,7 +1635,7 @@ html[data-theme="light"] #panel-hoy #priority-recommendation-box strong{color:#0
 
 
 
-<div class="notif" id="notif"><div class="n-title" id="n-title"></div><div class="n-sub" id="n-sub"></div></div>
+<div class="notif" id="notif" role="status" aria-live="polite"><div class="n-ico" id="n-ico">✨</div><div class="n-txt"><div class="n-title" id="n-title"></div><div class="n-sub" id="n-sub"></div></div><i class="n-bar"></i></div>
 
 <script>
 function triggerHaptic() {
@@ -1848,10 +1990,14 @@ function playOrganicBell() {
     } catch(e) {}
 }
 
-function notify(title,sub){
-  document.getElementById('n-title').textContent=title; document.getElementById('n-sub').textContent=sub;
-  const n=document.getElementById('notif'); n.classList.add('show');
-  setTimeout(()=>n.classList.remove('show'), 4000);
+let notifTimer=null;
+function notify(title,sub,ico,ms){
+  ms = ms || 4200;
+  document.getElementById('n-title').textContent=title; document.getElementById('n-sub').textContent=sub||'';
+  document.getElementById('n-ico').textContent = ico || '✨';
+  const n=document.getElementById('notif'); n.style.setProperty('--nms', ms+'ms');
+  n.classList.remove('show'); void n.offsetWidth; n.classList.add('show');
+  clearTimeout(notifTimer); notifTimer=setTimeout(()=>n.classList.remove('show'), ms);
 }
 
 function setCustomMin(mins) {
@@ -2039,13 +2185,38 @@ function placeHomeCards() {
 function tickClock() {
     const el = document.getElementById('clock-hm'); if(!el) return;
     const d = new Date();
-    el.textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    const t = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+    if(el.textContent !== t) { el.textContent = t; renderClockChips(); }
+}
+function renderClockChips() {
+    const box = document.getElementById('hc-chips'); if(!box) return;
+    try {
+        const dt = document.getElementById('hc-date');
+        if(dt) { let x = new Intl.DateTimeFormat('es-AR', {weekday: 'long', day: 'numeric', month: 'long'}).format(new Date()); dt.textContent = x.charAt(0).toUpperCase() + x.slice(1); }
+        const num = id => { const e = document.getElementById(id); return e ? e.textContent : ''; };
+        let exam = 'Sin fecha', examSub = 'cargá una en Materias';
+        if(typeof MATS !== 'undefined' && typeof matNextDate === 'function') {
+            const today = todayAR(), list = MATS.filter(m => !m.promoted && matNextDate(m)).sort((a, b) => matNextDate(a) < matNextDate(b) ? -1 : 1), m = list[0];
+            if(m) { const d = Math.round((new Date(matNextDate(m) + 'T00:00:00') - new Date(today + 'T00:00:00')) / 86400000); exam = d === 0 ? 'Hoy' : d === 1 ? 'Mañana' : d + ' días'; examSub = m.name; }
+        }
+        let due = 0; try { due = dueUnits().length + dueCards().length; } catch(e) {}
+        const streak = num('streak-display').replace(' d', '');
+        const chips = [
+            ['Racha', streak + (streak === '1' ? ' día' : ' días'), streak === '0' ? 'empezá hoy' : 'seguidos'],
+            ['Hoy', num('hero-study-time') || '0 min', (num('hero-poms') || '0') + ' pomodoros'],
+            ['Próximo examen', exam, examSub],
+            ['Para repasar', String(due), due === 1 ? 'pendiente' : 'pendientes']
+        ];
+        const h = chips.map(c => '<div class="hc-chip"><small>' + esc(c[0]) + '</small><b>' + esc(c[1]) + '</b><em>' + esc(c[2]) + '</em></div>').join('');
+        if(box.dataset.h !== h) { box.dataset.h = h; box.innerHTML = h; }
+    } catch(e) {}
 }
 setInterval(tickClock, 1000); tickClock();
 function homeTiles() {
     placeHomeCards();
     const due = document.getElementById('hero-due'); if(!due || typeof dueUnits !== 'function') return;
     due.textContent = String(dueUnits().length + dueCards().length);
+    renderClockChips();
 }
 function renderCalendar() {
     homeTiles();
@@ -2095,7 +2266,7 @@ function startTimerLoop() {
     timerInterval = setInterval(() => {
         if(!running || !endTime) return;
         rem = Math.max(0, Math.round((endTime - Date.now()) / 1000));
-        updateDisp();
+        updateDisp(); fiveCheck();
         if(rem <= 0) onFinish();
     }, 250);
 }
@@ -2160,17 +2331,17 @@ function onFinish(){
         const timeStr = new Intl.DateTimeFormat('es-AR', {timeStyle: 'short'}).format(nowAR());
         document.getElementById('session-log').innerHTML = `<div style="padding:4px 0;">${timeStr} -${safeGoal.innerHTML}</div>` + document.getElementById('session-log').innerHTML;
     }
-    notify('¡Pomodoro completado!', 'Momento de descansar.'); openRecallDump(goal, matId, distractions); distractions = 0;
+    notify('Pomodoro completado', 'Buen trabajo, ahora un respiro.', '🎉'); openRecallDump(goal, matId, distractions); distractions = 0;
     
     // CORRECCIÓN 1: El descanso largo (cada 4 pomodoros) configura 15 min de descanso sin alterar studyMinCustom
     const longBreak = poms > 0 && poms % 4 === 0;
-    if(longBreak) notify('¡Descanso Largo!', 'Tomate 15 minutos.');
+    if(longBreak) notify('Descanso largo', 'Tomate 15 minutos, cuatro rondas seguidas.', '🌿');
     BREAK = (longBreak ? 15 : breakMinCustom) * 60;
     setMode('break');
     BREAK = breakMinCustom * 60; // el largo vale solo para este descanso
     refreshStudyViews();
   } else {
-    breaks++; lss('pom_day_breaks', String(breaks)); notify('¡Descanso terminado!', 'A volver al ruedo.'); setMode('study'); setCustomMin(studyMinCustom);
+    breaks++; lss('pom_day_breaks', String(breaks)); notify('Se terminó el descanso', 'Cuando quieras, arrancamos otra ronda.', '⚡'); setMode('study'); setCustomMin(studyMinCustom);
   }
 }
 
@@ -2213,7 +2384,7 @@ function terminarAhora() {
     const elapsedMins = Math.round(elapsedSeconds/60);
     if(confirm(`¿Guardar ${elapsedMins === 1 ? 'el minuto estudiado' : 'los ' + elapsedMins + ' minutos estudiados'}?`)) {
         recordPomodoroSession(elapsedSeconds, document.getElementById('timer-mat-sel').value, {partial: true});
-        notify('¡Sesión parcial guardada!', 'Excelente.'); resetTimer(); refreshStudyViews();
+        notify('Sesión guardada', 'Ese tiempo ya cuenta en tus estadísticas.', '✅'); resetTimer(); refreshStudyViews();
     }
 }
 
@@ -2667,9 +2838,6 @@ function calculateStreakAndXP() {
             break;
         }
     }
-    const xp = totalMinsAll * 10; const level = Math.floor(xp / 500) + 1;
-    document.getElementById('xp-display').textContent = xp + ' XP';
-    document.getElementById('xp-label-sub').textContent = `Nivel ${level}`;
     document.getElementById('streak-display').textContent = streak + ' d';
 }
 
@@ -2770,6 +2938,7 @@ function renderVisualDashboard(){
   const h=loadHistory()[todayAR()]||{}; const mins=Math.round(h.mins||0);
   const t=document.getElementById('hero-study-time'); if(t) t.textContent=mins>=60?`${Math.floor(mins/60)} h ${mins%60} min`:`${mins} min`;
   const p=document.getElementById('hero-poms'); if(p) p.textContent=String(Math.max(h.poms||0, poms||0)); const sp=document.getElementById('s-pom'); if(sp) sp.textContent=poms;
+  if(typeof renderClockChips==='function') renderClockChips();
   const mc=document.getElementById('hero-microcopy'); if(mc) mc.textContent=mins>=120?'Buen ritmo. Seguí cuidando tus pausas.':mins>0?'Ya empezaste: mantené el impulso.':'Tu próxima sesión puede ser el comienzo.';
 }
 function toggleFocusMode(){
@@ -3228,10 +3397,10 @@ function alrStopKeep() { try { if(ALR.silent) ALR.silent.pause(); } catch(e) {} 
 function alrWorker(end) {
   try {
     if(!ALR.worker) {
-      ALR.worker = new Worker(URL.createObjectURL(new Blob(['let id=null;onmessage=e=>{clearInterval(id);if(!e.data.end)return;const end=e.data.end;id=setInterval(()=>{if(Date.now()>=end){clearInterval(id);postMessage(1)}},400)}'])));
-      ALR.worker.onmessage = () => { if(running && endTime && Date.now() >= endTime - 500) { rem = 0; updateDisp(); onFinish(); } };
+      ALR.worker = new Worker(URL.createObjectURL(new Blob(['let id=null;onmessage=e=>{clearInterval(id);if(!e.data.end)return;const end=e.data.end,warn=e.data.warn||0;let w=false;id=setInterval(()=>{const n=Date.now();if(warn&&!w&&n>=warn){w=true;postMessage(2)}if(n>=end){clearInterval(id);postMessage(1)}},400)}'])));
+      ALR.worker.onmessage = ev => { if(ev.data === 2) { fiveCheck(); return; } if(running && endTime && Date.now() >= endTime - 500) { rem = 0; updateDisp(); onFinish(); } };
     }
-    ALR.worker.postMessage({end: end || 0});
+    ALR.worker.postMessage({end: end || 0, warn: end ? end - FIVE_MS : 0});
   } catch(e) {}
 }
 playOrganicBell = function() {
@@ -3245,9 +3414,33 @@ playOrganicBell = function() {
     });
   } catch(e) {}
 };
-async function alrNotify(title, body) {
+const FIVE_MS = 5 * 60 * 1000;
+let fiveDone = true;
+function fiveArm() { fiveDone = !(running && mode === 'study' && endTime && total * 1000 > FIVE_MS && endTime - Date.now() > FIVE_MS); }
+function fiveCheck() {
+  if(fiveDone || !running || mode !== 'study' || !endTime) return;
+  if(endTime - Date.now() > FIVE_MS) return;
+  fiveDone = true;
+  const mat = alrMatName();
+  notify('Quedan 5 minutos', mat ? 'Último tramo de ' + mat + '. Cerrá la idea en la que estás.' : 'Último tramo. Cerrá la idea en la que estás.', '⏳', 6000);
+  alrChime();
+  try { if(alrOn('vib') && navigator.vibrate) navigator.vibrate([120, 80, 120]); } catch(e) {}
+  if((document.hidden || !document.hasFocus()) && alrOn('notif')) alrNotify('Quedan 5 minutos', mat ? 'Último tramo de ' + mat + '. Cerrá la idea en la que estás.' : 'Último tramo. Cerrá la idea en la que estás.', 'estudio-aviso');
+}
+function alrMatName() {
+  try { const s = document.getElementById('timer-mat-sel'); const o = s && s.options[s.selectedIndex]; const t = o ? o.textContent.trim() : ''; return /sin materia/i.test(t) ? '' : t; } catch(e) { return ''; }
+}
+function alrChime() {
+  if(!alrOn('sound')) return;
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext; if(!ALR.ctx) ALR.ctx = new AC(); const ctx = ALR.ctx; if(ctx.state === 'suspended') ctx.resume();
+    [0, 0.22].forEach((d, i) => { const t = ctx.currentTime + d, o = ctx.createOscillator(), g = ctx.createGain(); o.type = 'sine'; o.frequency.value = [659.25, 880][i];
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.28, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.9); o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t + 1); });
+  } catch(e) {}
+}
+async function alrNotify(title, body, tag) {
   if(!('Notification' in window) || Notification.permission !== 'granted') return false;
-  const opt = {body, icon: 'icon-192.png', badge: 'favicon-32.png', tag: 'estudio-fin', renotify: true, vibrate: [250, 120, 250, 120, 500], silent: false};
+  const opt = {body, icon: 'icon-192.png', badge: 'favicon-32.png', tag: tag || 'estudio-fin', renotify: true, vibrate: tag ? [120, 80, 120] : [250, 120, 250, 120, 500], silent: false, timestamp: Date.now(), data: {url: './'}};
   try { const reg = navigator.serviceWorker && await navigator.serviceWorker.getRegistration(); if(reg && reg.showNotification) { await reg.showNotification(title, opt); return true; } } catch(e) {}
   try { const n = new Notification(title, opt); n.onclick = () => { window.focus(); n.close(); }; return true; } catch(e) { return false; }
 }
@@ -3276,18 +3469,19 @@ function alrConfetti() {
 }
 (function() {
   const _tp = togglePlay;
-  togglePlay = function() { _tp(); if(running && endTime) { alrUnlock(); alrWorker(endTime); } else { alrWorker(0); alrStopKeep(); } };
+  togglePlay = function() { _tp(); fiveArm(); if(running && endTime) { alrUnlock(); alrWorker(endTime); } else { alrWorker(0); alrStopKeep(); } };
   const _of = onFinish;
   onFinish = function() {
-    const wasStudy = mode === 'study', away = document.hidden || !document.hasFocus();
+    const wasStudy = mode === 'study', away = document.hidden || !document.hasFocus(), mins = Math.round(total / 60), mat = alrMatName(), nextLong = wasStudy && (poms + 1) % 4 === 0;
+    fiveDone = true;
     _of();
     alrWorker(0); setTimeout(alrStopKeep, 6000);
     try { if(alrOn('vib') && navigator.vibrate) navigator.vibrate([250, 120, 250, 120, 500]); } catch(e) {}
-    if(away && alrOn('notif')) alrNotify(wasStudy ? '🎉 ¡Pomodoro completado!' : '⏰ ¡Descanso terminado!', wasStudy ? 'Buen trabajo. Es hora de descansar.' : 'Volvé a estudiar cuando quieras.');
+    if(away && alrOn('notif')) alrNotify(wasStudy ? 'Pomodoro completado' : 'Se terminó el descanso', wasStudy ? 'Sumaste ' + mins + ' min' + (mat ? ' de ' + mat : '') + '. ' + (nextLong ? 'Te ganaste un descanso largo de 15 min.' : 'Respirá un rato, te lo ganaste.') : 'Cuando quieras, arrancamos otra ronda.');
     if(document.hidden) ALR.pend = true; else alrConfetti();
   };
-  const _rt = resetTimer; resetTimer = function() { _rt(); alrWorker(0); alrStopKeep(); };
-  document.addEventListener('visibilitychange', () => { if(!document.hidden && ALR.pend) { ALR.pend = false; alrConfetti(); } });
+  const _rt = resetTimer; resetTimer = function() { _rt(); fiveDone = true; alrWorker(0); alrStopKeep(); };
+  document.addEventListener('visibilitychange', () => { if(!document.hidden) fiveCheck(); if(!document.hidden && ALR.pend) { ALR.pend = false; alrConfetti(); } });
   const _sp = showPanel; showPanel = function(id) { _sp(id); if(id === 'more') alrRender(); };
 })();
 function alrRender() {
@@ -3302,10 +3496,10 @@ async function alrAsk() { try { await Notification.requestPermission(); } catch(
 function alrSet(k, v) { lss('alr_' + k, v ? '1' : '0'); }
 async function alrTest() {
   alrUnlock(); alrConfetti(); playOrganicBell(); try { if(navigator.vibrate) navigator.vibrate(200); } catch(e) {}
-  const ok = await alrNotify('🔔 Aviso de prueba', 'Así te va a llegar cuando termine tu pomodoro.');
+  const ok = await alrNotify('Así te vamos a avisar', 'Cuando termine tu pomodoro te llega un mensaje como este.');
   notify('Prueba enviada', ok ? 'Mandá la app a segundo plano y probá de nuevo para ver la notificación.' : 'No hay permiso de notificaciones, pero escuchaste el sonido y viste el confeti.');
 }
-if(running && endTime) alrWorker(endTime);
+if(running && endTime) { fiveArm(); alrWorker(endTime); }
 
 // === v13: globo de puntos con órbitas + estrellas de fondo ===
 (function() { try {
@@ -3855,7 +4049,7 @@ function syncDisconnect() {
 })();
 
 // === v10: PWA (instalación, service worker, avisos de datos) ===
-const APP_VERSION = '4.2.0';
+const APP_VERSION = '4.3.1';
 let pwaPrompt = null;
 function pwaStandalone() { return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
 function pwaIsIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
@@ -3889,6 +4083,15 @@ try { if(navigator.storage && navigator.storage.persist) navigator.storage.persi
 pwaRender();
 // Al final del script: las tarjetas de racha y semana se mueven a Más cada vez que se muestra una pantalla.
 (function() { const _pl = showPanel; showPanel = function(id) { _pl(id); placeHomeCards(); }; placeHomeCards(); })();
+// Barra lateral retráctil (escritorio): se recuerda entre sesiones.
+function applySide() {
+    const hidden = ls('side_hidden') === '1';
+    document.documentElement.classList.toggle("side-hidden", hidden);
+    const t = document.querySelector('.side-toggle');
+    if(t) t.setAttribute('aria-label', hidden ? 'Mostrar barra lateral' : 'Ocultar barra lateral');
+}
+function toggleSide() { lss('side_hidden', ls('side_hidden') === '1' ? '0' : '1'); applySide(); }
+applySide();
 </script>
 </body>
 </html>
