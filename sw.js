@@ -1,5 +1,5 @@
 /* Estudio Tracker · service worker (funciona sin internet) */
-const VERSION = 'et-4.3.1';
+const VERSION = 'et-4.3.4';
 const FONTS = VERSION + '-fonts';
 const CHART = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js';
 const CORE = ['./', 'index.html', 'manifest.webmanifest', CHART, 'icon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png', 'lucky.jpg'];

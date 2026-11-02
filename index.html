@@ -1171,8 +1171,8 @@ html:not(#_) #panel-enfoque details.amb-det summary{background:transparent!impor
 html:not(#_) #panel-enfoque .btn-icon{background:#000000!important;color:#ffffff!important;border:0!important}
 html:not(#_) #panel-enfoque .btn-icon svg,html:not(#_) #panel-enfoque .btn-icon svg *{stroke:#ffffff!important;color:#ffffff!important}
 /* Reloj del inicio: crema con azul, datos esenciales y el trébol */
-html:not(#_) .home-clock,html[data-theme="light"]:not(#_) .home-clock{position:relative;flex-direction:column!important;align-items:stretch!important;justify-content:space-between!important;gap:10px;min-height:300px;padding:18px 18px 16px;overflow:hidden;background:#f5f1e1!important;color:#2037b9!important;border:0!important;border-radius:26px!important;box-shadow:0 16px 44px rgba(32,55,185,.30)!important;font-size:12px}
-html:not(#_) .home-clock #clock-hm{display:block;text-align:center;margin:auto 0;color:#2037b9!important;font-weight:800;font-size:clamp(64px,8vw,104px);line-height:1;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
+html:not(#_) .home-clock,html[data-theme="light"]:not(#_) .home-clock{position:relative;flex-direction:column!important;align-items:stretch!important;justify-content:space-between!important;gap:10px;min-height:340px;padding:18px 18px 16px;overflow:hidden;container-type:inline-size;background:#f5f1e1!important;color:#2037b9!important;border:0!important;border-radius:26px!important;box-shadow:0 16px 44px rgba(32,55,185,.30)!important;font-size:12px}
+html:not(#_) .home-clock #clock-hm{display:block;text-align:center;margin:auto 0;color:#2037b9!important;font-weight:800;font-size:clamp(64px,11cqw,132px);line-height:1;letter-spacing:-.045em;font-variant-numeric:tabular-nums}
 html:not(#_) .home-clock .hc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;font-size:13px;font-weight:700;letter-spacing:.01em;color:#2037b9}
 html:not(#_) .home-clock .hc-lucky{flex:none;width:84px;height:auto;margin:-4px -2px -6px 0;mix-blend-mode:multiply;transform:rotate(7deg);pointer-events:none;user-select:none}
 html:not(#_) .home-clock .hc-chips{position:relative;z-index:2;display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px}
@@ -1181,6 +1181,45 @@ html:not(#_) .home-clock .hc-chip small{font-size:10px;font-weight:700;letter-sp
 html:not(#_) .home-clock .hc-chip b{font-size:17px;font-weight:800;letter-spacing:-.01em;line-height:1.15;color:#2037b9}
 html:not(#_) .home-clock .hc-chip em{font-style:normal;font-size:11px;font-weight:500;color:rgba(32,55,185,.72);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @media(max-width:430px){html:not(#_) .home-clock .hc-lucky{width:70px}html:not(#_) .home-clock .hc-chips{grid-template-columns:1fr 1fr}}
+/* Pantallas anchas: el contenido aprovecha el ancho disponible */
+@media (min-width:1024px){
+  html:not(#_) body{padding-left:236px!important;padding-right:24px!important}
+  html.side-hidden:not(#_) body{padding-left:64px!important}
+}
+@media (min-width:1100px){
+  html:not(#_) .page{max-width:1280px}
+  html:not(#_) #panel-hoy.active{max-width:none!important}
+  html:not(#_) #panel-tracker,html:not(#_) #panel-carrera,html:not(#_) #panel-more{max-width:none}
+}
+@media (min-width:1500px){
+  html:not(#_) .page{max-width:min(2000px,100%)}
+  html:not(#_) #panel-hoy.active{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,1fr)!important;gap:20px!important}
+  html:not(#_) #panel-hoy>#bk-nudge{grid-column:1/-1!important;grid-row:1!important}
+  html:not(#_) #panel-hoy>.welcome-hero{grid-column:1!important;grid-row:2!important}
+  html:not(#_) #panel-hoy>.home-actions{grid-column:1!important;grid-row:3!important}
+  html:not(#_) #panel-hoy>.overview-grid{grid-column:1!important;grid-row:4!important}
+  html:not(#_) #panel-hoy>#priority-recommendation-box{grid-column:1!important;grid-row:5!important}
+  html:not(#_) #panel-hoy>#calendar-card{grid-column:2!important;grid-row:2 / span 2!important}
+  html:not(#_) #panel-hoy>#exam-card{grid-column:2!important;grid-row:4!important}
+  html:not(#_) #panel-hoy>#today-card{grid-column:3!important;grid-row:2 / span 3!important;position:sticky;top:16px;max-height:calc(100vh - 32px);overflow:auto}
+}
+/* Enfoque en escritorio: casi toda la pantalla, reloj grande a la izquierda y controles a la derecha */
+@media (min-width:1100px){
+  html:not(#_) #panel-enfoque{max-width:none}
+  html:not(#_) #panel-enfoque>.card{--ring:clamp(300px,62vh,660px);display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);column-gap:48px;align-content:center;min-height:calc(100vh - 200px);padding:36px 48px}
+  html:not(#_) #panel-enfoque>.card>*{grid-column:2;max-width:560px;width:100%;justify-self:center}
+  html:not(#_) #panel-enfoque>.card>.ring-wrap{grid-column:1;grid-row:1 / span 14;align-self:center;max-width:none;margin:0 auto}
+  html:not(#_) #panel-enfoque .ring-wrap svg{width:var(--ring);height:var(--ring);max-width:none}
+  html:not(#_) #panel-enfoque .ring-wrap:before{width:calc(var(--ring)*.86);height:calc(var(--ring)*.86);margin:calc(var(--ring)*-.43) 0 0 calc(var(--ring)*-.43)}
+  html:not(#_) #panel-enfoque .time-num{font-size:calc(var(--ring)*.27)!important;letter-spacing:-.03em!important;font-weight:300!important}
+  html:not(#_) #panel-enfoque .mode-label{font-size:clamp(12px,calc(var(--ring)*.035),20px)!important;letter-spacing:.3em}
+  html:not(#_) #panel-enfoque .btn-play{padding:20px 52px!important;font-size:20px!important}
+  html:not(#_) #panel-enfoque .btn-icon{width:64px!important;height:64px!important;font-size:26px!important}
+  html:not(#_) #panel-enfoque .timer-controls{justify-content:center;gap:16px;margin:8px 0}
+  html:not(#_) #panel-enfoque .mode-tab{padding:14px 0!important;font-size:15px!important}
+  html:not(#_) #panel-enfoque .session-goal-box select,html:not(#_) #panel-enfoque .session-goal-box input{font-size:16px!important;padding:15px 16px!important}
+  html:not(#_) #panel-enfoque .time-preset{padding:12px 0!important;font-size:15px!important}
+}
 /* Aviso en pantalla: tarjeta con ícono, texto y barra de tiempo */
 html:not(#_) .notif{display:flex!important;align-items:center;gap:12px;padding:12px 16px 14px 12px!important;overflow:hidden;position:fixed;border-radius:20px!important;background:var(--bar)!important;box-shadow:0 14px 44px rgba(0,0,0,.34),inset 0 0 0 1px rgba(255,255,255,.08)!important;transform:translateY(-18px) scale(.96);transition:opacity .35s ease,transform .45s cubic-bezier(.2,1.3,.4,1)!important}
 html:not(#_) .notif{top:calc(env(safe-area-inset-top) + 58px)!important;z-index:3600!important}
@@ -4049,7 +4088,7 @@ function syncDisconnect() {
 })();
 
 // === v10: PWA (instalación, service worker, avisos de datos) ===
-const APP_VERSION = '4.3.1';
+const APP_VERSION = '4.3.4';
 let pwaPrompt = null;
 function pwaStandalone() { return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
 function pwaIsIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
