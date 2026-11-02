@@ -1,1 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2bb0ff"/><stop offset=".55" stop-color="#5e5ce6"/><stop offset="1" stop-color="#bf5af2"/></linearGradient><radialGradient id="h" cx=".3" cy=".15" r=".8"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><rect width="512" height="512" rx="115" fill="url(#g)"/><rect width="512" height="512" rx="115" fill="url(#h)"/><g transform="translate(256 256) scale(1.12) translate(-256 -256)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round"><circle cx="256" cy="256" r="128" stroke-width="30" stroke-opacity=".28"/><path d="M256 128a128 128 0 1 1-90.5 37.5" stroke-width="30"/><path d="M204 258l38 38 72-80" stroke-width="34"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<defs><radialGradient id="h" cx=".28" cy=".12" r=".95"><stop offset="0" stop-color="#4a68ee"/><stop offset=".55" stop-color="#2540c4"/><stop offset="1" stop-color="#1a2f9c"/></radialGradient></defs>
+<rect width="512" height="512" rx="112" fill="url(#h)"/>
+<g transform="translate(256 257) scale(1.0) translate(-256 -257)" fill="none" stroke="#f5f1e1" stroke-linecap="round" stroke-linejoin="round">
+<circle cx="256" cy="94" r="15" fill="#f5f1e1" stroke="none"/>
+<path d="M256 110 V340" stroke-width="16"/>
+<path d="M150 142 H362" stroke-width="16"/>
+<path d="M150 142 L106 228 M150 142 L194 228 M362 142 L318 228 M362 142 L406 228" stroke-width="6"/>
+<path d="M98 228 H202 C198 268 102 268 98 228Z M310 228 H414 C410 268 314 268 310 228Z" fill="#f5f1e1" stroke-width="6"/>
+<path d="M256 338 C214 312 158 310 104 326 V428 C158 412 214 414 256 440 C298 414 354 412 408 428 V326 C354 310 298 312 256 338Z" fill="#f5f1e1" stroke="none"/>
+<path d="M256 342 V436" stroke="#2540c4" stroke-width="7"/>
+<path d="M130 352 C160 346 200 350 232 364 M130 380 C160 374 200 378 232 392 M382 352 C352 346 312 350 280 364 M382 380 C352 374 312 378 280 392" stroke="#2540c4" stroke-width="6" opacity=".45"/>
+</g></svg>
