@@ -1,12 +1,13 @@
-Estudio Tracker v4.3.4
+Estudio Tracker v4.4.0
 
-SUBIR A GITHUB: todos los archivos de esta carpeta (13 en total), reemplazando los que ya existen en el repo.
+SUBIR A GITHUB: todos los archivos de esta carpeta (14 en total), reemplazando los que ya existen en el repo.
 Después abrir la app dos veces para que se actualice. Si el ícono viejo sigue en el celular, borrar la app de la pantalla de inicio y volver a agregarla.
 
 Archivos:
 - index.html, sw.js, manifest.webmanifest: la app.
 - icon.svg, icon-192.png, icon-512.png, maskable-512.png, apple-touch-icon.png, favicon-32.png: íconos.
 - lucky.jpg: el trébol de la pantalla de inicio.
+- og-image.png: la imagen que aparece al compartir el link por WhatsApp o redes.
 - README.md: descripción del repo.
 
 Los archivos viejos del repo que no estén en esta lista (pdf.min.js, tesseract*, mammoth, jszip, heic2any, spa.traineddata.gz, chart.umd.js, LICENCIAS_TERCEROS.txt) ya no se usan y se pueden borrar. La app carga Chart.js desde internet y se guarda para uso sin conexión.
