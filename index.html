@@ -4,15 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#070707">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#f4f0e3">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="167x167" href="apple-touch-icon-167.png">
+<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Instrument+Sans:wght@400;500;600&family=DM+Mono&display=swap">
 <meta name="apple-mobile-web-app-title" content="Estudio">
 <meta name="mobile-web-app-capable" content="yes">
 <title>Estudio Tracker</title>
@@ -1234,7 +1236,7 @@ html:not(#_) .home-clock .hc-chip em{font-style:normal;font-size:11px;font-weigh
   html:not(#_) #panel-enfoque .time-preset{padding:12px 0!important;font-size:15px!important}
 }
 /* Diseño: tipografía de títulos con carácter (Fraunces); el texto corrido queda en la fuente neutra */
-html:not(#_) :is(h1,h2,.app-title,.welcome-hero h2,#vx h1,.cal-head strong){font-family:'Fraunces',Georgia,'Times New Roman',serif!important;font-optical-sizing:auto;font-variation-settings:normal}
+html:not(#_) :is(h1,h2,.app-title,.welcome-hero h2,#vx h1,.cal-head strong){font-family:'Bricolage Grotesque','Instrument Sans',sans-serif!important;font-optical-sizing:auto;font-variation-settings:normal}
 html:not(#_) :is(.app-title,#vx h1){font-weight:700!important;letter-spacing:-.02em!important}
 html:not(#_) :is(.section-hd h2,.cal-head strong){font-weight:600!important;letter-spacing:-.01em!important}
 /* Diseño: sin halo de color de fondo */
@@ -1261,7 +1263,7 @@ html:not(#_) .modal-box{border-radius:12px 12px 0 0!important}
 .wk-div{margin:6px 0 12px}
 .wk-div-top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
 .wk-div-top small{display:block;font-size:11px;color:var(--text3)}
-.wk-div-top strong{font-family:'Fraunces',Georgia,serif;font-size:26px;font-weight:700;color:var(--text);line-height:1.1}
+.wk-div-top strong{font-family:'Bricolage Grotesque','Instrument Sans',sans-serif;font-size:26px;font-weight:700;color:var(--text);line-height:1.1}
 .wk-div-goal{text-align:right}.wk-div-goal input{width:64px;margin-top:3px;text-align:center;padding:6px 4px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text);font-size:14px}
 .wk-div-bar{height:8px;border-radius:4px;background:var(--fill,rgba(127,127,150,.18));margin:12px 0 6px;overflow:hidden}.wk-div-bar i{display:block;height:100%;background:var(--acc)}
 .wk-div-note{font-size:12px;line-height:1.5;color:var(--text2)}
@@ -1270,6 +1272,139 @@ html:not(#_) .modal-box{border-radius:12px 12px 0 0!important}
 .wk-weeks i{display:block;width:100%;border-radius:3px;background:var(--acc);opacity:.7}.wk-weeks span{font-size:10px;color:var(--text3)}
 .ex-live{font-size:14px;font-weight:700;margin-top:8px;font-variant-numeric:tabular-nums}
 .ex-tip{font-size:12px;line-height:1.45;margin-top:3px;opacity:.85}
+/* ===== Rediseño v6 · Equilibrio editorial (papel, tinta, líneas finas) ===== */
+html:not(#_):not(#_){--paper:#f4f0e3;--paper2:#ebe6d3;--or:#e8772e;--rail:#16237a;--blue:#2037b9;
+  --bg:#f4f0e3;--surface:#f4f0e3;--surface2:#ebe6d3;--surface3:#e4dfcb;--border:rgba(22,35,122,.22);--border2:rgba(22,35,122,.38);--sep:rgba(22,35,122,.18);
+  --text:#16237a;--text2:rgba(22,35,122,.76);--text3:rgba(22,35,122,.58);--acc:#2037b9;--acc-dim:rgba(32,55,185,.12);--fill:rgba(22,35,122,.07);--bar:#f4f0e3;--shadow:none;
+  --purple:#2037b9;--purple-dim:rgba(32,55,185,.12);--blue-dim:rgba(32,55,185,.12);--green:#1d6a3b;--green-dim:rgba(29,106,59,.14);--red:#b8402a;--red-dim:rgba(184,64,42,.12);--amber:#e8772e;--amber-dim:rgba(232,119,46,.16);
+  --ios-font:'Instrument Sans',-apple-system,'Helvetica Neue',sans-serif;--rounded:'Bricolage Grotesque','Instrument Sans',sans-serif;--disp:'Bricolage Grotesque','Instrument Sans',sans-serif;color-scheme:light}
+html[data-theme="amoled"]:not(#_):not(#_){--paper:#0b1236;--paper2:#121b4d;--rail:#070c26;--blue:#9db6ff;--bg:#0b1236;--surface:#0b1236;--surface2:#121b4d;--surface3:#18235e;
+  --border:rgba(244,240,227,.2);--border2:rgba(244,240,227,.36);--sep:rgba(244,240,227,.16);--text:#f4f0e3;--text2:rgba(244,240,227,.76);--text3:rgba(244,240,227,.56);--acc:#9db6ff;--acc-dim:rgba(157,182,255,.16);--fill:rgba(244,240,227,.08);--bar:#0b1236;
+  --purple:#9db6ff;--purple-dim:rgba(157,182,255,.16);--blue-dim:rgba(157,182,255,.16);--green:#7fd3a1;--red:#ff8a73;color-scheme:dark}
+html:not(#_):not(#_) body{background:transparent}
+/* tipografía */
+html:not(#_):not(#_) :is(h1,h2,h3,.app-title,.cal-head strong,.wk-div-top strong,.hc-chip b,.time-num,.stat-val,.act-streak strong,.ex-big b){font-family:var(--disp)!important}
+html:not(#_):not(#_) :is(h1,h2,h3,.app-title,.cal-head strong){font-weight:700!important;letter-spacing:-.025em!important;font-style:normal!important}
+html:not(#_):not(#_) :is(.section-kicker,.hc-top,.hc-chip small,.cal-dow,.cal-day-title,.td-sec,.overview-label,.stat-lbl,.badge-lbl,.wk-div-top small,.bal-h span,.bal-lad span,.bal-svg text,.ex-live){font-family:'DM Mono',ui-monospace,monospace!important;text-transform:uppercase;letter-spacing:.14em!important;font-weight:400!important}
+/* cabecera */
+html:not(#_):not(#_) .app-title{font-size:30px!important;color:var(--text)!important}
+html:not(#_):not(#_)[data-panel="hoy"] .app-title{display:none}
+html:not(#_):not(#_) .header-top{justify-content:flex-end}
+html:not(#_):not(#_)[data-panel]:not([data-panel="hoy"]) .header-top{justify-content:space-between}
+html:not(#_):not(#_) .global-search-input{padding:10px 0 10px 30px!important;font-size:15px!important}
+/* superficies planas: separadas por filetes, no por cajas */
+html:not(#_):not(#_) :is(.card,.materia,.overview-tile){background:transparent!important;border:0!important;border-top:1px solid var(--text)!important;border-radius:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;padding:14px 0 18px!important;color:var(--text)}
+html:not(#_):not(#_) .materia{border-top-color:var(--border2)!important}
+html:not(#_):not(#_) :is(.btn,.cal-nav,.time-preset,.mode-tab){box-shadow:none!important}
+html:not(#_):not(#_) .btn{background:transparent!important;color:var(--text)!important;border:1px solid var(--border2)!important;border-radius:999px!important}
+html:not(#_):not(#_) :is(.btn-blue,.btn-purple,.btn-green){background:var(--text)!important;color:var(--paper)!important;border-color:var(--text)!important}
+html:not(#_):not(#_) :is(input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]),select,textarea){background:transparent!important;color:var(--text)!important;border:0!important;border-bottom:1px solid var(--border2)!important;border-radius:0!important;box-shadow:none!important}
+html:not(#_):not(#_) ::placeholder{color:var(--text3)!important;opacity:1}
+/* barra lateral y dock */
+html:not(#_):not(#_) .nav-bottom.nav-bottom{background:var(--rail)!important;border:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html:not(#_):not(#_) .nav-bottom .nav-tab{color:rgba(244,240,227,.74)!important;background:transparent!important;border-radius:6px!important}
+html:not(#_):not(#_) .nav-bottom .nav-tab svg{stroke:currentColor}
+html:not(#_):not(#_) .nav-bottom .nav-tab.active{background:#f4f0e3!important;color:#16237a!important}
+html:not(#_):not(#_) .nav-bottom .nav-tab.active svg{stroke:#16237a!important}
+html:not(#_):not(#_) .nav-brand,html:not(#_):not(#_) .nav-brand *{color:#f4f0e3!important;font-family:var(--disp)!important;font-weight:700;letter-spacing:-.03em}
+html:not(#_):not(#_) .side-toggle{background:var(--paper)!important;color:var(--text)!important;border-color:var(--border2)!important}
+@media (max-width:1023px){html:not(#_):not(#_) .nav-bottom.nav-bottom{border-radius:14px!important}}
+/* avisos y ventanas */
+html:not(#_):not(#_) .modal-overlay{background:rgba(22,35,122,.42)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+html:not(#_):not(#_) :is(.modal-box,body>div[style*="z-index:9999"]>.card){background:var(--paper)!important;color:var(--text)!important;border:1px solid var(--text)!important;border-radius:12px!important;box-shadow:none!important;padding:20px!important}
+html:not(#_):not(#_) :is(.notif,#dynamic-island){background:var(--rail)!important;border-radius:10px!important;box-shadow:none!important}
+html:not(#_):not(#_) :is(.notif,#dynamic-island),html:not(#_):not(#_) :is(.notif,#dynamic-island) *{color:#f4f0e3!important}
+html:not(#_):not(#_) .notif .n-sub{opacity:.78}
+html:not(#_):not(#_) .notif .n-ico{background:var(--or)!important;box-shadow:none!important}
+/* inicio: dos columnas, lista y calendario */
+html:not(#_):not(#_) #panel-hoy.active{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:36px 64px!important;max-width:none!important;align-items:start!important}
+html:not(#_):not(#_) :is(#hoy-l,#hoy-r){display:flex;flex-direction:column;gap:30px;min-width:0}
+@media (min-width:1100px){html:not(#_):not(#_) #panel-hoy.active{grid-template-columns:minmax(0,1fr) minmax(320px,400px)!important}}
+html:not(#_):not(#_) .welcome-hero{display:block!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important;min-height:0!important;overflow:visible!important;align-self:auto!important}
+html:not(#_):not(#_) .welcome-hero .hl{font-size:clamp(36px,4.6vw,64px)!important;line-height:1.02!important;color:var(--text)!important;margin:0 0 10px!important}
+html:not(#_):not(#_) .welcome-hero .hl em{font-style:normal!important;color:var(--blue)!important}
+html:not(#_):not(#_) #hero-microcopy{font-size:17px!important;line-height:1.4;color:var(--text2)!important;margin:0 0 26px!important}
+html:not(#_):not(#_) .home-clock{display:block!important;position:relative;container-type:inline-size;background:var(--paper)!important;border:0!important;border-top:1px solid var(--text)!important;border-radius:0!important;box-shadow:none!important;padding:12px 0 0!important;min-height:0!important;margin:0!important;flex:none!important;color:var(--text)!important}
+html:not(#_):not(#_) .home-clock .hc-top{display:flex;justify-content:space-between;color:var(--text3)!important;font-size:11px!important;max-width:none}
+html:not(#_):not(#_) .home-clock #clock-hm{display:block!important;text-align:left!important;font-weight:700!important;color:var(--blue)!important;font-size:clamp(104px,25cqw,250px)!important;line-height:.95!important;letter-spacing:-.05em!important;margin:6px 0 0 -.04em!important}
+html:not(#_):not(#_) .home-clock .hc-lucky{position:absolute;right:0;top:44px;width:clamp(76px,13cqw,128px);height:auto;margin:0;transform:rotate(9deg);mix-blend-mode:multiply}
+html[data-theme="amoled"]:not(#_):not(#_) .home-clock .hc-lucky{mix-blend-mode:normal;background:#f4f0e3;border-radius:8px;padding:6px}
+html:not(#_):not(#_) .home-clock .hc-chips{display:flex!important;gap:0!important;margin-top:20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+html:not(#_):not(#_) .home-clock .hc-chip{flex:1;min-width:0;background:transparent!important;border-radius:0!important;border-left:1px solid var(--border);padding:14px 0 14px 18px!important}
+html:not(#_):not(#_) .home-clock .hc-chip:first-child{border-left:0;padding-left:0!important}
+html:not(#_):not(#_) .home-clock .hc-chip small{color:var(--text3)!important;font-size:10.5px!important}
+html:not(#_):not(#_) .home-clock .hc-chip b{font-size:clamp(20px,2.3vw,34px)!important;letter-spacing:-.03em;font-weight:700;color:var(--text)!important}
+html:not(#_):not(#_) .home-clock .hc-chip em{font-size:13px;color:var(--text3)!important}
+@media (max-width:640px){html:not(#_):not(#_) .home-clock .hc-chips{display:grid!important;grid-template-columns:1fr 1fr}html:not(#_):not(#_) .home-clock .hc-chip{border-left:0;border-top:1px solid var(--border);padding-left:0!important}html:not(#_):not(#_) .home-clock .hc-chip:nth-child(-n+2){border-top:0}html:not(#_):not(#_) .home-clock .hc-chip:nth-child(even){border-left:1px solid var(--border);padding-left:16px!important}}
+html:not(#_):not(#_) #bk-nudge{border:0!important;border-top:1px solid var(--border)!important;border-bottom:1px solid var(--border)!important;padding:10px 0!important;margin:0 0 18px!important;font-size:13px}
+html:not(#_):not(#_) .home-actions{display:flex;align-items:center;gap:22px;margin:0!important}
+html:not(#_):not(#_) .home-actions .btn:first-child{background:var(--text)!important;color:var(--paper)!important;border:0!important;padding:13px 24px!important;font-size:14px!important}
+html:not(#_):not(#_) .home-actions .btn:last-child{background:none!important;border:0!important;border-bottom:1px solid var(--text)!important;border-radius:0!important;padding:4px 0!important;font-size:14px!important}
+html:not(#_):not(#_) .overview-grid{display:none!important}
+/* lista "Para hoy" como libro de registro */
+html:not(#_):not(#_) #today-card .section-hd h2,html:not(#_):not(#_) #priority-recommendation-box .section-hd h2{font-size:28px!important;color:var(--text)!important}
+html:not(#_):not(#_) #today-card .td-sec{color:var(--text3)!important;font-size:10.5px!important;margin:18px 0 6px}
+html:not(#_):not(#_) #today-card .td-row{border-top:1px solid var(--border)!important;padding:13px 0!important;color:var(--text)!important}
+html:not(#_):not(#_) #today-card .td-row>div:first-child{font-family:var(--disp)!important;font-weight:400;font-size:19px;letter-spacing:-.01em;color:var(--text)!important}
+html:not(#_):not(#_) #today-card .td-row small{font-family:var(--ios-font)!important;font-size:12.5px;color:var(--text3)!important;letter-spacing:0}
+html:not(#_):not(#_) #today-card .td-btns .btn{background:none!important;border:0!important;border-bottom:1px solid var(--text)!important;border-radius:0!important;padding:2px 0!important;font-size:13px!important;color:var(--text)!important}
+html:not(#_):not(#_) #priority-recommendation-box{border-left:0!important}
+html:not(#_):not(#_) #priority-content{font-size:14px!important;color:var(--text)!important}
+html:not(#_):not(#_) :is(.td-empty,.car-empty,.cal-empty){border:0!important;border-top:1px solid var(--border)!important;border-radius:0!important;padding:12px 0!important;text-align:left!important;color:var(--text3)!important}
+/* calendario de líneas */
+html:not(#_):not(#_) .cal-card{padding:12px 0 8px!important}
+html:not(#_):not(#_) .cal-head strong{font-size:28px!important;color:var(--text)!important}
+html:not(#_):not(#_) .cal-nav{background:none!important;border:0!important;border-radius:0!important;color:var(--text)!important;width:30px;height:30px}
+html:not(#_):not(#_) .cal-grid{gap:0}
+html:not(#_):not(#_) .cal-dow{color:var(--text3)!important;font-size:10px!important}
+html:not(#_):not(#_) .cal-d{min-height:44px;border-radius:0!important;border-top:1px solid var(--border)!important;font-size:15px;color:var(--text)!important;background:transparent!important}
+html:not(#_):not(#_) .cal-d:hover{background:var(--fill)!important}
+html:not(#_):not(#_) .cal-d.is-today{font-weight:700}
+html:not(#_):not(#_) .cal-d.is-today::before{content:'';position:absolute;left:50%;top:50%;width:34px;height:34px;transform:translate(-50%,-50%);border:1px solid var(--text);border-radius:50%}
+html:not(#_):not(#_) .cal-d.is-sel{outline:0!important;background:var(--fill)!important}
+html:not(#_):not(#_) .cal-d.has-ev::after{width:6px;height:6px;background:var(--ev,var(--or))!important}
+html:not(#_):not(#_) .cal-day-title{color:var(--text3)!important;font-size:10.5px!important}
+html:not(#_):not(#_) .cal-ev{background:transparent!important;border:0!important;border-top:1px solid var(--border)!important;border-radius:0!important;padding:8px 0!important}
+html:not(#_):not(#_) #calendar-card{position:static!important}
+/* equilibrio semanal y cuenta regresiva */
+html:not(#_):not(#_) :is(#bal-card,#exam-card){border-top:1px solid var(--text)!important}
+html:not(#_):not(#_) .bal-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+html:not(#_):not(#_) .bal-h h3{font-size:26px;color:var(--text)}
+html:not(#_):not(#_) .bal-h span{font-size:10.5px;color:var(--text3)}
+html:not(#_):not(#_) .bal-svg{display:block;width:100%;height:auto;color:var(--text);margin-top:6px}
+html:not(#_):not(#_) .bal-svg text{font-size:10px;fill:currentColor;letter-spacing:.14em}
+html:not(#_):not(#_) .bal-lad{display:flex;justify-content:space-between;margin-top:4px}
+html:not(#_):not(#_) .bal-lad span{font-size:9.5px;color:var(--text3)}
+html:not(#_):not(#_) .bal-lad span.on{color:var(--text);border-bottom:1px solid var(--text)}
+html:not(#_):not(#_) .bal-line{height:1px;background:var(--border);margin-top:8px;position:relative}
+html:not(#_):not(#_) .bal-line i{position:absolute;left:0;top:-1px;height:3px;background:var(--text)}
+html:not(#_):not(#_) .bal-note{font-size:12.5px;line-height:1.5;color:var(--text2);margin-top:10px}
+html:not(#_):not(#_) .ex-big{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px;margin-top:10px}
+html:not(#_):not(#_) .ex-big b{font-size:72px;line-height:1;letter-spacing:-.04em;font-weight:700;color:var(--text)}
+html:not(#_):not(#_) .ex-big small{font-size:15px;color:var(--text3)}
+html:not(#_):not(#_) .ex-big .ex-live{font-size:11px;color:var(--text2);margin:0;width:100%}
+html:not(#_):not(#_) .ex-ticks{display:flex;gap:6px;align-items:flex-end;height:30px;margin-top:14px}
+html:not(#_):not(#_) .ex-ticks i{flex:1;height:100%;background:var(--text)}
+html:not(#_):not(#_) .ex-ticks i.p{height:55%;opacity:.28}
+html:not(#_):not(#_) .ex-ticks i.x{background:var(--or)}
+html:not(#_):not(#_) .ex-tip{font-size:12.5px;line-height:1.5;color:var(--text2);margin-top:10px;opacity:1}
+/* resumen semanal y otros bloques sin cajas de color */
+html:not(#_):not(#_) :is(.wk-kpis>div,.stat-box,.amb-btn){background:var(--fill)!important;border:0!important;border-radius:6px!important}
+html:not(#_):not(#_) .wk-div-bar{border-radius:0}
+html:not(#_):not(#_) .wk-div-bar i,html:not(#_):not(#_) .wk-weeks i,html:not(#_):not(#_) .wk-bar i{background:var(--text)!important;border-radius:0!important}
+html:not(#_):not(#_) .wk-col.today .wk-bar i{background:var(--or)!important}
+html:not(#_):not(#_) .wk-alerts>div{background:var(--fill)!important;border-radius:6px!important;color:var(--text)!important}
+/* enfoque: naranja mate, anillo fino */
+html:not(#_):not(#_) #panel-enfoque>.card{background:#e8772e!important;border-top:0!important;border-radius:12px!important;padding:26px 24px!important;color:#111!important}
+@media (min-width:1100px){html:not(#_):not(#_) #panel-enfoque>.card{padding:36px 48px!important}}
+html:not(#_):not(#_) #panel-enfoque :is(input,select,textarea){color:#111!important;border-bottom-color:rgba(0,0,0,.45)!important}
+html:not(#_):not(#_) #panel-enfoque ::placeholder{color:rgba(0,0,0,.55)!important}
+html:not(#_):not(#_) #panel-enfoque :is(.focus-toggle,#btn-partial .btn,.btn-play){background:#111!important;color:#f4f0e3!important;border:0!important;box-shadow:none!important;border-radius:999px!important}
+html:not(#_):not(#_) #panel-enfoque .time-num{font-weight:700!important;letter-spacing:-.04em!important;color:#111!important}
+html:not(#_):not(#_) #panel-enfoque .ring-wrap circle:first-of-type{stroke:rgba(0,0,0,.25)!important;stroke-width:3!important}
+html:not(#_):not(#_) #panel-enfoque #ring{stroke:#111!important;stroke-width:4!important}
+html:not(#_):not(#_) .ring-wrap:before{display:none!important}
+html:not(#_):not(#_) #panel-enfoque :is(h2,.section-kicker,.mode-label){color:#111!important}
 /* Aviso en pantalla: tarjeta con ícono, texto y barra de tiempo */
 html:not(#_) .notif{display:flex!important;align-items:center;gap:12px;padding:12px 16px 14px 12px!important;overflow:hidden;position:fixed;border-radius:10px!important;background:var(--bar)!important;box-shadow:0 14px 44px rgba(0,0,0,.34),inset 0 0 0 1px rgba(255,255,255,.08)!important;transform:translateY(-18px) scale(.96);transition:opacity .35s ease,transform .45s cubic-bezier(.25,.8,.35,1)!important}
 html:not(#_) .notif{top:calc(env(safe-area-inset-top) + 58px)!important;z-index:3600!important}
@@ -1402,27 +1537,22 @@ html:not(#_) #panel-enfoque .actions-grid .btn{background:#000000!important;colo
 </div>
 
 <div class="panel active" id="panel-hoy">
+<div id="hoy-l">
 
   <section class="welcome-hero" aria-label="Resumen de estudio">
     <div class="hero-copy">
-      <p id="hero-date">Organizá tu día. Estudiá con intención.</p>
-      <p id="hero-microcopy" class="hero-micro">Cada sesión cuenta</p>
+      <h2 class="hl" id="hero-date"></h2>
+      <p id="hero-microcopy" class="hero-micro"></p>
     </div>
     <div class="home-clock" aria-label="Hora actual">
-      <div class="hc-top"><span id="hc-date"></span><img class="hc-lucky" src="lucky.jpg" alt="" width="96" height="99" decoding="async"></div>
+      <div class="hc-top"><span>Ahora</span><span>Hora local</span></div>
       <span id="clock-hm">--:--</span>
+      <img class="hc-lucky" src="lucky.jpg" alt="" width="96" height="99" decoding="async">
       <div class="hc-chips" id="hc-chips"></div>
     </div>
   </section>
 
 <div class="home-actions"><button type="button" class="btn" onclick="showPanel('enfoque')">▶ Iniciar pomodoro</button><button type="button" class="btn" onclick="showPanel('tracker')">Mis materias</button></div>
-  <div class="card cal-card" id="calendar-card">
-    <div class="cal-head"><button type="button" class="cal-nav" onclick="calShift(-1)" aria-label="Mes anterior">‹</button><strong id="cal-title"></strong><button type="button" class="cal-nav" onclick="calShift(1)" aria-label="Mes siguiente">›</button></div>
-    <div class="cal-grid" id="cal-grid"></div>
-    <div class="cal-day-title" id="cal-day-title"></div>
-    <div id="cal-day-list"></div>
-  </div>
-
   <div id="today-card" class="card"></div>
 
   <section class="overview-grid" aria-label="Resumen de hoy">
@@ -1436,6 +1566,16 @@ html:not(#_) #panel-enfoque .actions-grid .btn{background:#000000!important;colo
     </div>
     <div id="priority-content" style="font-size:12px; color:var(--text); line-height:1.5;">Calculando prioridades...</div>
   </div>
+</div>
+<div id="hoy-r">
+  <div class="card cal-card" id="calendar-card">
+    <div class="cal-head"><button type="button" class="cal-nav" onclick="calShift(-1)" aria-label="Mes anterior">‹</button><strong id="cal-title"></strong><button type="button" class="cal-nav" onclick="calShift(1)" aria-label="Mes siguiente">›</button></div>
+    <div class="cal-grid" id="cal-grid"></div>
+    <div class="cal-day-title" id="cal-day-title"></div>
+    <div id="cal-day-list"></div>
+  </div>
+  <div id="bal-card" class="card"></div>
+</div>
 </div>
 
 <div class="panel" id="panel-enfoque">
@@ -1631,9 +1771,8 @@ html:not(#_) #panel-enfoque .actions-grid .btn{background:#000000!important;colo
         <div style="display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:12px;">Tema visual:</span>
             <select id="theme-select" onchange="changeTheme(this.value)" style="padding:6px; background:rgba(0,0,0,0.3); border-radius:6px; border:1px solid var(--border); color:var(--text); font-size:12px;">
-                <option value="dark">Oscuro (Default)</option>
-                <option value="amoled">AMOLED (Puro Negro)</option>
-                <option value="light">Claro</option>
+                <option value="dark">Papel (por defecto)</option>
+                <option value="amoled">Tinta (oscuro)</option>
             </select>
         </div>
         <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -2293,15 +2432,15 @@ function tickClock() {
 function renderClockChips() {
     const box = document.getElementById('hc-chips'); if(!box) return;
     try {
-        const dt = document.getElementById('hc-date');
-        if(dt) { let x = new Intl.DateTimeFormat('es-AR', {weekday: 'long', day: 'numeric', month: 'long'}).format(new Date()); dt.textContent = x.charAt(0).toUpperCase() + x.slice(1); }
         const num = id => { const e = document.getElementById(id); return e ? e.textContent : ''; };
-        let exam = 'Sin fecha', examSub = 'cargá una en Materias';
+        let exam = 'Sin fecha', examSub = 'cargá una en Materias', exD = null, exN = '';
         if(typeof MATS !== 'undefined' && typeof matNextDate === 'function') {
             const today = todayAR(), list = MATS.filter(m => !m.promoted && matNextDate(m)).sort((a, b) => matNextDate(a) < matNextDate(b) ? -1 : 1), m = list[0];
-            if(m) { const d = Math.round((new Date(matNextDate(m) + 'T00:00:00') - new Date(today + 'T00:00:00')) / 86400000); exam = d === 0 ? 'Hoy' : d === 1 ? 'Mañana' : d + ' días'; examSub = m.name; }
+            if(m) { const d = Math.round((new Date(matNextDate(m) + 'T00:00:00') - new Date(today + 'T00:00:00')) / 86400000); exam = d === 0 ? 'Hoy' : d === 1 ? 'Mañana' : d + ' días'; examSub = m.name; exD = d; exN = m.name; }
         }
         let due = 0; try { due = dueUnits().length + dueCards().length; } catch(e) {}
+        const sub = document.getElementById('hero-microcopy');
+        if(sub) sub.textContent = (exD === null ? 'Sin exámenes cargados.' : exD === 0 ? 'Hoy rendís ' + exN + '.' : exD === 1 ? 'Mañana rendís ' + exN + '.' : exD + ' días para ' + exN + '.') + (due > 0 ? ' Hoy toca repasar.' : ' Seguí avanzando.');
         const streak = num('streak-display').replace(' d', '');
         let wk = null; try { wk = weekDivision(); } catch(e) {}
         const chips = [
@@ -2886,7 +3025,7 @@ function renderCharts() {
     document.getElementById('chart-empty').style.display = hasChartData ? 'none' : 'block';
     document.querySelectorAll('#panel-more .chart-container').forEach(c => { c.style.display = hasChartData ? '' : 'none'; });
     if(!hasChartData) return;
-    Chart.defaults.color = (document.documentElement.getAttribute('data-theme') === 'light') ? '#6c6485' : '#94908a'; Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+    Chart.defaults.color = (document.documentElement.getAttribute('data-theme') !== 'amoled') ? '#16237a' : '#c9c3b4'; Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
 
     const ctxBar = document.getElementById('barChart');
     if(ctxBar) {
@@ -2912,7 +3051,7 @@ function renderCharts() {
         if(cPie) cPie.destroy();
         const pieLabels = [], pieData = [], pieColors = [];
         Object.keys(matsAccum).forEach(matId => { const m = MATS.find(x => x.id == matId); if(m && matsAccum[matId] > 0) { pieLabels.push(m.name); pieData.push(matsAccum[matId]); pieColors.push(m.color); } });
-        if(pieData.length === 0) { pieLabels.push("Sin datos"); pieData.push(1); pieColors.push((document.documentElement.getAttribute('data-theme') === 'light') ? '#ddd6f0' : '#2a2638'); }
+        if(pieData.length === 0) { pieLabels.push("Sin datos"); pieData.push(1); pieColors.push((document.documentElement.getAttribute('data-theme') !== 'amoled') ? '#e0dac4' : '#18235e'); }
         cPie = new Chart(ctxPie.getContext('2d'), { type: 'doughnut', data: { labels: pieLabels, datasets: [{ data: pieData, backgroundColor: pieColors, borderWidth:0 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '68%', plugins: { legend: { position: window.innerWidth < 600 ? 'bottom' : 'right', labels:{ boxWidth: 10, font:{size:11}, color: (document.documentElement.getAttribute('data-theme') === 'light') ? '#4a4262' : '#c2bfba' } } } } });
     }
 }
@@ -3084,12 +3223,11 @@ render(); renderWeekPanel();
 function renderVisualDashboard(){
   checkNewDay();
   const dateEl=document.getElementById('hero-date');
-  if(dateEl){try{dateEl.textContent=new Intl.DateTimeFormat('es-AR',{weekday:'long',day:'numeric',month:'long'}).format(new Date()).replace(/^./,c=>c.toUpperCase())+' · Un día a la vez, un tema a la vez.';}catch(e){}}
+  if(dateEl){try{const n=new Date(),wd=new Intl.DateTimeFormat('es-AR',{weekday:'long'}).format(n).replace(/^./,c=>c.toUpperCase()),mo=new Intl.DateTimeFormat('es-AR',{month:'long'}).format(n);dateEl.innerHTML=esc(wd)+', <em>'+n.getDate()+' de '+esc(mo)+'.</em>';}catch(e){}}
   const h=loadHistory()[todayAR()]||{}; const mins=Math.round(h.mins||0);
   const t=document.getElementById('hero-study-time'); if(t) t.textContent=mins>=60?`${Math.floor(mins/60)} h ${mins%60} min`:`${mins} min`;
   const p=document.getElementById('hero-poms'); if(p) p.textContent=String(Math.max(h.poms||0, poms||0)); const sp=document.getElementById('s-pom'); if(sp) sp.textContent=poms;
   if(typeof renderClockChips==='function') renderClockChips();
-  const mc=document.getElementById('hero-microcopy'); if(mc) mc.textContent=mins>=120?'Buen ritmo. Seguí cuidando tus pausas.':mins>0?'Ya empezaste: mantené el impulso.':'Tu próxima sesión puede ser el comienzo.';
 }
 function toggleFocusMode(){
   document.body.classList.toggle('focus-mode'); const on=document.body.classList.contains('focus-mode');
@@ -3103,7 +3241,7 @@ renderVisualDashboard(); setInterval(renderVisualDashboard, 3000);
 
 
 // ===== Temas: gráficos, color de la barra del navegador y selector =====
-function getChartGrid(){ return document.documentElement.getAttribute('data-theme') === 'light' ? 'rgba(40,25,80,0.08)' : 'rgba(255,255,255,0.03)'; }
+function getChartGrid(){ return document.documentElement.getAttribute('data-theme') !== 'amoled' ? 'rgba(22,35,122,0.10)' : 'rgba(255,255,255,0.05)'; }
 (function(){
     const _ct = changeTheme;
     changeTheme = function(theme, save = true){
@@ -3906,7 +4044,17 @@ function weekCU(){
     (function f(t){ const p=Math.min(1,(t-t0)/D), e=1-Math.pow(1-p,3), x=v*e; el.textContent=k==='m'?fmM(x):String(Math.round(x)); if(p<1) requestAnimationFrame(f); else el.textContent=k==='m'?fmM(v):String(v); })(t0);
   });
 }
-function renderWeekPanel(){ renderWeekCore(); try{ weekCU(); }catch(e){} }
+function renderBalance() {
+  const box = document.getElementById('bal-card'); if(!box) return;
+  const wd = weekDivision(), pct = wd.cur.pct, tilt = -Math.max(-6, Math.min(6, (1 - pct) * 6)), fm = m => m >= 60 ? Math.floor(m / 60) + ' h' + (m % 60 ? ' ' + String(m % 60).padStart(2, '0') : '') : m + ' min';
+  const ladder = DIVS.map(d => `<span class="${d.n === wd.div.n ? 'on' : ''}">${esc(d.n)}</span>`).join('');
+  const html = `<div class="bal-h"><h3>Equilibrio semanal</h3><span>${esc(wd.div.n)}</span></div>` +
+    `<svg class="bal-svg" viewBox="0 0 420 190" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><circle cx="210" cy="16" r="5" fill="currentColor"/><path d="M210 22V170M178 170h64"/><g transform="rotate(${tilt.toFixed(1)} 210 40)"><path d="M70 40H350"/><path d="M70 40L38 112M70 40l32 72M350 40l-32 72M350 40l32 72"/><path d="M30 112h80c-2 18-78 18-80 0z" fill="currentColor"/><path d="M310 112h80c-2 18-78 18-80 0z"/></g><text x="2" y="158" stroke="none">META ${esc(String(wd.goalH))} H</text><text x="418" y="158" text-anchor="end" stroke="none">ESTUDIADO ${esc(fm(wd.cur.mins).toUpperCase())}</text></svg>` +
+    `<div class="bal-lad">${ladder}</div><div class="bal-line"><i style="width:${Math.min(100, Math.round(wd.rating / 110 * 100))}%"></i></div>` +
+    `<div class="bal-note">${Math.round(pct * 100)}% de tu meta semanal. Rating ${wd.rating}${wd.next ? ' · para ' + esc(wd.next.n) + ' hace falta ' + wd.next.min : ' · división máxima'}.</div>`;
+  if(box.dataset.h !== html) { box.dataset.h = html; box.innerHTML = html; }
+}
+function renderWeekPanel(){ renderWeekCore(); try{ weekCU(); }catch(e){} try{ renderBalance(); }catch(e){} }
 function renderActivity(){
   const panel=document.getElementById('panel-hoy'); if(!panel) return;
   let box=document.getElementById('act-card');
@@ -3928,10 +4076,11 @@ function renderExamWidget(){
   const today=todayAR(), list=MATS.filter(m=>!m.promoted&&matNextDate(m)).sort((a,b)=>matNextDate(a)<matNextDate(b)?-1:1), m=list[0], examDate=m&&matNextDate(m);
   let box=document.getElementById('exam-card');
   if(!m){ if(box) box.remove(); return; }
-  if(!box){ box=document.createElement('div'); box.id='exam-card'; box.className='card'; const ref=document.getElementById('act-card')||panel.querySelector('.overview-grid'); if(ref) ref.insertAdjacentElement('afterend',box); else panel.prepend(box); }
+  if(!box){ box=document.createElement('div'); box.id='exam-card'; box.className='card'; const hr=document.getElementById('hoy-r'); if(hr) hr.appendChild(box); else panel.appendChild(box); }
   const d=Math.round((new Date(examDate+'T00:00:00')-new Date(today+'T00:00:00'))/86400000), prog=m.units.length?Math.round(m.units.reduce((s,u)=>s+upct(u),0)/m.units.length):0;
   let ds=new Date(examDate+'T12:00:00').toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long'}); ds=ds.charAt(0).toUpperCase()+ds.slice(1);
-  const html=`<div class="ex-wrap" style="--mc:${esc(m.color)}"><div class="ex-num"><b>${d===0?'Hoy':d}</b><small>${d===0?'rendís':(d===1?'día':'días')}</small></div><div class="ex-info"><small>Próximo examen</small><strong>${esc(m.name)}</strong><span>${esc(ds)}</span><div class="ex-bar"><i style="width:${prog}%"></i></div><small>${prog}% de las unidades completas</small><div class="ex-live" data-d="${esc(examDate)}"></div><div class="ex-tip"></div></div></div>`;
+  const ticks=Array.from({length:14},(_,i)=>i===13?'<i class="x"></i>':(d<13&&i<13-d?'<i class="p"></i>':'<i></i>')).join('');
+  const html=`<div class="bal-h"><h3>Cuenta regresiva</h3><span>${esc(m.name)}</span></div><div class="ex-big"><b>${d===0?'Hoy':d}</b><small>${d===0?'rendís':(d===1?'día':'días')} · ${esc(ds)}</small><span class="ex-live" data-d="${esc(examDate)}"></span></div><div class="ex-ticks">${ticks}</div><div class="ex-tip"></div>`;
   if(box.dataset.h!==html){ box.dataset.h=html; box.innerHTML=html; }
   updateExamLive();
 }
@@ -4208,7 +4357,7 @@ function syncDisconnect() {
 })();
 
 // === v10: PWA (instalación, service worker, avisos de datos) ===
-const APP_VERSION = '4.5.0';
+const APP_VERSION = '5.0.0';
 let pwaPrompt = null;
 function pwaStandalone() { return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
 function pwaIsIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
@@ -4266,6 +4415,12 @@ function applySide() {
     if(cur < 0 || nx < 0 || nx >= tabs.length) return;
     showPanel(tabs[nx]); window.scrollTo(0, 0);
   }, {passive: true});
+})();
+(function() {
+  const T = {hoy: 'Hoy', enfoque: 'Enfoque', tracker: 'Materias', carrera: 'Carrera', more: 'Más'}, _s = showPanel;
+  showPanel = function(id) { _s(id); document.documentElement.dataset.panel = id; const t = document.getElementById('app-title'); if(t && T[id]) t.textContent = T[id]; const ib = document.getElementById('ios-bar'); if(ib && T[id]) ib.textContent = T[id]; };
+  document.documentElement.dataset.panel = 'hoy';
+  try { renderBalance(); } catch(e) {}
 })();
 function toggleSide() { lss('side_hidden', ls('side_hidden') === '1' ? '0' : '1'); applySide(); }
 applySide();
