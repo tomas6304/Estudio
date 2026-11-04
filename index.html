@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#f4f0e3">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0d1226">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -1273,14 +1273,17 @@ html:not(#_) .modal-box{border-radius:12px 12px 0 0!important}
 .ex-live{font-size:14px;font-weight:700;margin-top:8px;font-variant-numeric:tabular-nums}
 .ex-tip{font-size:12px;line-height:1.45;margin-top:3px;opacity:.85}
 /* ===== Rediseño v6 · Equilibrio editorial (papel, tinta, líneas finas) ===== */
-html:not(#_):not(#_){--paper:#f4f0e3;--paper2:#ebe6d3;--or:#e8772e;--rail:#16237a;--blue:#2037b9;
+html:not(#_):not(#_){--paper:#0d1226;--paper2:#151c3a;--rail:#070a1a;--blue:#8fa8f5;--or:#e8772e;--timer:#cf6f2e;
+  --bg:#0d1226;--surface:#0d1226;--surface2:#151c3a;--surface3:#1b2447;--border:rgba(233,228,212,.18);--border2:rgba(233,228,212,.34);--sep:rgba(233,228,212,.14);
+  --text:#e9e4d4;--text2:rgba(233,228,212,.72);--text3:rgba(233,228,212,.52);--acc:#8fa8f5;--acc-dim:rgba(143,168,245,.16);--fill:rgba(233,228,212,.07);--bar:#0d1226;--shadow:none;
+  --purple:#8fa8f5;--purple-dim:rgba(143,168,245,.16);--blue-dim:rgba(143,168,245,.16);--green:#7fd3a1;--green-dim:rgba(127,211,161,.16);--red:#ff8a73;--red-dim:rgba(255,138,115,.14);--amber:#e8772e;--amber-dim:rgba(232,119,46,.18);
+  --ios-font:'Instrument Sans',-apple-system,'Helvetica Neue',sans-serif;--rounded:'Bricolage Grotesque','Instrument Sans',sans-serif;--disp:'Bricolage Grotesque','Instrument Sans',sans-serif;color-scheme:dark}
+html[data-theme="light"]:not(#_):not(#_){--paper:#f4f0e3;--paper2:#ebe6d3;--rail:#16237a;--blue:#2037b9;--timer:#e8772e;
   --bg:#f4f0e3;--surface:#f4f0e3;--surface2:#ebe6d3;--surface3:#e4dfcb;--border:rgba(22,35,122,.22);--border2:rgba(22,35,122,.38);--sep:rgba(22,35,122,.18);
-  --text:#16237a;--text2:rgba(22,35,122,.76);--text3:rgba(22,35,122,.58);--acc:#2037b9;--acc-dim:rgba(32,55,185,.12);--fill:rgba(22,35,122,.07);--bar:#f4f0e3;--shadow:none;
-  --purple:#2037b9;--purple-dim:rgba(32,55,185,.12);--blue-dim:rgba(32,55,185,.12);--green:#1d6a3b;--green-dim:rgba(29,106,59,.14);--red:#b8402a;--red-dim:rgba(184,64,42,.12);--amber:#e8772e;--amber-dim:rgba(232,119,46,.16);
-  --ios-font:'Instrument Sans',-apple-system,'Helvetica Neue',sans-serif;--rounded:'Bricolage Grotesque','Instrument Sans',sans-serif;--disp:'Bricolage Grotesque','Instrument Sans',sans-serif;color-scheme:light}
-html[data-theme="amoled"]:not(#_):not(#_){--paper:#0b1236;--paper2:#121b4d;--rail:#070c26;--blue:#9db6ff;--bg:#0b1236;--surface:#0b1236;--surface2:#121b4d;--surface3:#18235e;
-  --border:rgba(244,240,227,.2);--border2:rgba(244,240,227,.36);--sep:rgba(244,240,227,.16);--text:#f4f0e3;--text2:rgba(244,240,227,.76);--text3:rgba(244,240,227,.56);--acc:#9db6ff;--acc-dim:rgba(157,182,255,.16);--fill:rgba(244,240,227,.08);--bar:#0b1236;
-  --purple:#9db6ff;--purple-dim:rgba(157,182,255,.16);--blue-dim:rgba(157,182,255,.16);--green:#7fd3a1;--red:#ff8a73;color-scheme:dark}
+  --text:#16237a;--text2:rgba(22,35,122,.76);--text3:rgba(22,35,122,.58);--acc:#2037b9;--acc-dim:rgba(32,55,185,.12);--fill:rgba(22,35,122,.07);--bar:#f4f0e3;
+  --purple:#2037b9;--purple-dim:rgba(32,55,185,.12);--blue-dim:rgba(32,55,185,.12);--green:#1d6a3b;--green-dim:rgba(29,106,59,.14);--red:#b8402a;--red-dim:rgba(184,64,42,.12);color-scheme:light}
+html[data-theme="light"]:not(#_):not(#_) .nav-bottom .nav-tab.active{background:#f4f0e3!important;color:#16237a!important}
+html[data-theme="light"]:not(#_):not(#_) .nav-bottom .nav-tab.active svg{stroke:#16237a!important}
 html:not(#_):not(#_) body{background:transparent}
 /* tipografía */
 html:not(#_):not(#_) :is(h1,h2,h3,.app-title,.cal-head strong,.wk-div-top strong,.hc-chip b,.time-num,.stat-val,.act-streak strong,.ex-big b){font-family:var(--disp)!important}
@@ -1290,6 +1293,8 @@ html:not(#_):not(#_) :is(.section-kicker,.hc-top,.hc-chip small,.cal-dow,.cal-da
 html:not(#_):not(#_) .app-title{font-size:30px!important;color:var(--text)!important}
 html:not(#_):not(#_)[data-panel="hoy"] .app-title{display:none}
 html:not(#_):not(#_) .header-top{justify-content:flex-end}
+html:not(#_):not(#_)[data-panel="hoy"] .header-top{position:absolute;right:24px;top:12px;z-index:5;margin:0}
+html:not(#_):not(#_)[data-panel="hoy"] .global-search-bar{margin:0 0 18px;padding-right:56px}
 html:not(#_):not(#_)[data-panel]:not([data-panel="hoy"]) .header-top{justify-content:space-between}
 html:not(#_):not(#_) .global-search-input{padding:10px 0 10px 30px!important;font-size:15px!important}
 /* superficies planas: separadas por filetes, no por cajas */
@@ -1304,8 +1309,8 @@ html:not(#_):not(#_) ::placeholder{color:var(--text3)!important;opacity:1}
 html:not(#_):not(#_) .nav-bottom.nav-bottom{background:var(--rail)!important;border:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 html:not(#_):not(#_) .nav-bottom .nav-tab{color:rgba(244,240,227,.74)!important;background:transparent!important;border-radius:6px!important}
 html:not(#_):not(#_) .nav-bottom .nav-tab svg{stroke:currentColor}
-html:not(#_):not(#_) .nav-bottom .nav-tab.active{background:#f4f0e3!important;color:#16237a!important}
-html:not(#_):not(#_) .nav-bottom .nav-tab.active svg{stroke:#16237a!important}
+html:not(#_):not(#_) .nav-bottom .nav-tab.active{background:rgba(233,228,212,.13)!important;color:#e9e4d4!important}
+html:not(#_):not(#_) .nav-bottom .nav-tab.active svg{stroke:#e9e4d4!important}
 html:not(#_):not(#_) .nav-brand,html:not(#_):not(#_) .nav-brand *{color:#f4f0e3!important;font-family:var(--disp)!important;font-weight:700;letter-spacing:-.03em}
 html:not(#_):not(#_) .side-toggle{background:var(--paper)!important;color:var(--text)!important;border-color:var(--border2)!important}
 @media (max-width:1023px){html:not(#_):not(#_) .nav-bottom.nav-bottom{border-radius:14px!important}}
@@ -1317,18 +1322,17 @@ html:not(#_):not(#_) :is(.notif,#dynamic-island),html:not(#_):not(#_) :is(.notif
 html:not(#_):not(#_) .notif .n-sub{opacity:.78}
 html:not(#_):not(#_) .notif .n-ico{background:var(--or)!important;box-shadow:none!important}
 /* inicio: dos columnas, lista y calendario */
-html:not(#_):not(#_) #panel-hoy.active{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:36px 64px!important;max-width:none!important;align-items:start!important}
-html:not(#_):not(#_) :is(#hoy-l,#hoy-r){display:flex;flex-direction:column;gap:30px;min-width:0}
+html:not(#_):not(#_) #panel-hoy.active{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:28px 64px!important;max-width:none!important;align-items:start!important}
+html:not(#_):not(#_) :is(#hoy-l,#hoy-r){display:flex;flex-direction:column;gap:18px;min-width:0}
 @media (min-width:1100px){html:not(#_):not(#_) #panel-hoy.active{grid-template-columns:minmax(0,1fr) minmax(320px,400px)!important}}
 html:not(#_):not(#_) .welcome-hero{display:block!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:0!important;min-height:0!important;overflow:visible!important;align-self:auto!important}
 html:not(#_):not(#_) .welcome-hero .hl{font-size:clamp(36px,4.6vw,64px)!important;line-height:1.02!important;color:var(--text)!important;margin:0 0 10px!important}
 html:not(#_):not(#_) .welcome-hero .hl em{font-style:normal!important;color:var(--blue)!important}
-html:not(#_):not(#_) #hero-microcopy{font-size:17px!important;line-height:1.4;color:var(--text2)!important;margin:0 0 26px!important}
+html:not(#_):not(#_) #hero-microcopy{font-size:17px!important;line-height:1.4;color:var(--text2)!important;margin:0 0 20px!important}
 html:not(#_):not(#_) .home-clock{display:block!important;position:relative;container-type:inline-size;background:var(--paper)!important;border:0!important;border-top:1px solid var(--text)!important;border-radius:0!important;box-shadow:none!important;padding:12px 0 0!important;min-height:0!important;margin:0!important;flex:none!important;color:var(--text)!important}
 html:not(#_):not(#_) .home-clock .hc-top{display:flex;justify-content:space-between;color:var(--text3)!important;font-size:11px!important;max-width:none}
-html:not(#_):not(#_) .home-clock #clock-hm{display:block!important;text-align:left!important;font-weight:700!important;color:var(--blue)!important;font-size:clamp(104px,25cqw,250px)!important;line-height:.95!important;letter-spacing:-.05em!important;margin:6px 0 0 -.04em!important}
-html:not(#_):not(#_) .home-clock .hc-lucky{position:absolute;right:0;top:44px;width:clamp(76px,13cqw,128px);height:auto;margin:0;transform:rotate(9deg);mix-blend-mode:multiply}
-html[data-theme="amoled"]:not(#_):not(#_) .home-clock .hc-lucky{mix-blend-mode:normal;background:#f4f0e3;border-radius:8px;padding:6px}
+html:not(#_):not(#_) .home-clock #clock-hm{display:block!important;text-align:left!important;font-weight:700!important;color:var(--blue)!important;font-size:clamp(96px,22cqw,210px)!important;line-height:.95!important;letter-spacing:-.05em!important;margin:6px 0 0 -.04em!important}
+html:not(#_):not(#_) .home-clock .hc-lucky{position:absolute;right:6px;top:40px;width:clamp(76px,13cqw,128px);height:auto;margin:0;transform:rotate(9deg);mix-blend-mode:normal!important}
 html:not(#_):not(#_) .home-clock .hc-chips{display:flex!important;gap:0!important;margin-top:20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 html:not(#_):not(#_) .home-clock .hc-chip{flex:1;min-width:0;background:transparent!important;border-radius:0!important;border-left:1px solid var(--border);padding:14px 0 14px 18px!important}
 html:not(#_):not(#_) .home-clock .hc-chip:first-child{border-left:0;padding-left:0!important}
@@ -1352,26 +1356,37 @@ html:not(#_):not(#_) #priority-recommendation-box{border-left:0!important}
 html:not(#_):not(#_) #priority-content{font-size:14px!important;color:var(--text)!important}
 html:not(#_):not(#_) :is(.td-empty,.car-empty,.cal-empty){border:0!important;border-top:1px solid var(--border)!important;border-radius:0!important;padding:12px 0!important;text-align:left!important;color:var(--text3)!important}
 /* calendario de líneas */
-html:not(#_):not(#_) .cal-card{padding:12px 0 8px!important}
-html:not(#_):not(#_) .cal-head strong{font-size:28px!important;color:var(--text)!important}
-html:not(#_):not(#_) .cal-nav{background:none!important;border:0!important;border-radius:0!important;color:var(--text)!important;width:30px;height:30px}
+html:not(#_):not(#_) .cal-card{padding:12px 0 6px!important}
+html:not(#_):not(#_) .cal-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+html:not(#_):not(#_) .cal-head strong{font-size:24px!important;flex:1;text-align:left;color:var(--text)!important}
+html:not(#_):not(#_) .cal-today{background:none;border:0;border-bottom:1px solid var(--text);color:var(--text);font:inherit;font-size:12px;padding:1px 0;margin-right:6px;cursor:pointer}
+html:not(#_):not(#_) .cal-nav{background:none!important;border:1px solid var(--border2)!important;border-radius:50%!important;color:var(--text)!important;width:30px;height:30px;font-size:17px;line-height:1}
 html:not(#_):not(#_) .cal-grid{gap:0}
-html:not(#_):not(#_) .cal-dow{color:var(--text3)!important;font-size:10px!important}
-html:not(#_):not(#_) .cal-d{min-height:44px;border-radius:0!important;border-top:1px solid var(--border)!important;font-size:15px;color:var(--text)!important;background:transparent!important}
-html:not(#_):not(#_) .cal-d:hover{background:var(--fill)!important}
-html:not(#_):not(#_) .cal-d.is-today{font-weight:700}
-html:not(#_):not(#_) .cal-d.is-today::before{content:'';position:absolute;left:50%;top:50%;width:34px;height:34px;transform:translate(-50%,-50%);border:1px solid var(--text);border-radius:50%}
-html:not(#_):not(#_) .cal-d.is-sel{outline:0!important;background:var(--fill)!important}
-html:not(#_):not(#_) .cal-d.has-ev::after{width:6px;height:6px;background:var(--ev,var(--or))!important}
-html:not(#_):not(#_) .cal-day-title{color:var(--text3)!important;font-size:10.5px!important}
-html:not(#_):not(#_) .cal-ev{background:transparent!important;border:0!important;border-top:1px solid var(--border)!important;border-radius:0!important;padding:8px 0!important}
+html:not(#_):not(#_) .cal-dow{color:var(--text3)!important;font-size:10px!important;padding:6px 0}
+html:not(#_):not(#_) .cal-d{display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-height:36px;border-radius:0!important;border:0!important;border-top:1px solid var(--border)!important;font-size:14px;color:var(--text)!important;background:transparent!important;position:relative}
+html:not(#_):not(#_) .cal-d b{font-weight:500;line-height:1;display:grid;place-items:center;width:26px;height:26px;border-radius:50%}
+html:not(#_):not(#_) .cal-d.out{color:var(--text3)!important;opacity:.4}
+html:not(#_):not(#_) .cal-d.we{color:var(--text2)!important}
+html:not(#_):not(#_) button.cal-d:hover{background:var(--fill)!important}
+html:not(#_):not(#_) .cal-d.has-ev b{font-weight:700}
+html:not(#_):not(#_) .cal-d.is-today b{background:var(--text);color:var(--paper);font-weight:700}
+html:not(#_):not(#_) .cal-d.is-sel{background:var(--fill)!important}
+html:not(#_):not(#_) .cal-dots{display:flex;gap:3px;height:6px}
+html:not(#_):not(#_) .cal-dots i{width:6px;height:6px;border-radius:50%}
+html:not(#_):not(#_) .cal-day-title{color:var(--text3)!important;font-size:10.5px!important;margin:12px 0 4px!important}
+html:not(#_):not(#_) .cal-ev{display:flex;gap:10px;align-items:flex-start;background:transparent!important;border:0!important;border-top:1px solid var(--border)!important;border-radius:0!important;padding:8px 0!important;margin:0!important}
+html:not(#_):not(#_) .cal-ev i{width:8px;height:8px;border-radius:50%;margin-top:6px;flex:none}
+html:not(#_):not(#_) .cal-up h4{font:400 10.5px 'DM Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin:12px 0 2px}
+html:not(#_):not(#_) .cal-up-row{display:flex;gap:12px;align-items:baseline;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--border);padding:8px 0;color:var(--text);cursor:pointer;font:inherit;font-size:13px}
+html:not(#_):not(#_) .cal-up-row .d{font-family:'DM Mono',monospace;min-width:44px;font-size:12px;color:var(--text3)}
+html:not(#_):not(#_) .cal-up-row em{margin-left:auto;font-style:normal;color:var(--text3);font-size:12px;white-space:nowrap}
 html:not(#_):not(#_) #calendar-card{position:static!important}
 /* equilibrio semanal y cuenta regresiva */
 html:not(#_):not(#_) :is(#bal-card,#exam-card){border-top:1px solid var(--text)!important}
 html:not(#_):not(#_) .bal-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 html:not(#_):not(#_) .bal-h h3{font-size:26px;color:var(--text)}
 html:not(#_):not(#_) .bal-h span{font-size:10.5px;color:var(--text3)}
-html:not(#_):not(#_) .bal-svg{display:block;width:100%;height:auto;color:var(--text);margin-top:6px}
+html:not(#_):not(#_) .bal-svg{display:block;width:100%;max-width:300px;height:auto;color:var(--text);margin-top:6px}
 html:not(#_):not(#_) .bal-svg text{font-size:10px;fill:currentColor;letter-spacing:.14em}
 html:not(#_):not(#_) .bal-lad{display:flex;justify-content:space-between;margin-top:4px}
 html:not(#_):not(#_) .bal-lad span{font-size:9.5px;color:var(--text3)}
@@ -1380,7 +1395,7 @@ html:not(#_):not(#_) .bal-line{height:1px;background:var(--border);margin-top:8p
 html:not(#_):not(#_) .bal-line i{position:absolute;left:0;top:-1px;height:3px;background:var(--text)}
 html:not(#_):not(#_) .bal-note{font-size:12.5px;line-height:1.5;color:var(--text2);margin-top:10px}
 html:not(#_):not(#_) .ex-big{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px;margin-top:10px}
-html:not(#_):not(#_) .ex-big b{font-size:72px;line-height:1;letter-spacing:-.04em;font-weight:700;color:var(--text)}
+html:not(#_):not(#_) .ex-big b{font-size:56px;line-height:1;letter-spacing:-.04em;font-weight:700;color:var(--text)}
 html:not(#_):not(#_) .ex-big small{font-size:15px;color:var(--text3)}
 html:not(#_):not(#_) .ex-big .ex-live{font-size:11px;color:var(--text2);margin:0;width:100%}
 html:not(#_):not(#_) .ex-ticks{display:flex;gap:6px;align-items:flex-end;height:30px;margin-top:14px}
@@ -1395,7 +1410,7 @@ html:not(#_):not(#_) .wk-div-bar i,html:not(#_):not(#_) .wk-weeks i,html:not(#_)
 html:not(#_):not(#_) .wk-col.today .wk-bar i{background:var(--or)!important}
 html:not(#_):not(#_) .wk-alerts>div{background:var(--fill)!important;border-radius:6px!important;color:var(--text)!important}
 /* enfoque: naranja mate, anillo fino */
-html:not(#_):not(#_) #panel-enfoque>.card{background:#e8772e!important;border-top:0!important;border-radius:12px!important;padding:26px 24px!important;color:#111!important}
+html:not(#_):not(#_) #panel-enfoque>.card{background:var(--timer)!important;border-top:0!important;border-radius:12px!important;padding:26px 24px!important;color:#111!important}
 @media (min-width:1100px){html:not(#_):not(#_) #panel-enfoque>.card{padding:36px 48px!important}}
 html:not(#_):not(#_) #panel-enfoque :is(input,select,textarea){color:#111!important;border-bottom-color:rgba(0,0,0,.45)!important}
 html:not(#_):not(#_) #panel-enfoque ::placeholder{color:rgba(0,0,0,.55)!important}
@@ -1555,7 +1570,7 @@ html:not(#_) #panel-enfoque .actions-grid .btn{background:#000000!important;colo
     <div class="home-clock" aria-label="Hora actual">
       <div class="hc-top"><span>Ahora</span><span>Hora local</span></div>
       <span id="clock-hm">--:--</span>
-      <img class="hc-lucky" src="lucky.jpg" alt="" width="96" height="99" decoding="async">
+      <img class="hc-lucky" src="lucky.png" alt="" width="96" height="99" decoding="async">
       <div class="hc-chips" id="hc-chips"></div>
     </div>
   </section>
@@ -1577,10 +1592,11 @@ html:not(#_) #panel-enfoque .actions-grid .btn{background:#000000!important;colo
 </div>
 <div id="hoy-r">
   <div class="card cal-card" id="calendar-card">
-    <div class="cal-head"><button type="button" class="cal-nav" onclick="calShift(-1)" aria-label="Mes anterior">‹</button><strong id="cal-title"></strong><button type="button" class="cal-nav" onclick="calShift(1)" aria-label="Mes siguiente">›</button></div>
+    <div class="cal-head"><strong id="cal-title"></strong><button type="button" class="cal-today" onclick="calToday()">Hoy</button><button type="button" class="cal-nav" onclick="calShift(-1)" aria-label="Mes anterior">‹</button><button type="button" class="cal-nav" onclick="calShift(1)" aria-label="Mes siguiente">›</button></div>
     <div class="cal-grid" id="cal-grid"></div>
     <div class="cal-day-title" id="cal-day-title"></div>
     <div id="cal-day-list"></div>
+    <div class="cal-up" id="cal-up"></div>
   </div>
   <div id="bal-card" class="card"></div>
 </div>
@@ -1779,8 +1795,8 @@ html:not(#_) #panel-enfoque .actions-grid .btn{background:#000000!important;colo
         <div style="display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:12px;">Tema visual:</span>
             <select id="theme-select" onchange="changeTheme(this.value)" style="padding:6px; background:rgba(0,0,0,0.3); border-radius:6px; border:1px solid var(--border); color:var(--text); font-size:12px;">
-                <option value="dark">Papel (por defecto)</option>
-                <option value="amoled">Tinta (oscuro)</option>
+                <option value="dark">Tinta (oscuro, por defecto)</option>
+                <option value="light">Papel (claro)</option>
             </select>
         </div>
         <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -2444,7 +2460,7 @@ function renderClockChips() {
         let exam = 'Sin fecha', examSub = 'cargá una en Materias', exD = null, exN = '';
         if(typeof MATS !== 'undefined' && typeof matNextDate === 'function') {
             const today = todayAR(), list = MATS.filter(m => !m.promoted && matNextDate(m)).sort((a, b) => matNextDate(a) < matNextDate(b) ? -1 : 1), m = list[0];
-            if(m) { const d = Math.round((new Date(matNextDate(m) + 'T00:00:00') - new Date(today + 'T00:00:00')) / 86400000); exam = d === 0 ? 'Hoy' : d === 1 ? 'Mañana' : d + ' días'; examSub = m.name; exD = d; exN = m.name; }
+            if(m) { const d = Math.round((new Date(matNextDate(m) + 'T00:00:00') - new Date(today + 'T00:00:00')) / 86400000); exam = d === 0 ? 'Hoy' : d === 1 ? 'Mañana' : d + ' días'; examSub = m.name; exD = d; exN = String(m.name).trim(); }
         }
         let due = 0; try { due = dueUnits().length + dueCards().length; } catch(e) {}
         const sub = document.getElementById('hero-microcopy');
@@ -2468,6 +2484,17 @@ function homeTiles() {
     due.textContent = String(dueUnits().length + dueCards().length);
     renderClockChips();
 }
+function calToday() { calShiftM = 0; calSel = null; renderCalendar(); }
+function calGo(k) { const t = new Date(todayAR() + 'T00:00:00'), d = new Date(k + 'T00:00:00'); calShiftM = (d.getFullYear() - t.getFullYear()) * 12 + d.getMonth() - t.getMonth(); calSel = k; renderCalendar(); }
+function calEvents() {
+    const out = [];
+    MATS.forEach(m => [['p1Date', '1er parcial'], ['p2Date', '2do parcial'], ['exam', 'Examen']].forEach(([f, l]) => { if(m[f]) out.push({date: m[f], mat: m.name, label: l, color: m.color || '#8fa8f5'}); }));
+    return out.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+}
+function calRel(k) {
+    const d = Math.round((new Date(k + 'T00:00:00') - new Date(todayAR() + 'T00:00:00')) / 86400000);
+    return d === 0 ? 'hoy' : d === 1 ? 'mañana' : d === -1 ? 'ayer' : d > 0 ? 'en ' + d + ' días' : 'hace ' + (-d) + ' días';
+}
 function renderCalendar() {
     homeTiles();
     const grid = document.getElementById('cal-grid'); if(!grid || typeof MATS === 'undefined') return;
@@ -2477,23 +2504,29 @@ function renderCalendar() {
     const y = first.getFullYear(), m = first.getMonth();
     const monthName = first.toLocaleDateString('es-AR', { month: 'long', year: 'numeric' });
     document.getElementById('cal-title').textContent = monthName.charAt(0).toUpperCase() + monthName.slice(1);
-    const items = MATS.filter(x => x.exam).map(x => ({ date: x.exam, mat: x.name, color: x.color || '#b68cff' }));
-    const evs = {}; items.forEach(i => { evs[i.date] = (evs[i.date] || 0) + 1; });
-    const lead = (first.getDay() + 6) % 7, days = new Date(y, m + 1, 0).getDate();
+    const items = calEvents(), evs = {}; items.forEach(i => { (evs[i.date] = evs[i.date] || []).push(i); });
+    const lead = (first.getDay() + 6) % 7, days = new Date(y, m + 1, 0).getDate(), prevDays = new Date(y, m, 0).getDate();
     let html = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do'].map(d => `<span class="cal-dow">${d}</span>`).join('');
-    for(let i = 0; i < lead; i++) html += '<span></span>';
+    for(let i = lead - 1; i >= 0; i--) html += `<span class="cal-d out"><b>${prevDays - i}</b><span class="cal-dots"></span></span>`;
     for(let d = 1; d <= days; d++) {
-        const k = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-        const cls = ['cal-d', k === today ? 'is-today' : '', k === calSel ? 'is-sel' : '', evs[k] ? 'has-ev' : ''].join(' ');
-        html += `<button type="button" class="${cls}" onclick="calSelect('${k}')" aria-label="${k}${evs[k] ? ', con examen' : ''}" aria-pressed="${k === calSel}">${d}</button>`;
+        const k = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`, e = evs[k] || [], dow = (lead + d - 1) % 7;
+        const cls = ['cal-d', k === today ? 'is-today' : '', k === calSel ? 'is-sel' : '', e.length ? 'has-ev' : '', dow >= 5 ? 'we' : ''].join(' ');
+        const dots = e.slice(0, 3).map(x => `<i style="background:${esc(x.color)}"></i>`).join('');
+        html += `<button type="button" class="${cls}" onclick="calSelect('${k}')" aria-label="${k}${e.length ? ', ' + e.map(x => x.label + ' ' + x.mat).join(', ') : ''}" aria-pressed="${k === calSel}"><b>${d}</b><span class="cal-dots">${dots}</span></button>`;
     }
+    const rest = (7 - ((lead + days) % 7)) % 7;
+    for(let d = 1; d <= rest; d++) html += `<span class="cal-d out"><b>${d}</b><span class="cal-dots"></span></span>`;
     grid.innerHTML = html;
-    items.forEach(i => { const b = grid.querySelector(`[onclick="calSelect('${i.date}')"]`); if(b) b.style.setProperty('--ev', i.color); });
     document.getElementById('cal-day-title').textContent = new Date(calSel + 'T00:00:00').toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' }).toUpperCase();
-    const list = items.filter(i => i.date === calSel);
+    const list = evs[calSel] || [];
     document.getElementById('cal-day-list').innerHTML = list.length
-        ? list.map(i => `<div class="cal-ev" style="border-left-color:${i.color}"><strong>Examen · ${esc(i.mat)}</strong><small>Fecha cargada en Materias</small></div>`).join('')
-        : '<p class="cal-empty">Sin exámenes este día.</p>';
+        ? list.map(i => `<div class="cal-ev"><i style="background:${esc(i.color)}"></i><div><strong>${esc(i.label)} · ${esc(i.mat)}</strong><small>${esc(calRel(i.date))}</small></div></div>`).join('')
+        : '<p class="cal-empty">Sin fechas este día.</p>';
+    const up = document.getElementById('cal-up');
+    if(up) {
+        const nx = items.filter(i => i.date >= today && i.date !== calSel).slice(0, list.length ? 0 : 2);
+        up.innerHTML = nx.length ? '<h4>Próximas fechas</h4>' + nx.map(i => `<button type="button" class="cal-up-row" onclick="calGo('${i.date}')"><span class="d">${i.date.slice(8)}/${i.date.slice(5, 7)}</span><span>${esc(i.label)} · ${esc(i.mat)}</span><em>${esc(calRel(i.date))}</em></button>`).join('') : '';
+    }
 }
 document.addEventListener('DOMContentLoaded', renderCalendar);
 const _spCal = showPanel; showPanel = function(id) { _spCal(id); renderCalendar(); };
@@ -2999,8 +3032,7 @@ function generateWeeklySummaryCard() {
 }
 
 function changeTheme(theme, save=true) {
-    if(theme === 'amoled') document.documentElement.setAttribute('data-theme', 'amoled');
-    else if(theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
+    if(theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
     else document.documentElement.removeAttribute('data-theme');
     if(save) lss('theme', theme);
 }
@@ -3033,7 +3065,7 @@ function renderCharts() {
     document.getElementById('chart-empty').style.display = hasChartData ? 'none' : 'block';
     document.querySelectorAll('#panel-more .chart-container').forEach(c => { c.style.display = hasChartData ? '' : 'none'; });
     if(!hasChartData) return;
-    Chart.defaults.color = (document.documentElement.getAttribute('data-theme') !== 'amoled') ? '#16237a' : '#c9c3b4'; Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
+    Chart.defaults.color = (document.documentElement.getAttribute('data-theme') === 'light') ? '#16237a' : '#c9c4b4'; Chart.defaults.font.family = getComputedStyle(document.body).fontFamily;
 
     const ctxBar = document.getElementById('barChart');
     if(ctxBar) {
@@ -3059,7 +3091,7 @@ function renderCharts() {
         if(cPie) cPie.destroy();
         const pieLabels = [], pieData = [], pieColors = [];
         Object.keys(matsAccum).forEach(matId => { const m = MATS.find(x => x.id == matId); if(m && matsAccum[matId] > 0) { pieLabels.push(m.name); pieData.push(matsAccum[matId]); pieColors.push(m.color); } });
-        if(pieData.length === 0) { pieLabels.push("Sin datos"); pieData.push(1); pieColors.push((document.documentElement.getAttribute('data-theme') !== 'amoled') ? '#e0dac4' : '#18235e'); }
+        if(pieData.length === 0) { pieLabels.push("Sin datos"); pieData.push(1); pieColors.push((document.documentElement.getAttribute('data-theme') === 'light') ? '#e0dac4' : '#1b2447'); }
         cPie = new Chart(ctxPie.getContext('2d'), { type: 'doughnut', data: { labels: pieLabels, datasets: [{ data: pieData, backgroundColor: pieColors, borderWidth:0 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '68%', plugins: { legend: { position: window.innerWidth < 600 ? 'bottom' : 'right', labels:{ boxWidth: 10, font:{size:11}, color: (document.documentElement.getAttribute('data-theme') === 'light') ? '#4a4262' : '#c2bfba' } } } } });
     }
 }
@@ -3249,13 +3281,13 @@ renderVisualDashboard(); setInterval(renderVisualDashboard, 3000);
 
 
 // ===== Temas: gráficos, color de la barra del navegador y selector =====
-function getChartGrid(){ return document.documentElement.getAttribute('data-theme') !== 'amoled' ? 'rgba(22,35,122,0.10)' : 'rgba(255,255,255,0.05)'; }
+function getChartGrid(){ return document.documentElement.getAttribute('data-theme') === 'light' ? 'rgba(22,35,122,0.10)' : 'rgba(233,228,212,0.08)'; }
 (function(){
     const _ct = changeTheme;
     changeTheme = function(theme, save = true){
         _ct(theme, save);
         const colors = { light: '#f4f1fa', amoled: '#000000' }, m = document.querySelector('meta[name="theme-color"]'); if(m) m.setAttribute('content', colors[theme] || '#08070d');
-        const s = document.getElementById('theme-select'); if(s) s.value = (theme === 'light' || theme === 'amoled') ? theme : 'dark';
+        const s = document.getElementById('theme-select'); if(s) s.value = theme === 'light' ? 'light' : 'dark';
         try{ if(save !== false && typeof Chart !== 'undefined') renderCharts(); }catch(e){}
     };
     changeTheme(ls('theme', 'dark'), false);
@@ -4365,7 +4397,7 @@ function syncDisconnect() {
 })();
 
 // === v10: PWA (instalación, service worker, avisos de datos) ===
-const APP_VERSION = '5.1.0';
+const APP_VERSION = '5.2.0';
 let pwaPrompt = null;
 function pwaStandalone() { return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
 function pwaIsIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
