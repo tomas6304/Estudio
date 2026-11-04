@@ -1,8 +1,8 @@
 /* Estudio Tracker · service worker (funciona sin internet) */
-const VERSION = 'et-5.2.0';
+const VERSION = 'et-6.0.0-dev.28';
 const FONTS = VERSION + '-fonts';
 const CHART = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js';
-const CORE = ['./', 'index.html', 'manifest.webmanifest', CHART, 'icon.svg', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png', 'lucky.png', 'apple-touch-icon-167.png', 'apple-touch-icon-152.png'];
+const CORE = ["./","analytics-BnEnW2VK.js","apple-touch-icon-152.png","apple-touch-icon-167.png","apple-touch-icon.png","auto-C6VQxMGW.js","cursor-editorTextHighlight-kG3uUOwL.svg","defineProperty-BbfpZ9Tg.js","docParser-CZsBeRM0.js","favicon-32.png","icon-1024.png","icon-192.png","icon-512.png","icon.svg","index-BGogVN1q.css","index-oalkjaXw.js","index.html","lucky.png","manifest.webmanifest","maskable-512.png","og-image.png","pdf-Dx5uTa3N.js","pdf.worker.min-CIqJB0yW.mjs","pdf.worker.min-DjWTMx_n.js","reader-BI_hLG0O.css","reader-CObgTlnM.js"];
 
 self.addEventListener('install', e => {
   // Se guarda cada archivo por separado: si alguno falta, la app igual se instala.
