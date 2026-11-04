@@ -1405,6 +1405,13 @@ html:not(#_):not(#_) #panel-enfoque .ring-wrap circle:first-of-type{stroke:rgba(
 html:not(#_):not(#_) #panel-enfoque #ring{stroke:#111!important;stroke-width:4!important}
 html:not(#_):not(#_) .ring-wrap:before{display:none!important}
 html:not(#_):not(#_) #panel-enfoque :is(h2,.section-kicker,.mode-label){color:#111!important}
+/* Barra lateral que aparece al acercar el cursor al borde izquierdo */
+#side-edge{display:none}
+@media (min-width:1024px) and (hover:hover){
+  html.side-hidden #side-edge{display:block;position:fixed;left:0;top:0;bottom:0;width:14px;z-index:1200}
+  html.side-hidden.side-peek:not(#_):not(#_) .nav-bottom.nav-bottom{transform:none!important;box-shadow:4px 0 14px rgba(0,0,0,.18)!important;z-index:1300}
+  html.side-hidden.side-peek .side-open{display:none}
+}
 /* Aviso en pantalla: tarjeta con ícono, texto y barra de tiempo */
 html:not(#_) .notif{display:flex!important;align-items:center;gap:12px;padding:12px 16px 14px 12px!important;overflow:hidden;position:fixed;border-radius:10px!important;background:var(--bar)!important;box-shadow:0 14px 44px rgba(0,0,0,.34),inset 0 0 0 1px rgba(255,255,255,.08)!important;transform:translateY(-18px) scale(.96);transition:opacity .35s ease,transform .45s cubic-bezier(.25,.8,.35,1)!important}
 html:not(#_) .notif{top:calc(env(safe-area-inset-top) + 58px)!important;z-index:3600!important}
@@ -1423,6 +1430,7 @@ html:not(#_) #panel-enfoque .actions-grid .btn{background:#000000!important;colo
 </style>
 </head>
 <body class="mode-study">
+<div id="side-edge" aria-hidden="true"></div>
 <button type="button" class="side-open" onclick="toggleSide()" aria-label="Mostrar barra lateral" title="Mostrar barra lateral">›</button>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
 <linearGradient id="grad-acc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#64d2ff"/><stop offset="1" stop-color="#0a84ff"/></linearGradient>
@@ -4357,7 +4365,7 @@ function syncDisconnect() {
 })();
 
 // === v10: PWA (instalación, service worker, avisos de datos) ===
-const APP_VERSION = '5.0.0';
+const APP_VERSION = '5.1.0';
 let pwaPrompt = null;
 function pwaStandalone() { return (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true; }
 function pwaIsIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
@@ -4393,7 +4401,8 @@ pwaRender();
 (function() { const _pl = showPanel; showPanel = function(id) { _pl(id); placeHomeCards(); }; placeHomeCards(); })();
 // Barra lateral retráctil (escritorio): se recuerda entre sesiones.
 function applySide() {
-    const hidden = ls('side_hidden') === '1';
+    let sv = null; try { sv = localStorage.getItem('side_hidden'); } catch(e) {}
+    const hidden = sv === null ? true : sv === '1';
     document.documentElement.classList.toggle("side-hidden", hidden);
     const t = document.querySelector('.side-toggle');
     if(t) t.setAttribute('aria-label', hidden ? 'Mostrar barra lateral' : 'Ocultar barra lateral');
@@ -4422,7 +4431,18 @@ function applySide() {
   document.documentElement.dataset.panel = 'hoy';
   try { renderBalance(); } catch(e) {}
 })();
-function toggleSide() { lss('side_hidden', ls('side_hidden') === '1' ? '0' : '1'); applySide(); }
+function toggleSide() { lss('side_hidden', document.documentElement.classList.contains('side-hidden') ? '0' : '1'); document.documentElement.classList.remove('side-peek'); applySide(); }
+(function() {
+  const root = document.documentElement; let t = null;
+  const peek = on => { clearTimeout(t); if(on) { if(root.classList.contains('side-hidden')) root.classList.add('side-peek'); } else t = setTimeout(() => root.classList.remove('side-peek'), 260); };
+  const edge = document.getElementById('side-edge'), nav = document.querySelector('.nav-bottom');
+  if(!edge || !nav) return;
+  edge.addEventListener('mouseenter', () => peek(true));
+  edge.addEventListener('mouseleave', () => peek(false));
+  nav.addEventListener('mouseenter', () => { if(root.classList.contains('side-peek')) peek(true); });
+  nav.addEventListener('mouseleave', () => peek(false));
+  nav.addEventListener('click', e => { if(e.target.closest('.nav-tab')) peek(false); });
+})();
 applySide();
 </script>
 </body>
