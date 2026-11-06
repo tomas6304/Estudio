@@ -14,7 +14,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Instrument+Sans:wght@400;500;600&family=DM+Mono&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Inter:wght@200..700&family=Instrument+Sans:wght@400;500;600&family=DM+Mono&display=swap">
 <meta name="apple-mobile-web-app-title" content="Estudio">
 <meta name="mobile-web-app-capable" content="yes">
 <title>Estudio Tracker</title>
@@ -31,8 +31,8 @@
 <meta name="twitter:title" content="Estudio Tracker">
 <meta name="twitter:description" content="Pomodoro, materias, repaso espaciado y calendario de exámenes.">
 <meta name="twitter:image" content="https://tomas6304.github.io/Estudio/og-image.png">
-  <script type="module" crossorigin src="/Estudio/index-GtpErVIl.js"></script>
-  <link rel="stylesheet" crossorigin href="/Estudio/index-CpW94VJ_.css">
+  <script type="module" crossorigin src="/Estudio/index-DeuVw6cf.js"></script>
+  <link rel="stylesheet" crossorigin href="/Estudio/index-Bb1pXlbN.css">
 </head>
 <body class="mode-study">
 <div id="side-edge" aria-hidden="true"></div>
@@ -218,7 +218,6 @@
 <div class="panel" id="panel-analytics"></div>
 
 <div class="panel" id="panel-enfoque">
-  <div class="section-hd" style="margin:0 0 12px"><div><span class="section-kicker">ENFOQUE</span><h2>Tu pomodoro</h2></div></div>
   <div class="card">
     <div class="section-hd timer-section-head"><div><span class="section-kicker">MODO CONCENTRACIÓN</span><h2>Tu sesión de enfoque</h2></div><button class="focus-toggle" id="focus-mode-toggle" onclick="toggleFocusMode()" aria-pressed="false">Enfocarme</button></div>
     <div class="mode-tabs">
@@ -240,27 +239,29 @@
 
     <div class="timer-controls">
       <button class="btn-play" id="btn-play" onclick="togglePlay()">Iniciar</button>
-      <button class="btn-icon" onclick="resetTimer()" title="Reiniciar">↺</button>
+      <button class="btn-icon" type="button" onclick="resetTimer()" title="Reiniciar" aria-label="Reiniciar" data-cap="Reiniciar">↺</button>
     </div>
 
     <div class="session-goal-box">
       <select id="timer-mat-sel"><option value="0">General (Sin materia)</option></select>
-      <input type="text" id="session-goal" placeholder="Objetivo del pomodoro (ej. Leer U3)...">
+      <input type="text" id="session-goal" placeholder="Objetivo del pomodoro (ej. Leer U3)..." autocomplete="off">
+      <div class="goal-chips" id="goal-chips" aria-label="Sugerencias de objetivo"></div>
       <div class="actions-grid" id="btn-partial" style="display:none; gap:8px; margin-top:8px;">
           <button onclick="terminarAhora()" class="btn" style="flex:1">Guardar parcial</button>
       </div>
+      <div class="session-summary" id="session-summary" role="status" aria-live="polite" hidden></div>
       <div class="session-log" id="session-log"></div>
     </div>
 
-    <div class="time-custom-bar">
-      <button class="time-preset" onclick="setCustomMin(25)">25m</button>
-      <button class="time-preset" onclick="setCustomMin(35)">35m</button>
-      <button class="time-preset" onclick="setCustomMin(50)">50m</button>
-      <button class="time-preset" onclick="setCustomMin(60)">60m</button>
-      <div style="display:flex; align-items:center; gap:4px; font-size:12px; color:var(--text3);">
-        <span>Min:</span>
+    <div class="time-custom-bar" id="time-bar" role="group" aria-label="Duración">
+      <button class="time-preset" type="button" data-min="25" onclick="setCustomMin(25)">25m</button>
+      <button class="time-preset" type="button" data-min="35" onclick="setCustomMin(35)">35m</button>
+      <button class="time-preset" type="button" data-min="50" onclick="setCustomMin(50)">50m</button>
+      <button class="time-preset" type="button" data-min="60" onclick="setCustomMin(60)">60m</button>
+      <button class="time-preset time-other" type="button" id="time-other" aria-expanded="false" aria-controls="time-other-box">Otro</button>
+      <label class="time-other-box" id="time-other-box" hidden><span>Min</span>
         <input type="number" id="custom-min-input" class="time-custom-input" min="1" max="180" value="50" onchange="applyCustomMin(this.value)">
-      </div>
+      </label>
     </div>
 
     <div style="background:rgba(0,0,0,0.25); border:1px solid var(--border); border-radius:var(--radius); padding:10px; margin-top:1rem;">
@@ -269,19 +270,26 @@
         <input type="range" id="vol-slider" min="0" max="100" value="40" style="width:90px; accent-color:var(--purple); cursor:pointer;">
       </div>
       <div class="amb-grid" style="margin-bottom:0;">
-        <button class="amb-btn" id="amb-lofi"><span class="amb-icon"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-radio"/></svg></span>Lo-Fi</button>
+        <button class="amb-btn" id="amb-lofi"><span class="amb-icon"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-radio"/></svg></span>Lo-Fi radio</button>
+        <button class="amb-btn" id="amb-lofig"><span class="amb-icon" aria-hidden="true">♪</span>Lo-Fi sin internet</button>
         <button class="amb-btn" id="amb-rain"><span class="amb-icon"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-rain"/></svg></span>Lluvia</button>
         <button class="amb-btn" id="amb-white"><span class="amb-icon" aria-hidden="true">〰</span>Ruido blanco</button>
         <button class="amb-btn" id="amb-brown"><span class="amb-icon" aria-hidden="true">≈</span>Ruido marrón</button>
         <button class="amb-btn" id="amb-cafe"><span class="amb-icon"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-coffee"/></svg></span>Café</button>
       </div>
+      <div class="amb-mine" id="amb-mine">
+        <div class="amb-mine-hd"><span>Mis sonidos</span><button type="button" class="amb-add" id="amb-add">+ Agregar audio</button></div>
+        <div class="amb-mine-list" id="amb-mine-list"></div>
+        <p class="amb-mine-note" id="amb-mine-empty">Sumá tus grabaciones (lluvia real, una biblioteca, tu playlist de estudio). Se guardan solo en este dispositivo y suenan en bucle, sin internet.</p>
+        <input type="file" id="amb-file" accept="audio/*" multiple hidden>
+      </div>
     </div>
     <audio id="lofi-player" src="https://stream.zeno.fm/f3wvbbqmdg8uv" preload="none"></audio>
 
-    <div class="stats-grid" style="margin-top:1rem;">
-      <div class="stat-box"><div class="stat-val" id="s-pom" style="color:var(--red)">0</div><div class="stat-lbl">Pomodoros</div></div>
+    <div class="stats-grid enf-stats">
+      <div class="stat-box"><div class="stat-val" id="s-pom">0</div><div class="stat-lbl">Pomodoros</div></div>
       <div class="stat-box"><div class="stat-val" id="s-time">0m</div><div class="stat-lbl">Estudiado</div></div>
-      <div class="stat-box"><div class="stat-val" id="s-breaks" style="color:var(--green)">0</div><div class="stat-lbl">Descansos</div></div>
+      <div class="stat-box"><div class="stat-val" id="s-breaks">0</div><div class="stat-lbl">Descansos</div></div>
     </div>
   </div>
 
