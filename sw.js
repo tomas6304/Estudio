@@ -1,8 +1,8 @@
 /* Estudio Tracker · service worker (funciona sin internet) */
-const VERSION = 'et-6.0.0-dev.36';
+const VERSION = 'et-6.0.0-dev.37';
 const FONTS = VERSION + '-fonts';
 const CHART = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js';
-const CORE = ["./","analytics-2Y3BoT77.js","apple-touch-icon-152.png","apple-touch-icon-167.png","apple-touch-icon.png","auto-C6VQxMGW.js","cursor-editorTextHighlight-kG3uUOwL.svg","defineProperty-BbfpZ9Tg.js","docParser-CZsBeRM0.js","favicon-32.png","icon-1024.png","icon-192.png","icon-512.png","icon.svg","index-BnTqjhu2.js","index-CBzG4m-C.css","index.html","lucky.png","manifest.webmanifest","maskable-512.png","og-image.png","pdf-Dx5uTa3N.js","pdf.worker.min-CIqJB0yW.mjs","pdf.worker.min-DjWTMx_n.js","reader-BI_hLG0O.css","reader-E_1ykP_g.js"];
+const CORE = ["./","analytics-DlSZ-R22.js","apple-touch-icon-152.png","apple-touch-icon-167.png","apple-touch-icon.png","auto-C6VQxMGW.js","cursor-editorTextHighlight-kG3uUOwL.svg","defineProperty-BbfpZ9Tg.js","docParser-CZsBeRM0.js","favicon-32.png","icon-1024.png","icon-192.png","icon-512.png","icon.svg","index-BVTFVkIR.css","index-DXfM1J9d.js","index.html","lucky.png","manifest.webmanifest","maskable-512.png","og-image.png","pdf-Dx5uTa3N.js","pdf.worker.min-CIqJB0yW.mjs","pdf.worker.min-DjWTMx_n.js","reader-BG8_SCZI.js","reader-BI_hLG0O.css"];
 
 self.addEventListener('install', e => {
   // Se guarda cada archivo por separado: si alguno falta, la app igual se instala.
