@@ -1,18 +1,28 @@
-Estudio Tracker v5.2.0
+Estudio Tracker 6.0.1 - 12/11/2026
 
-SUBIR A GITHUB: todos los archivos de esta carpeta (17 en total), reemplazando los que ya existen en el repo.
-Después abrir la app dos veces para que se actualice. Si el ícono viejo sigue en el celular, borrar la app de la pantalla de inicio y volver a agregarla.
+CÓMO PUBLICARLA
+1. Antes de nada, en la app actual: Más -> Copias de seguridad -> exportar una copia completa.
+2. En el repositorio "Estudio" de GitHub, subí TODOS los archivos de esta carpeta a la raíz
+   (reemplazando los que ya estén). No hace falta subir LEEME.txt ni SHA256SUMS.txt.
+3. Borrá del repositorio los archivos viejos con nombre parecido pero otro código, por ejemplo
+   index-XXXX.js, index-XXXX.css, analytics-XXXX.js y reader-XXXX.js que no estén en esta carpeta.
+   No rompen nada si quedan, pero ocupan lugar.
+4. Abrí la app dos veces para que se actualice y revisá en Más que diga "Estudio Tracker v6.0.1".
 
-Archivos:
-- index.html, sw.js, manifest.webmanifest: la app.
-- icon.svg, icon-192.png, icon-512.png, maskable-512.png, apple-touch-icon.png, favicon-32.png: íconos.
-- icon-1024.png, apple-touch-icon-152.png, apple-touch-icon-167.png: íconos de alta resolución (iPhone, iPad y escritorio).
-- lucky.png: el trébol de la pantalla de inicio.
-- og-image.png: la imagen que aparece al compartir el link por WhatsApp o redes.
-- README.md: descripción del repo.
+QUÉ CAMBIA RESPECTO DE LA 6.0.0
+- Computadora: al iniciar el temporizador la página ya no aparece como "reproduciendo sonido".
+  El audio silencioso y la sesión multimedia ("Pomodoro en curso") ahora solo se usan en celular
+  y tableta, que es donde hacen falta para que el temporizador siga con la pantalla bloqueada.
+- Al pausar, terminar o reiniciar se limpia la sesión multimedia.
+- "Probar aviso" ya no deja el audio silencioso sonando: se apaga a los 6 segundos.
+- El audio de los avisos se suspende a los 8 segundos sin sonar, y el de los sonidos ambientales
+  al apagarlos. La campana sigue sonando al terminar.
+Incluye todo lo de la 6.0.0 (barra de abajo deslizable en el celular, aviso de copias en
+Biblioteca y botón "Empezar" en Repasos).
 
-Los archivos viejos del repo que no estén en esta lista (pdf.min.js, tesseract*, mammoth, jszip, heic2any, spa.traineddata.gz, chart.umd.js, LICENCIAS_TERCEROS.txt) ya no se usan y se pueden borrar. La app carga Chart.js desde internet y se guarda para uso sin conexión.
-
-Cada vez que cambie la app, subir también la versión en sw.js (VERSION) y en index.html (APP_VERSION).
-
-v5.2.0: rediseno "Equilibrio editorial" (papel crema, tinta azul, tipografia Bricolage Grotesque, lineas finas). Tema Papel (por defecto) y Tinta (oscuro).
+PRUEBAS
+167 pruebas unitarias y 98 de pantalla pasan, y TypeScript no marca errores. Tres de pantalla son
+nuevas: computadora, celular simulado y suspensión del audio.
+Esta carpeta se abrió en un navegador de escritorio: carga, muestra "v6.0.1" y todos sus archivos
+responden. El caso de celular se probó simulando un Android, no en un teléfono real ni en Safari:
+conviene abrirla una vez en el teléfono, iniciar un pomodoro y bloquear la pantalla.
